@@ -1,0 +1,17 @@
+# Normalizar finales de línea: en el repo siempre LF, sin importar el sistema de cada uno.
+# Evita que un archivo aparezca "modificado entero" solo porque lo abrió alguien en Windows.
+* text=auto eol=lf
+
+# Archivos binarios: git no debe intentar mezclarlos ni tocar sus bytes
+*.png binary
+*.jpg binary
+*.webp binary
+*.svg text
+*.wav binary
+*.ogg binary
+*.mp3 binary
+*.ttf binary
+*.otf binary
+*.aseprite binary
+*.psd binary
+*.kra binary

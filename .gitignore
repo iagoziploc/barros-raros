@@ -1,0 +1,20 @@
+# --- Godot 4 ---
+# Caché que Godot regenera solo al abrir el proyecto (imports, shaders, etc.)
+.godot/
+# Por si alguien abre el proyecto con el editor .NET
+.mono/
+.vs/
+
+# Exportaciones (las builds se suben a itch.io, no al repo)
+export/
+builds/
+*.pck
+*.zip
+
+# Credenciales de exportación (nunca al repo)
+export_credentials.cfg
+
+# --- Sistema operativo ---
+Thumbs.db
+desktop.ini
+.DS_Store
