@@ -2,9 +2,11 @@
 
 Tower defense hecho para la game jam [Liberen el Paraná](https://itch.io/jam/liberen-el-parana-gamejam).
 
-Los grupos empresarios vienen a llevarse nuestras **tierras raras**. Las abuelas del Paraná las defienden levantando **tótems de barros raros**, cada uno con poderes distintos. El barro se hace con lo más valioso que tenemos: **tierra y agua**.
+Del norte llegan los inversores a llevarse las **tierras raras** y el **agua dulce** del Paraná. El **Cara de Barro** despierta y amasa **golems de barro** para defender el río.
 
 Inspirado en la obra de [Manuel Brandazza](https://www.manuelbrandazza.com).
+
+**Diseño y narrativa:** el GDD está en un documento compartido del equipo. Si sos parte del equipo y no lo tenés, pedile el link a iago.
 
 ## Equipo
 
@@ -28,7 +30,6 @@ Inspirado en la obra de [Manuel Brandazza](https://www.manuelbrandazza.com).
 | `assets/audio/` | Música y efectos |
 | `assets/fonts/` | Tipografías |
 | `localization/` | Textos del juego (español primero, preparado para traducir) |
-| `docs/` | Diseño del juego y notas del equipo |
 
 Las carpetas de código y escenas se van a crear a medida que las necesitemos.
 
