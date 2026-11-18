@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://levels/road.gd" id="1_road"]
+
+[sub_resource type="Curve2D" id="Curve2D_enemy_path"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 120, 240, -40, -160, 0, 160, 0, 480, 200, 0, -100, 0, 100, 860, 330, 160, 0, -160, 0, 560, 470, 0, -80, 0, 0, 400, 610)
+}
+point_count = 5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wet_zone"]
+size = Vector2(320, 140)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_river"]
+size = Vector2(1280, 120)
+
+[node name="Level01" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+color = Color(0.45, 0.33, 0.22, 1)
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_enemy_path")
+
+[node name="Road" type="Line2D" parent="EnemyPath"]
+width = 48.0
+default_color = Color(0.66, 0.54, 0.38, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_road")
+
+[node name="WetZone" type="Area2D" parent="."]
+position = Vector2(560, 470)
+
+[node name="Visual" type="ColorRect" parent="WetZone"]
+offset_left = -160.0
+offset_top = -70.0
+offset_right = 160.0
+offset_bottom = 70.0
+mouse_filter = 2
+color = Color(0.25, 0.2, 0.14, 0.6)
+
+[node name="Shape" type="CollisionShape2D" parent="WetZone"]
+shape = SubResource("RectangleShape2D_wet_zone")
+
+[node name="River" type="Area2D" parent="."]
+position = Vector2(640, 660)
+
+[node name="Visual" type="ColorRect" parent="River"]
+offset_left = -640.0
+offset_top = -60.0
+offset_right = 640.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(0.2, 0.45, 0.6, 1)
+
+[node name="Shape" type="CollisionShape2D" parent="River"]
+shape = SubResource("RectangleShape2D_river")

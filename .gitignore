@@ -14,6 +14,9 @@ builds/
 # Credenciales de exportación (nunca al repo)
 export_credentials.cfg
 
+# Guía personal de aprendizaje (no se comparte)
+GUIA.md
+
 # --- Sistema operativo ---
 Thumbs.db
 desktop.ini

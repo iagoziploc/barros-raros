@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EconomyConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://systems/economy/economy_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+starting_earth = 100
+starting_water = 100
+max_earth = 100
+max_water = 100
+sudden_death_seconds = 5.0
+refund_ratio_destroyed = 0.5
+refund_ratio_survived = 1.0

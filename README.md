@@ -30,8 +30,18 @@ Inspirado en la obra de [Manuel Brandazza](https://www.manuelbrandazza.com).
 | `assets/audio/` | Música y efectos |
 | `assets/fonts/` | Tipografías |
 | `localization/` | Textos del juego (español primero, preparado para traducir) |
+| `data/` | **Valores de balance** (`.tres`). Se editan en el inspector de Godot, sin tocar código |
+| `systems/` | Sistemas globales del juego (por ejemplo, la economía de tierra y agua) |
+| `levels/` | Escenas de los niveles: mapa, camino de los enemigos, zona húmeda y río |
+| `tests/` | Pruebas automáticas |
 
-Las carpetas de código y escenas se van a crear a medida que las necesitemos.
+### Pruebas
+
+```
+godot --headless --path . res://tests/economy_test.tscn
+```
+
+Termina con código 0 si todo pasa.
 
 **Convención:** nombres de archivos y carpetas en minúsculas, con `_` y sin tildes ni ñ (`totem_de_barro.png`, no `Tótem de Barro.png`).
 
