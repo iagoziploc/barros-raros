@@ -8,6 +8,7 @@ speed = 60.0
 max_health = 10
 armor = 0
 earth_stolen = 5
+earth_steal_duration = 1.5
 water_stolen = 0
 ultimate_charge = 1
 sprite_scale = 1.0

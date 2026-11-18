@@ -10,8 +10,10 @@ extends Resource
 @export var armor := 0
 
 @export_group("Robo")
-## Tierra que roba al entrar en la zona húmeda. 0 = no roba tierra.
+## Tierra que roba en la zona húmeda. 0 = no roba tierra ni se detiene.
 @export var earth_stolen := 0
+## Segundos que se queda quieto en la zona húmeda antes de robar la tierra.
+@export var earth_steal_duration := 1.5
 ## Agua que roba al llegar al río. 0 = no roba agua.
 @export var water_stolen := 0
 

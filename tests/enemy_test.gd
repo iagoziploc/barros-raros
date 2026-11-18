@@ -20,14 +20,13 @@ func _ready() -> void:
 	Engine.time_scale = 8.0
 
 	var level := LEVEL.instantiate()
+	# Sin oleadas: la prueba decide qué enemigos aparecen.
+	level.get_node("WaveSpawner").autostart = false
 	add_child(level)
 	_path = level.get_node("EnemyPath")
-	# Saca los enemigos de prueba que trae el nivel, para controlar cuáles hay.
-	for child in _path.get_children():
-		if child is Enemy:
-			child.free()
 
 	await _test_route_and_steal()
+	await _test_stops_to_steal_earth()
 	_test_damage_and_armor()
 
 	print("")
@@ -53,6 +52,27 @@ func _test_route_and_steal() -> void:
 			"el de la palita roba tierra en la zona húmeda")
 	_check(Economy.water == Economy.config.starting_water - BOTELLITA.water_stolen,
 			"el de la botellita roba agua en el río")
+
+
+func _test_stops_to_steal_earth() -> void:
+	print("Pausa para robar tierra")
+	Economy.reset()
+	var enemy := _spawn(PALITA)
+
+	var time_left := ROUTE_TIMEOUT
+	while not enemy.is_stealing() and time_left > 0.0:
+		await get_tree().process_frame
+		time_left -= get_process_delta_time()
+	_check(enemy.is_stealing(), "se detiene en la zona húmeda")
+
+	var progress_before := enemy.progress
+	await get_tree().process_frame
+	_check(enemy.progress == progress_before, "mientras roba no avanza")
+	_check(Economy.earth == Economy.config.starting_earth, "todavía no robó")
+
+	enemy.take_damage(1000)
+	await get_tree().create_timer(PALITA.earth_steal_duration + 0.5).timeout
+	_check(Economy.earth == Economy.config.starting_earth, "si muere robando, no se lleva nada")
 
 
 func _test_damage_and_armor() -> void:

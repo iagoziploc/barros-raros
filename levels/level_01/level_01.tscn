@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://levels/road.gd" id="1_road"]
-[ext_resource type="PackedScene" path="res://entities/enemies/enemy.tscn" id="2_enemy"]
-[ext_resource type="Resource" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
-[ext_resource type="Resource" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
+[ext_resource type="Script" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
+[ext_resource type="Script" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
+[ext_resource type="Resource" path="res://data/waves/wave_01.tres" id="4_wave_01"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -36,13 +36,6 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("1_road")
 
-[node name="TestEnemyPalita" parent="EnemyPath" instance=ExtResource("2_enemy")]
-data = ExtResource("3_palita")
-
-[node name="TestEnemyBotellita" parent="EnemyPath" instance=ExtResource("2_enemy")]
-progress = 200.0
-data = ExtResource("4_botellita")
-
 [node name="WetZone" type="Area2D" parent="." groups=["wet_zone"]]
 position = Vector2(560, 470)
 collision_mask = 0
@@ -74,3 +67,9 @@ color = Color(0.2, 0.45, 0.6, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="River"]
 shape = SubResource("RectangleShape2D_river")
+
+[node name="WaveSpawner" type="Node" parent="." node_paths=PackedStringArray("path")]
+script = ExtResource("2_spawner")
+waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01")])
+path = NodePath("../EnemyPath")
+autostart = true
