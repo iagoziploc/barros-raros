@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://buo742kyinkj"]
+
+[ext_resource type="Script" uid="uid://b7ekp21ttwgnm" path="res://entities/enemies/enemy_data.gd" id="1_1tk0k"]
+
+[resource]
+script = ExtResource("1_1tk0k")
+speed = 100.0
+max_health = 12
+armor = 2
+water_stolen = 7
+ultimate_charge = 2
+placeholder_color = Color(0.7098462, 0.429804, 0.3405297, 1)

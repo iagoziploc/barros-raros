@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene format=3 uid="uid://bej88xwdq4xnj"]
 
-[ext_resource type="Script" path="res://levels/road.gd" id="1_road"]
-[ext_resource type="Script" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
-[ext_resource type="Script" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
-[ext_resource type="Resource" path="res://data/waves/wave_01.tres" id="4_wave_01"]
+[ext_resource type="Script" uid="uid://dk1j7c5o33egu" path="res://levels/level_01/level_01.gd" id="1_71kry"]
+[ext_resource type="Script" uid="uid://8p13xa15sdku" path="res://levels/road.gd" id="1_road"]
+[ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
+[ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
+[ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
+[ext_resource type="AudioStream" uid="uid://b2b2fp33erf7q" path="res://assets/audio/provisorio/bgm1.wav" id="5_dm0pi"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -17,18 +19,19 @@ size = Vector2(320, 140)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_river"]
 size = Vector2(1280, 120)
 
-[node name="Level01" type="Node2D"]
+[node name="Level01" type="Node2D" unique_id=734465246]
+script = ExtResource("1_71kry")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1878776281]
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.45, 0.33, 0.22, 1)
 
-[node name="EnemyPath" type="Path2D" parent="."]
+[node name="EnemyPath" type="Path2D" parent="." unique_id=1470913966]
 curve = SubResource("Curve2D_enemy_path")
 
-[node name="Road" type="Line2D" parent="EnemyPath"]
+[node name="Road" type="Line2D" parent="EnemyPath" unique_id=1885897247]
 width = 48.0
 default_color = Color(0.66, 0.54, 0.38, 1)
 joint_mode = 2
@@ -36,12 +39,12 @@ begin_cap_mode = 2
 end_cap_mode = 2
 script = ExtResource("1_road")
 
-[node name="WetZone" type="Area2D" parent="." groups=["wet_zone"]]
+[node name="WetZone" type="Area2D" parent="." unique_id=130723279 groups=["wet_zone"]]
 position = Vector2(560, 470)
 collision_mask = 0
 monitoring = false
 
-[node name="Visual" type="ColorRect" parent="WetZone"]
+[node name="Visual" type="ColorRect" parent="WetZone" unique_id=1930257983]
 offset_left = -160.0
 offset_top = -70.0
 offset_right = 160.0
@@ -49,15 +52,15 @@ offset_bottom = 70.0
 mouse_filter = 2
 color = Color(0.25, 0.2, 0.14, 0.6)
 
-[node name="Shape" type="CollisionShape2D" parent="WetZone"]
+[node name="Shape" type="CollisionShape2D" parent="WetZone" unique_id=1609982002]
 shape = SubResource("RectangleShape2D_wet_zone")
 
-[node name="River" type="Area2D" parent="." groups=["river"]]
+[node name="River" type="Area2D" parent="." unique_id=1941931543 groups=["river"]]
 position = Vector2(640, 660)
 collision_mask = 0
 monitoring = false
 
-[node name="Visual" type="ColorRect" parent="River"]
+[node name="Visual" type="ColorRect" parent="River" unique_id=1845645484]
 offset_left = -640.0
 offset_top = -60.0
 offset_right = 640.0
@@ -65,11 +68,16 @@ offset_bottom = 60.0
 mouse_filter = 2
 color = Color(0.2, 0.45, 0.6, 1)
 
-[node name="Shape" type="CollisionShape2D" parent="River"]
+[node name="Shape" type="CollisionShape2D" parent="River" unique_id=360105706]
 shape = SubResource("RectangleShape2D_river")
 
-[node name="WaveSpawner" type="Node" parent="." node_paths=PackedStringArray("path")]
+[node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("path")]
 script = ExtResource("2_spawner")
 waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01")])
 path = NodePath("../EnemyPath")
 autostart = true
+
+[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1202783320]
+stream = ExtResource("5_dm0pi")
+autoplay = true
+bus = &"BGM"

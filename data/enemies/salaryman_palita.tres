@@ -1,15 +1,8 @@
-[gd_resource type="Resource" script_class="EnemyData" load_steps=2 format=3]
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://2ke18jsubg10"]
 
-[ext_resource type="Script" path="res://entities/enemies/enemy_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://b7ekp21ttwgnm" path="res://entities/enemies/enemy_data.gd" id="1"]
 
 [resource]
 script = ExtResource("1")
-speed = 60.0
-max_health = 10
-armor = 0
 earth_stolen = 5
-earth_steal_duration = 1.5
-water_stolen = 0
-ultimate_charge = 1
-sprite_scale = 1.0
 placeholder_color = Color(0.3, 0.3, 0.36, 1)
