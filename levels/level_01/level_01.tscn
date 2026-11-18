@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
 [ext_resource type="AudioStream" uid="uid://b2b2fp33erf7q" path="res://assets/audio/provisorio/bgm1.wav" id="5_dm0pi"]
+[ext_resource type="PackedScene" path="res://ui/hud/hud.tscn" id="6_hud"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -81,3 +82,5 @@ autostart = true
 stream = ExtResource("5_dm0pi")
 autoplay = true
 bus = &"BGM"
+
+[node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
