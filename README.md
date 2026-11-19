@@ -16,30 +16,25 @@ Inspirado en la obra de [Manuel Brandazza](https://www.manuelbrandazza.com).
 | Audio | _por definir_ |
 | Arte y animación | _por definir_ |
 
-## Cómo jugar la versión en desarrollo (sin saber programar)
+## Cómo jugar la versión en desarrollo
 
-No hace falta instalar nada más que Godot, ni saber usar Git.
+### Lo que hace falta (una sola vez)
 
-### 1. Bajar Godot 4.7.2 (una sola vez)
+- **Godot 4.7.2 Standard** (no la .NET), desde <https://godotengine.org/download/archive/>. Tiene que ser exactamente esa versión: con otra, Godot puede modificar los archivos del proyecto.
+- **GitHub Desktop**, desde <https://desktop.github.com>. Al abrirlo por primera vez podés iniciar sesión con tu cuenta de GitHub o saltear ese paso: para bajar el juego no hace falta.
 
-1. Entrá a <https://godotengine.org/download/archive/> y buscá **4.7.2-stable**.
-2. Descargá la versión **Standard** para tu sistema. **No** la que dice **.NET**.
-3. En Windows viene en un `.zip`: descomprimilo en una carpeta fija (por ejemplo `C:\godot`). Adentro hay un `.exe` que se abre con doble clic; no tiene instalador.
+### Bajar el proyecto
 
-Tiene que ser exactamente la 4.7.2: con otra versión, Godot puede modificar los archivos del proyecto.
+1. En GitHub Desktop: **File → Clone repository → URL**.
+2. Pegá `https://github.com/iagoziploc/barros-raros`, elegí en qué carpeta guardarlo y tocá **Clone**.
+3. En Godot: **Importar** → elegí el `project.godot` de esa carpeta → **Importar y editar**. La primera vez tarda un minuto mientras prepara imágenes y sonidos.
+4. **F5** (o el ▶ de arriba a la derecha) para jugar.
 
-### 2. Bajar el juego
+### Mantenerlo actualizado
 
-1. Entrá a <https://github.com/iagoziploc/barros-raros>.
-2. Tocá el botón verde **Code** y después **Download ZIP**.
-3. Descomprimí el `.zip`. Te queda una carpeta `barros-raros-main`.
+En GitHub Desktop, con el repo `barros-raros` seleccionado: **Fetch origin** y, si aparece, **Pull origin**. Después volvé a Godot y apretá F5.
 
-### 3. Abrirlo y jugar
-
-1. Abrí Godot. Aparece el **Administrador de proyectos**.
-2. Tocá **Importar**, buscá la carpeta `barros-raros-main` y elegí el archivo **`project.godot`**. Confirmá con **Importar y editar**.
-3. La primera vez tarda un minuto: Godot prepara las imágenes y los sonidos.
-4. Cuando se abra el editor, apretá **F5** (o el triángulo ▶ arriba a la derecha) para jugar.
+Si GitHub Desktop muestra archivos modificados que no tocaste a propósito (Godot a veces reescribe alguno al abrir el proyecto), antes del Pull hacé clic derecho sobre ellos → **Discard changes**. Para **subir** tus propios archivos (por ejemplo, sonidos) hace falta una cuenta con permiso en el repo: pedíselo a iago.
 
 ### Controles
 
@@ -51,10 +46,6 @@ Tiene que ser exactamente la 4.7.2: con otra versión, Godot puede modificar los
 | Destruir un golem (devuelve la mitad) | **Clic derecho** sobre el golem, sin nada seleccionado |
 
 Al terminar la oleada, los golems se disuelven y devuelven todo su costo. Si la tierra o el agua llegan a 0 y no las recuperás en 5 segundos, perdés.
-
-### Para tener la versión más nueva
-
-Repetí el paso 2 (bajar el ZIP) y el 3 (importar). Conviene borrar antes la carpeta vieja para no confundirlas.
 
 ## Para el equipo que edita el proyecto
 
