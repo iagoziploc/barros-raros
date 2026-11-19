@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2ogrx87a21w8"
-path="res://.godot/imported/golem1.png-7d44a38a0c19f82fe61ee46b73e14448.ctex"
+uid="uid://blsw0vnslyavn"
+path="res://.godot/imported/protagonista.png-c124015c4b925747621f2c8b74f2ca1f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/provisorio/golem1.png"
-dest_files=["res://.godot/imported/golem1.png-7d44a38a0c19f82fe61ee46b73e14448.ctex"]
+source_file="res://assets/art/provisorio/protagonista.png"
+dest_files=["res://.godot/imported/protagonista.png-c124015c4b925747621f2c8b74f2ca1f.ctex"]
 
 [params]
 

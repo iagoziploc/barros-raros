@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://hmwingi8o40k"
-path="res://.godot/imported/golem_nace.wav-f2575e2bdd089b847e8756afc7126803.sample"
+path="res://.godot/imported/unidad_nace.wav-3cd5682d3f7f1bab24bd2c6660f202de.sample"
 
 [deps]
 
-source_file="res://assets/audio/provisorio/golem_nace.wav"
-dest_files=["res://.godot/imported/golem_nace.wav-f2575e2bdd089b847e8756afc7126803.sample"]
+source_file="res://assets/audio/provisorio/unidad_nace.wav"
+dest_files=["res://.godot/imported/unidad_nace.wav-3cd5682d3f7f1bab24bd2c6660f202de.sample"]
 
 [params]
 

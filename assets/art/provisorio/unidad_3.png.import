@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://blsw0vnslyavn"
-path="res://.godot/imported/caradebarro.png-a64664fbce95be191a6ca076330b5d42.ctex"
+uid="uid://cwpjij782oqd0"
+path="res://.godot/imported/unidad_3.png-a934b74699d6b1e40bee8acc30ec6c28.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/provisorio/caradebarro.png"
-dest_files=["res://.godot/imported/caradebarro.png-a64664fbce95be191a6ca076330b5d42.ctex"]
+source_file="res://assets/art/provisorio/unidad_3.png"
+dest_files=["res://.godot/imported/unidad_3.png-a934b74699d6b1e40bee8acc30ec6c28.ctex"]
 
 [params]
 

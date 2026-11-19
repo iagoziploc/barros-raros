@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwpjij782oqd0"
-path="res://.godot/imported/golem3.png-7662e2f4d9275dfd2c2ab45a4442c2fa.ctex"
+uid="uid://2ogrx87a21w8"
+path="res://.godot/imported/unidad_1.png-e157fdc98bd818c08bc6446400b39b63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/provisorio/golem3.png"
-dest_files=["res://.godot/imported/golem3.png-7662e2f4d9275dfd2c2ab45a4442c2fa.ctex"]
+source_file="res://assets/art/provisorio/unidad_1.png"
+dest_files=["res://.godot/imported/unidad_1.png-e157fdc98bd818c08bc6446400b39b63.ctex"]
 
 [params]
 
