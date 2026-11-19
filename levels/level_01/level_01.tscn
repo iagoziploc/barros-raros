@@ -6,7 +6,9 @@
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
 [ext_resource type="AudioStream" uid="uid://b2b2fp33erf7q" path="res://assets/audio/provisorio/bgm1.wav" id="5_dm0pi"]
-[ext_resource type="PackedScene" path="res://ui/hud/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" uid="uid://c6ecn8dvfy32e" path="res://ui/hud/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://systems/building/golem_placer.tscn" id="7_placer"]
+[ext_resource type="PackedScene" path="res://ui/build_bar/build_bar.tscn" id="8_build_bar"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -56,7 +58,7 @@ color = Color(0.25, 0.2, 0.14, 0.6)
 [node name="Shape" type="CollisionShape2D" parent="WetZone" unique_id=1609982002]
 shape = SubResource("RectangleShape2D_wet_zone")
 
-[node name="River" type="Area2D" parent="." unique_id=1941931543 groups=["river"]]
+[node name="River" type="Area2D" parent="." unique_id=1941931543 groups=["no_build", "river"]]
 position = Vector2(640, 660)
 collision_mask = 0
 monitoring = false
@@ -76,7 +78,11 @@ shape = SubResource("RectangleShape2D_river")
 script = ExtResource("2_spawner")
 waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01")])
 path = NodePath("../EnemyPath")
-autostart = true
+
+[node name="Golems" type="Node2D" parent="." unique_id=1957256721]
+
+[node name="GolemPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container") instance=ExtResource("7_placer")]
+container = NodePath("../Golems")
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1202783320]
 stream = ExtResource("5_dm0pi")
@@ -84,3 +90,5 @@ autoplay = true
 bus = &"BGM"
 
 [node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
+
+[node name="BuildBar" parent="." unique_id=1635987965 instance=ExtResource("8_build_bar")]

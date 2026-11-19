@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dqboof065wmqk"]
+
+[ext_resource type="Script" uid="uid://vc8cxnrl2k1y" path="res://entities/golems/golem.gd" id="1_golem"]
+
+[node name="Golem" type="Node2D" unique_id=1108874923]
+z_index = 1
+script = ExtResource("1_golem")
+
+[node name="Sprite" type="Sprite2D" parent="." unique_id=1696495947]
+
+[node name="Range" type="Area2D" parent="." unique_id=307341479]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="Shape" type="CollisionShape2D" parent="Range" unique_id=2067770160]
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="." unique_id=562840973]
+bus = &"SFX"

@@ -51,10 +51,11 @@ func _test_sudden_death() -> void:
 
 func _test_defeat() -> void:
 	print("Derrota")
-	_check(not _label("DefeatLabel").visible, "sin cartel antes de perder")
+	_check(not _label("MessageLabel").visible, "sin cartel antes de perder")
 	Economy.steal(Economy.Kind.EARTH, 9999)
 	Economy._process(Economy.config.sudden_death_seconds + 0.1)
-	_check(_label("DefeatLabel").visible, "aparece el cartel de derrota")
+	_check(_label("MessageLabel").visible, "aparece el cartel de derrota")
+	_check(_label("MessageLabel").text == tr("HUD_DEFEAT"), "con el texto de derrota")
 
 
 # process_frame se emite antes de los _process() de ese frame:

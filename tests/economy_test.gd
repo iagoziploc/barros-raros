@@ -104,6 +104,8 @@ func _test_sudden_death_timeout() -> void:
 
 	Economy.add(50, 0)
 	_check(Economy.earth == 0, "después de perder, ya nada cambia")
+	_check(Economy.is_defeated(), "is_defeated() devuelve true")
+	_check(not Economy.can_afford(0, 0), "después de perder no se puede gastar")
 	Economy._process(10.0)
 	_check(_events.count("defeated %s" % Economy.Kind.EARTH) == 1, "la derrota se avisa una sola vez")
 

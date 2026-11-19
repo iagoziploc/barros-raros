@@ -22,11 +22,13 @@ var _alive := 0
 var _is_running := false
 
 
+## Arranca la primera oleada si `autostart` está activo.
 func _ready() -> void:
 	if autostart and not waves.is_empty():
 		start_wave(0)
 
 
+## Saca los enemigos cuyo tiempo ya llegó y avisa `wave_cleared` cuando no queda nadie.
 func _process(delta: float) -> void:
 	if not _is_running:
 		return
@@ -41,6 +43,7 @@ func _process(delta: float) -> void:
 		wave_cleared.emit(current_wave)
 
 
+## Arma el cronograma de la oleada `index` y empieza a contar el tiempo.
 func start_wave(index: int) -> void:
 	current_wave = index
 	_schedule = waves[index].build_schedule()
@@ -50,14 +53,17 @@ func start_wave(index: int) -> void:
 	wave_started.emit(index)
 
 
+## true desde start_wave() hasta que se emite wave_cleared.
 func is_running() -> bool:
 	return _is_running
 
 
+## true si después de la oleada actual queda otra en `waves`.
 func has_more_waves() -> bool:
 	return current_wave + 1 < waves.size()
 
 
+## Crea un enemigo con `data` sobre el camino y lo cuenta como vivo.
 func _spawn(data: EnemyData) -> void:
 	var enemy: Enemy = enemy_scene.instantiate()
 	enemy.data = data
@@ -68,5 +74,6 @@ func _spawn(data: EnemyData) -> void:
 	enemy_spawned.emit(enemy)
 
 
+## Un enemigo murió o escapó: deja de contarlo.
 func _on_enemy_removed(_enemy: Enemy) -> void:
 	_alive -= 1

@@ -5,3 +5,6 @@ HUD_SUDDEN_DEATH_EARTH,¡Sin tierra! %.1f
 HUD_SUDDEN_DEATH_WATER,¡Sin agua! %.1f
 HUD_DEFEAT,Se llevaron todo
 HUD_WAVE,Oleada %d
+HUD_VICTORY,¡El río sigue siendo nuestro!
+GOLEM_BALANCED,Golem balanceado
+BUILD_COST,Tierra %d · Agua %d

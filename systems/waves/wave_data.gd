@@ -19,6 +19,7 @@ func build_schedule() -> Array[Dictionary]:
 	return schedule
 
 
+## Suma la cantidad de enemigos de todos los grupos.
 func total_enemies() -> int:
 	var total := 0
 	for entry in entries:

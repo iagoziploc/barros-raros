@@ -26,12 +26,14 @@ var _steal_time_left := 0.0
 @onready var _hitbox: Area2D = $Hitbox
 
 
+## Inicializa la vida y el aspecto desde `data` y empieza a escuchar su hitbox.
 func _ready() -> void:
 	health = data.max_health
 	_apply_visual()
 	_hitbox.area_entered.connect(_on_hitbox_area_entered)
 
 
+## Si está robando, descuenta la pausa y roba al terminarla. Si no, avanza por el camino.
 func _process(delta: float) -> void:
 	if is_stealing():
 		_steal_time_left -= delta
@@ -45,6 +47,7 @@ func _process(delta: float) -> void:
 		_escape()
 
 
+## true mientras está detenido en la zona húmeda.
 func is_stealing() -> bool:
 	return _steal_time_left > 0.0
 
@@ -58,8 +61,17 @@ func take_damage(amount: int) -> void:
 		_is_gone = true
 		died.emit(self)
 		queue_free()
+	else:
+		_flash()
 
 
+## Se tiñe de rojo y vuelve al color normal.
+func _flash() -> void:
+	modulate = Color(1.0, 0.4, 0.4)
+	create_tween().tween_property(self, "modulate", Color.WHITE, 0.15)
+
+
+## Usa la textura de `data` o, si no hay, el cuadrado de color.
 func _apply_visual() -> void:
 	if data.texture:
 		_sprite.texture = data.texture
@@ -70,6 +82,7 @@ func _apply_visual() -> void:
 		_placeholder.color = data.placeholder_color
 
 
+## Reacciona a las zonas del nivel según su grupo: zona húmeda o río.
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("wet_zone"):
 		if data.earth_stolen > 0:
@@ -80,7 +93,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		_escape()
 
 
-# Si muere antes de que termine la pausa, no llega a robar.
+## Arranca la pausa de robo de tierra. Si muere antes de terminarla, no roba.
 func _start_stealing_earth() -> void:
 	steal_started.emit(Economy.Kind.EARTH)
 	if data.earth_steal_duration <= 0.0:
@@ -89,6 +102,7 @@ func _start_stealing_earth() -> void:
 		_steal_time_left = data.earth_steal_duration
 
 
+## Sale del mapa: avisa con `escaped` y se borra.
 func _escape() -> void:
 	if _is_gone:
 		return

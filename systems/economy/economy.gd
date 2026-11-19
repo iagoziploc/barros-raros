@@ -26,10 +26,12 @@ var _sudden_death := {}
 var _is_defeated := false
 
 
+## Carga los valores iniciales.
 func _ready() -> void:
 	reset()
 
 
+## Descuenta el tiempo de cada muerte súbita activa y emite `defeated` si alguna llega a 0.
 func _process(delta: float) -> void:
 	if _is_defeated or _sudden_death.is_empty():
 		return
@@ -56,8 +58,14 @@ func reset() -> void:
 
 
 ## Devuelve true si hay tierra y agua suficientes. Se permite quedar en 0.
+## Después de la derrota siempre devuelve false.
 func can_afford(earth_cost: int, water_cost: int) -> bool:
-	return earth >= earth_cost and water >= water_cost
+	return not _is_defeated and earth >= earth_cost and water >= water_cost
+
+
+## true después de que terminó la cuenta regresiva de algún recurso.
+func is_defeated() -> bool:
+	return _is_defeated
 
 
 ## Descuenta el costo y devuelve true. Si no alcanza, no descuenta nada y devuelve false.
@@ -92,6 +100,7 @@ func steal(kind: Kind, amount: int) -> void:
 			_set_amounts(earth, water - amount)
 
 
+## true si `kind` está en 0 con la cuenta regresiva corriendo.
 func is_in_sudden_death(kind: Kind) -> bool:
 	return _sudden_death.has(kind)
 
@@ -101,12 +110,13 @@ func sudden_death_time_left(kind: Kind) -> float:
 	return _sudden_death.get(kind, 0.0)
 
 
+## Suma el costo multiplicado por `ratio`, redondeando hacia abajo.
 func _refund(earth_cost: int, water_cost: int, ratio: float) -> void:
 	add(floori(earth_cost * ratio), floori(water_cost * ratio))
 
 
-# Todas las modificaciones pasan por acá, así la señal `changed`
-# y la muerte súbita se actualizan siempre.
+## Único lugar donde cambian tierra y agua: limita entre 0 y el máximo,
+## emite `changed` y actualiza la muerte súbita.
 func _set_amounts(new_earth: int, new_water: int) -> void:
 	if _is_defeated:
 		return
@@ -119,7 +129,7 @@ func _set_amounts(new_earth: int, new_water: int) -> void:
 	_update_sudden_death(Kind.WATER, water)
 
 
-# Arranca la cuenta regresiva al llegar a 0 y la cancela al salir de 0.
+## Arranca la cuenta regresiva al llegar a 0 y la cancela al salir de 0.
 func _update_sudden_death(kind: Kind, amount: int) -> void:
 	var is_active := _sudden_death.has(kind)
 	if amount == 0 and not is_active:

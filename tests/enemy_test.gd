@@ -21,7 +21,7 @@ func _ready() -> void:
 
 	var level := LEVEL.instantiate()
 	# Sin oleadas: la prueba decide qué enemigos aparecen.
-	level.get_node("WaveSpawner").autostart = false
+	level.start_on_ready = false
 	# Sin música: si suena al cerrar, Godot avisa que la reproducción quedó sin liberar.
 	level.get_node("BGM").autoplay = false
 	add_child(level)
