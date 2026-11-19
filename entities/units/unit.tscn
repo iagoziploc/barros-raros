@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dqboof065wmqk"]
 
-[ext_resource type="Script" uid="uid://vc8cxnrl2k1y" path="res://entities/golems/golem.gd" id="1_golem"]
+[ext_resource type="Script" uid="uid://vc8cxnrl2k1y" path="res://entities/units/unit.gd" id="1_unit"]
 
-[node name="Golem" type="Node2D" unique_id=1108874923]
+[node name="Unit" type="Node2D" unique_id=1108874923]
 z_index = 1
-script = ExtResource("1_golem")
+script = ExtResource("1_unit")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1696495947]
 

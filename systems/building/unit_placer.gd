@@ -1,24 +1,24 @@
-class_name GolemPlacer
+class_name UnitPlacer
 extends Node2D
-## Coloca golems con el mouse.
-## Con un golem seleccionado: clic izquierdo coloca, clic derecho o Esc cancela.
-## Sin selección: clic derecho sobre un golem lo destruye.
+## Coloca unidades con el mouse.
+## Con una unidad seleccionada: clic izquierdo coloca, clic derecho o Esc cancela.
+## Sin selección: clic derecho sobre una unidad la destruye.
 ## Debe estar en la posición (0, 0) del nivel: dibuja en coordenadas globales.
 
-signal golem_placed(golem: Golem)
+signal unit_placed(unit: Unit)
 
-@export var golem_scene: PackedScene = preload("res://entities/golems/golem.tscn")
-## Nodo donde se agregan los golems.
+@export var unit_scene: PackedScene = preload("res://entities/units/unit.tscn")
+## Nodo donde se agregan las unidades.
 @export var container: Node2D
-## Distancia mínima entre dos golems.
+## Distancia mínima entre dos unidades.
 @export var min_spacing := 56.0
-## Distancia máxima al golem para destruirlo con clic derecho.
+## Distancia máxima a la unidad para destruirla con clic derecho.
 @export var destroy_radius := 36.0
 
 const VALID_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 const INVALID_COLOR := Color(1.0, 0.3, 0.3, 0.6)
 
-var _selected: GolemData
+var _selected: UnitData
 
 @onready var _ghost: Sprite2D = $Ghost
 
@@ -65,8 +65,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
-## Activa la colocación del golem `data` y muestra su fantasma.
-func select(data: GolemData) -> void:
+## Activa la colocación de la unidad `data` y muestra su fantasma.
+func select(data: UnitData) -> void:
 	_selected = data
 	_ghost.texture = data.texture
 	_ghost.scale = Vector2.ONE * data.sprite_scale
@@ -80,33 +80,33 @@ func cancel() -> void:
 	queue_redraw()
 
 
-## true si hay un golem seleccionado.
+## true si hay una unidad seleccionada.
 func is_placing() -> bool:
 	return _selected != null
 
 
-## Si se puede, cobra y coloca el golem seleccionado en `point`. Devuelve el golem o null.
-func place_at(point: Vector2) -> Golem:
+## Si se puede, cobra y coloca la unidad seleccionada en `point`. Devuelve la unidad o null.
+func place_at(point: Vector2) -> Unit:
 	if not can_place_at(point):
 		return null
 	Economy.spend(_selected.earth_cost, _selected.water_cost)
-	var golem: Golem = golem_scene.instantiate()
-	golem.data = _selected
-	golem.position = point
-	container.add_child(golem)
-	golem_placed.emit(golem)
-	return golem
+	var unit: Unit = unit_scene.instantiate()
+	unit.data = _selected
+	unit.position = point
+	container.add_child(unit)
+	unit_placed.emit(unit)
+	return unit
 
 
-## true si hay golem seleccionado, alcanzan los recursos, no hay otro golem
+## true si hay unidad seleccionada, alcanzan los recursos, no hay otra unidad
 ## a menos de `min_spacing` y el punto no está en un área `no_build`.
 func can_place_at(point: Vector2) -> bool:
 	if _selected == null:
 		return false
 	if not Economy.can_afford(_selected.earth_cost, _selected.water_cost):
 		return false
-	for golem in container.get_children():
-		if golem.position.distance_to(point) < min_spacing:
+	for unit in container.get_children():
+		if unit.position.distance_to(point) < min_spacing:
 			return false
 	return not _is_in_no_build_area(point)
 
@@ -123,9 +123,9 @@ func _is_in_no_build_area(point: Vector2) -> bool:
 	return false
 
 
-## Destruye el primer golem a menos de `destroy_radius` de `point`.
+## Destruye la primera unidad a menos de `destroy_radius` de `point`.
 func _destroy_at(point: Vector2) -> void:
-	for golem: Golem in container.get_children():
-		if golem.position.distance_to(point) <= destroy_radius:
-			golem.remove(false)
+	for unit: Unit in container.get_children():
+		if unit.position.distance_to(point) <= destroy_radius:
+			unit.remove(false)
 			return

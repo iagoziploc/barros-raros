@@ -2,7 +2,7 @@
 
 Tower defense hecho para la game jam [Liberen el Paraná](https://itch.io/jam/liberen-el-parana-gamejam).
 
-Del norte llegan los inversores a llevarse las **tierras raras** y el **agua dulce** del Paraná. El **Cara de Barro** despierta y amasa **golems de barro** para defender el río.
+Del norte llegan los inversores a llevarse las **tierras raras** y el **agua dulce** del Paraná. El **Cara de Barro** despierta y amasa **defensores de barro** para defender el río.
 
 Inspirado en la obra de [Manuel Brandazza](https://www.manuelbrandazza.com).
 
@@ -40,18 +40,18 @@ Si GitHub Desktop muestra archivos modificados que no tocaste a propósito (Godo
 
 | Acción | Cómo |
 | --- | --- |
-| Elegir un golem | Botón de la barra de abajo, o teclas **1**, **2**, **3**… |
-| Colocarlo | **Clic izquierdo** en el mapa (si el fantasma está rojo, ahí no se puede) |
+| Elegir una unidad | Botón de la barra de abajo, o teclas **1**, **2**, **3**… |
+| Colocarla | **Clic izquierdo** en el mapa (si el fantasma está rojo, ahí no se puede) |
 | Cancelar | **Clic derecho** o **Esc** |
-| Destruir un golem (devuelve la mitad) | **Clic derecho** sobre el golem, sin nada seleccionado |
+| Destruir una unidad (devuelve la mitad) | **Clic derecho** sobre la unidad, sin nada seleccionado |
 
-Al terminar la oleada, los golems se disuelven y devuelven todo su costo. Si la tierra o el agua llegan a 0 y no las recuperás en 5 segundos, perdés.
+Al terminar la oleada, las unidades se disuelven y devuelven todo su costo. Si la tierra o el agua llegan a 0 y no las recuperás en 5 segundos, perdés.
 
 ## Para el equipo que edita el proyecto
 
 - Todos con **Godot 4.7.2 estándar**.
 - Clonar: `git clone https://github.com/iagoziploc/barros-raros.git` e importar `project.godot`.
-- **Nombres de archivos:** minúsculas, con `_` y sin tildes ni ñ (`golem_de_barro.png`, no `Gólem de Barro.png`). La versión web distingue mayúsculas.
+- **Nombres de archivos:** minúsculas, con `_` y sin tildes ni ñ (`fondo_rio.png`, no `Fondo Río.png`). La versión web distingue mayúsculas.
 - Los archivos `.import` que Godot crea al lado de cada imagen o sonido **se suben al repo**: guardan cómo se importan (por ejemplo, el loop de la música).
 
 ### Estructura
@@ -63,9 +63,9 @@ Al terminar la oleada, los golems se disuelven y devuelven todo su costo. Si la 
 | `assets/fonts/` | Tipografías |
 | `localization/` | Todos los textos del juego (`strings.csv`) |
 | `data/` | **Valores de balance** (`.tres`). Se editan en el inspector de Godot, sin tocar código |
-| `systems/` | Sistemas globales: economía, oleadas, colocación de golems |
+| `systems/` | Sistemas globales: economía, oleadas, colocación de unidades |
 | `levels/` | Escenas de los niveles: mapa, camino, zona húmeda y río |
-| `entities/` | Enemigos y golems |
+| `entities/` | Enemigos y unidades |
 | `ui/` | Interfaz: HUD y barra de construcción |
 | `tests/` | Pruebas automáticas |
 
@@ -76,7 +76,7 @@ godot --headless --path . res://tests/economy_test.tscn
 godot --headless --path . res://tests/enemy_test.tscn
 godot --headless --path . res://tests/wave_test.tscn
 godot --headless --path . res://tests/hud_test.tscn
-godot --headless --path . res://tests/golem_test.tscn
+godot --headless --path . res://tests/unit_test.tscn
 ```
 
 Cada una termina con código 0 si todo pasa.

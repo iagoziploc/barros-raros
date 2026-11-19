@@ -1,9 +1,9 @@
-class_name Golem
+class_name Unit
 extends Node2D
 ## Golpea cada `data.attack_interval` segundos al enemigo de su rango
 ## que está más avanzado en el camino.
 
-@export var data: GolemData
+@export var data: UnitData
 
 # Segundos que faltan para poder volver a golpear.
 var _cooldown := 0.0
@@ -19,7 +19,7 @@ func _ready() -> void:
 	_sprite.texture = data.texture
 	_sprite.scale = Vector2.ONE * data.sprite_scale
 
-	# Una forma nueva por golem: si la compartieran, cambiar el radio de uno los cambiaría a todos.
+	# Una forma nueva por unidad: si la compartieran, cambiar el radio de una las cambiaría a todas.
 	var circle := CircleShape2D.new()
 	circle.radius = data.attack_range
 	_range_shape.shape = circle
@@ -45,9 +45,9 @@ func _process(delta: float) -> void:
 	_play_punch(target.global_position)
 
 
-## Saca al golem del mapa y devuelve recursos.
+## Saca a la unidad del mapa y devuelve recursos.
 ## survived = true: llegó al final de la oleada (devolución completa).
-## survived = false: lo destruyó el jugador (devolución parcial).
+## survived = false: la destruyó el jugador (devolución parcial).
 func remove(survived: bool) -> void:
 	if survived:
 		Economy.refund_survived(data.earth_cost, data.water_cost)

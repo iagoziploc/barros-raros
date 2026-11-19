@@ -1,6 +1,6 @@
-class_name GolemData
+class_name UnitData
 extends Resource
-## Datos de un tipo de golem. Cada tipo es un .tres en data/golems/.
+## Datos de un tipo de unidad. Cada tipo es un .tres en data/units/.
 
 ## Clave de localization/strings.csv con el nombre.
 @export var name_key := ""

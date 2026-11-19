@@ -62,7 +62,7 @@ func _test_max_is_a_cap() -> void:
 
 
 func _test_refunds() -> void:
-	print("Devolución de golems")
+	print("Devolución de unidades")
 	_reset()
 	Economy.spend(40, 20)
 	var earth := Economy.earth

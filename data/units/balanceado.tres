@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="GolemData" format=3 uid="uid://j6gxiji80f5t"]
+[gd_resource type="Resource" script_class="UnitData" format=3 uid="uid://j6gxiji80f5t"]
 
-[ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/golems/golem_data.gd" id="1"]
+[ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://2ogrx87a21w8" path="res://assets/art/provisorio/golem1.png" id="2_texture"]
 [ext_resource type="AudioStream" uid="uid://hmwingi8o40k" path="res://assets/audio/provisorio/golem_nace.wav" id="3_sound"]
 
 [resource]
 script = ExtResource("1")
-name_key = "GOLEM_BALANCED"
+name_key = "UNIT_BALANCED"
 earth_cost = 15
 texture = ExtResource("2_texture")
 spawn_sound = ExtResource("3_sound")

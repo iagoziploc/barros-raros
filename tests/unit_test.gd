@@ -1,21 +1,21 @@
 extends Node
-## Pruebas de Golem y GolemPlacer. Se corre con:
-##   godot --headless --path . res://tests/golem_test.tscn
+## Pruebas de Unit y UnitPlacer. Se corre con:
+##   godot --headless --path . res://tests/unit_test.tscn
 ## Sale con código 0 si todo pasó y 1 si algo falló.
 
 const LEVEL := preload("res://levels/level_01/level_01.tscn")
 const ENEMY := preload("res://entities/enemies/enemy.tscn")
-const BALANCED := preload("res://data/golems/golem_balanceado.tres")
+const BALANCED := preload("res://data/units/balanceado.tres")
 const PALITA := preload("res://data/enemies/salaryman_palita.tres")
 
-## Tiempo máximo de juego (no real) que se espera a que el golem mate al enemigo.
+## Tiempo máximo de juego (no real) que se espera a que la unidad mate al enemigo.
 const FIGHT_TIMEOUT := 60.0
 ## Un punto libre, lejos del camino y del río.
 const FREE_POINT := Vector2(1100, 120)
 
 var _failures := 0
 var _level: Node2D
-var _placer: GolemPlacer
+var _placer: UnitPlacer
 var _path: Path2D
 
 
@@ -25,7 +25,7 @@ func _ready() -> void:
 	_level.start_on_ready = false
 	_level.get_node("BGM").autoplay = false
 	add_child(_level)
-	_placer = _level.get_node("GolemPlacer")
+	_placer = _level.get_node("UnitPlacer")
 	_path = _level.get_node("EnemyPath")
 
 	# Esperar un frame de física para que las áreas ya estén registradas.
@@ -42,7 +42,7 @@ func _ready() -> void:
 
 
 func _test_placement() -> void:
-	print("Colocar golems")
+	print("Colocar unidades")
 	Economy.reset()
 	_check(not _placer.can_place_at(FREE_POINT), "sin selección no se puede colocar")
 
@@ -50,13 +50,13 @@ func _test_placement() -> void:
 	_check(_placer.can_place_at(FREE_POINT), "se puede colocar en un lugar libre")
 	_check(not _placer.can_place_at(Vector2(640, 660)), "no se puede colocar en el río")
 
-	var golem := _placer.place_at(FREE_POINT)
-	_check(golem != null, "place_at devuelve el golem")
+	var unit := _placer.place_at(FREE_POINT)
+	_check(unit != null, "place_at devuelve la unidad")
 	_check(Economy.earth == Economy.config.starting_earth - BALANCED.earth_cost, "cobra la tierra")
 	_check(Economy.water == Economy.config.starting_water - BALANCED.water_cost, "cobra el agua")
 	_check(_placer.place_at(FREE_POINT + Vector2(10, 0)) == null, "no se puede colocar pegado a otro")
 
-	golem.free()
+	unit.free()
 	_placer.cancel()
 
 
@@ -74,17 +74,17 @@ func _test_refunds() -> void:
 	_check(Economy.earth == Economy.config.starting_earth, "si sobrevive a la oleada devuelve todo")
 	_placer.cancel()
 	# remove() usa queue_free(): se borran a mano para que no ocupen lugar en la próxima prueba.
-	for golem in _level.get_node("Golems").get_children():
-		golem.free()
+	for unit in _level.get_node("Units").get_children():
+		unit.free()
 
 
 func _test_fight() -> void:
 	print("Pelea")
 	Economy.reset()
-	# El golem va al costado del camino, a 300 px del inicio.
+	# La unidad va al costado del camino, a 300 px del inicio.
 	var side_of_path := _path.curve.sample_baked(300.0) + Vector2(0, 50)
 	_placer.select(BALANCED)
-	var golem := _placer.place_at(side_of_path)
+	var unit := _placer.place_at(side_of_path)
 	_placer.cancel()
 
 	var enemy: Enemy = ENEMY.instantiate()
@@ -97,8 +97,8 @@ func _test_fight() -> void:
 	while deaths.is_empty() and time_left > 0.0 and is_instance_valid(enemy):
 		await get_tree().process_frame
 		time_left -= get_process_delta_time()
-	_check(deaths.size() == 1, "el golem mata al enemigo que pasa cerca")
-	golem.free()
+	_check(deaths.size() == 1, "la unidad mata al enemigo que pasa cerca")
+	unit.free()
 
 
 func _test_defeat_blocks_building() -> void:

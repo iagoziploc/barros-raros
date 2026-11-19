@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Script" path="res://systems/building/golem_placer.gd" id="1_placer"]
+[ext_resource type="Script" path="res://systems/building/unit_placer.gd" id="1_placer"]
 
-[node name="GolemPlacer" type="Node2D"]
+[node name="UnitPlacer" type="Node2D"]
 z_index = 2
 script = ExtResource("1_placer")
 
