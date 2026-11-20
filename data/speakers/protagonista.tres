@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Speaker" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://systems/dialogue/speaker.gd" id="1"]
+[ext_resource type="Texture2D" path="res://assets/art/provisorio/protagonista.png" id="2_portrait"]
+
+[resource]
+script = ExtResource("1")
+name_key = "SPEAKER_PROTAGONIST"
+portrait = ExtResource("2_portrait")
+name_color = Color(0.72, 0.9, 0.45, 1)

@@ -40,6 +40,7 @@ Si GitHub Desktop muestra archivos modificados que no tocaste a propósito (Godo
 
 | Acción | Cómo |
 | --- | --- |
+| Avanzar un diálogo | **Clic**, **Espacio** o **Enter** (el primero completa el texto, el segundo pasa a la línea siguiente) |
 | Elegir una unidad | Botón de la barra de abajo, o teclas **1**, **2**, **3**… |
 | Colocarla | **Clic izquierdo** en el mapa (si el fantasma está rojo, ahí no se puede) |
 | Cancelar | **Clic derecho** o **Esc** |
@@ -77,6 +78,7 @@ godot --headless --path . res://tests/enemy_test.tscn
 godot --headless --path . res://tests/wave_test.tscn
 godot --headless --path . res://tests/hud_test.tscn
 godot --headless --path . res://tests/unit_test.tscn
+godot --headless --path . res://tests/dialogue_test.tscn
 ```
 
 Cada una termina con código 0 si todo pasa.

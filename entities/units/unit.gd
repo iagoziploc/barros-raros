@@ -1,10 +1,20 @@
 class_name Unit
 extends Node2D
-## Golpea cada `data.attack_interval` segundos al enemigo de su rango
-## que está más avanzado en el camino.
+## Se construye durante `data.build_time` segundos (semitransparente, con barra de progreso
+## y sin atacar). Al terminar suena y, desde ahí, golpea cada `data.attack_interval`
+## segundos al enemigo de su rango que está más avanzado en el camino.
+
+## Terminó de construirse.
+signal built(unit: Unit)
+
+const BUILDING_COLOR := Color(1.0, 1.0, 1.0, 0.45)
 
 @export var data: UnitData
 
+var is_built := false
+
+# Segundos que faltan para terminar de construirse.
+var _build_time_left := 0.0
 # Segundos que faltan para poder volver a golpear.
 var _cooldown := 0.0
 
@@ -12,9 +22,10 @@ var _cooldown := 0.0
 @onready var _range: Area2D = $Range
 @onready var _range_shape: CollisionShape2D = $Range/Shape
 @onready var _spawn_sound: AudioStreamPlayer2D = $SpawnSound
+@onready var _build_progress: ProgressBar = $BuildProgress
 
 
-## Aplica imagen y rango desde `data` y reproduce el sonido de nacimiento.
+## Aplica imagen y rango desde `data` y arranca la construcción.
 func _ready() -> void:
 	_sprite.texture = data.texture
 	_sprite.scale = Vector2.ONE * data.sprite_scale
@@ -24,14 +35,23 @@ func _ready() -> void:
 	circle.radius = data.attack_range
 	_range_shape.shape = circle
 
-	if data.spawn_sound:
-		_spawn_sound.stream = data.spawn_sound
-		_spawn_sound.pitch_scale = randf_range(1.0 - data.pitch_variation, 1.0 + data.pitch_variation)
-		_spawn_sound.play()
+	_build_time_left = data.build_time
+	if _build_time_left <= 0.0:
+		_finish_building()
+	else:
+		_sprite.modulate = BUILDING_COLOR
+		_build_progress.show()
 
 
-## Descuenta el cooldown y, cuando llega a 0, golpea al mejor objetivo si hay alguno.
+## Mientras se construye, avanza la barra. Construida, golpea cuando el cooldown llega a 0.
 func _process(delta: float) -> void:
+	if not is_built:
+		_build_time_left -= delta
+		_build_progress.value = 1.0 - _build_time_left / data.build_time
+		if _build_time_left <= 0.0:
+			_finish_building()
+		return
+
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	if _cooldown > 0.0:
 		return
@@ -54,6 +74,18 @@ func remove(survived: bool) -> void:
 	else:
 		Economy.refund_destroyed(data.earth_cost, data.water_cost)
 	queue_free()
+
+
+## Vuelve sólida, oculta la barra, reproduce el sonido y avisa con `built`.
+func _finish_building() -> void:
+	is_built = true
+	_sprite.modulate = Color.WHITE
+	_build_progress.hide()
+	if data.spawn_sound:
+		_spawn_sound.stream = data.spawn_sound
+		_spawn_sound.pitch_scale = randf_range(1.0 - data.pitch_variation, 1.0 + data.pitch_variation)
+		_spawn_sound.play()
+	built.emit(self)
 
 
 ## Devuelve el enemigo dentro del rango con mayor `progress`, o null si no hay ninguno.

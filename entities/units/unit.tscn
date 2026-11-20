@@ -17,3 +17,13 @@ monitorable = false
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="." unique_id=562840973]
 bus = &"SFX"
+
+[node name="BuildProgress" type="ProgressBar" parent="."]
+visible = false
+offset_left = -30.0
+offset_top = 40.0
+offset_right = 30.0
+offset_bottom = 48.0
+mouse_filter = 2
+max_value = 1.0
+show_percentage = false

@@ -18,6 +18,7 @@ func _ready() -> void:
 	# Economy ya emitió `changed` antes de que existiera el HUD: se pinta el estado actual a mano.
 	_on_economy_changed(Economy.earth, Economy.water)
 	_message_label.hide()
+	_wave_label.hide()  # Hasta que arranque la primera oleada.
 
 
 ## Actualiza las alertas de muerte súbita. Se hace en cada frame porque
@@ -30,6 +31,7 @@ func _process(_delta: float) -> void:
 ## Muestra el número de oleada (empieza en 1).
 func set_wave(number: int) -> void:
 	_wave_label.text = tr("HUD_WAVE") % number
+	_wave_label.show()
 
 
 ## Muestra el cartel de victoria.

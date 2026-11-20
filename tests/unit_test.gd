@@ -17,10 +17,16 @@ var _failures := 0
 var _level: Node2D
 var _placer: UnitPlacer
 var _path: Path2D
+# Copia de la unidad balanceada que se construye al instante, para las pruebas que no
+# tratan de la construcción.
+var _instant: UnitData
 
 
 func _ready() -> void:
 	Engine.time_scale = 8.0
+	_instant = BALANCED.duplicate()
+	_instant.build_time = 0.0
+
 	_level = LEVEL.instantiate()
 	_level.start_on_ready = false
 	_level.get_node("BGM").autoplay = false
@@ -32,6 +38,7 @@ func _ready() -> void:
 	await get_tree().physics_frame
 
 	_test_placement()
+	await _test_building()
 	_test_refunds()
 	await _test_fight()
 	_test_defeat_blocks_building()
@@ -46,36 +53,68 @@ func _test_placement() -> void:
 	Economy.reset()
 	_check(not _placer.can_place_at(FREE_POINT), "sin selección no se puede colocar")
 
-	_placer.select(BALANCED)
+	_placer.select(_instant)
 	_check(_placer.can_place_at(FREE_POINT), "se puede colocar en un lugar libre")
 	_check(not _placer.can_place_at(Vector2(640, 660)), "no se puede colocar en el río")
 
 	var unit := _placer.place_at(FREE_POINT)
 	_check(unit != null, "place_at devuelve la unidad")
-	_check(Economy.earth == Economy.config.starting_earth - BALANCED.earth_cost, "cobra la tierra")
-	_check(Economy.water == Economy.config.starting_water - BALANCED.water_cost, "cobra el agua")
-	_check(_placer.place_at(FREE_POINT + Vector2(10, 0)) == null, "no se puede colocar pegado a otro")
+	_check(Economy.earth == Economy.config.starting_earth - _instant.earth_cost, "cobra la tierra")
+	_check(Economy.water == Economy.config.starting_water - _instant.water_cost, "cobra el agua")
+	_check(not _placer.is_placing(), "colocar deselecciona")
 
-	unit.free()
+	_placer.select(_instant)
+	var too_close := FREE_POINT + Vector2(_instant.spacing - 1.0, 0)
+	var far_enough := FREE_POINT + Vector2(_instant.spacing + 1.0, 0)
+	_check(not _placer.can_place_at(too_close), "no se puede colocar más cerca que `spacing`")
+	_check(_placer.can_place_at(far_enough), "sí se puede apenas más lejos que `spacing`")
 	_placer.cancel()
+	_clear_units()
+
+
+func _test_building() -> void:
+	print("Construcción")
+	Economy.reset()
+	var changes: Array[bool] = []
+	_placer.building_changed.connect(func(value): changes.append(value))
+
+	_placer.select(BALANCED)
+	var unit := _placer.place_at(FREE_POINT)
+	_check(not unit.is_built, "arranca en construcción")
+	_check(_placer.is_building(), "el colocador sabe que hay una construcción en curso")
+	_check(changes == [true], "avisa que empezó la construcción")
+
+	_placer.select(BALANCED)
+	_check(not _placer.is_placing(), "mientras se construye no se puede seleccionar otra")
+
+	var time_left := BALANCED.build_time + 2.0
+	while not unit.is_built and time_left > 0.0:
+		await get_tree().process_frame
+		time_left -= get_process_delta_time()
+	_check(unit.is_built, "termina de construirse")
+	_check(not _placer.is_building(), "y libera el lugar para construir otra")
+	_check(changes == [true, false], "avisa que terminó la construcción")
+	_clear_units()
+
+	_placer.select(BALANCED)
+	_placer.place_at(FREE_POINT).free()
+	_check(not _placer.is_building(), "si la destruyen en construcción, también se libera")
 
 
 func _test_refunds() -> void:
 	print("Devoluciones")
 	Economy.reset()
-	_placer.select(BALANCED)
+	_placer.select(_instant)
 	_placer.place_at(FREE_POINT).remove(false)
-	var expected := Economy.config.starting_earth - BALANCED.earth_cost \
-			+ floori(BALANCED.earth_cost * Economy.config.refund_ratio_destroyed)
-	_check(Economy.earth == expected, "destruirlo devuelve la parte configurada")
+	var expected := Economy.config.starting_earth - _instant.earth_cost \
+			+ floori(_instant.earth_cost * Economy.config.refund_ratio_destroyed)
+	_check(Economy.earth == expected, "destruirla devuelve la parte configurada")
 
 	Economy.reset()
+	_placer.select(_instant)
 	_placer.place_at(FREE_POINT + Vector2(200, 0)).remove(true)
 	_check(Economy.earth == Economy.config.starting_earth, "si sobrevive a la oleada devuelve todo")
-	_placer.cancel()
-	# remove() usa queue_free(): se borran a mano para que no ocupen lugar en la próxima prueba.
-	for unit in _level.get_node("Units").get_children():
-		unit.free()
+	_clear_units()
 
 
 func _test_fight() -> void:
@@ -83,9 +122,8 @@ func _test_fight() -> void:
 	Economy.reset()
 	# La unidad va al costado del camino, a 300 px del inicio.
 	var side_of_path := _path.curve.sample_baked(300.0) + Vector2(0, 50)
-	_placer.select(BALANCED)
+	_placer.select(_instant)
 	var unit := _placer.place_at(side_of_path)
-	_placer.cancel()
 
 	var enemy: Enemy = ENEMY.instantiate()
 	enemy.data = PALITA
@@ -106,9 +144,15 @@ func _test_defeat_blocks_building() -> void:
 	Economy.reset()
 	Economy.steal(Economy.Kind.EARTH, 9999)
 	Economy._process(Economy.config.sudden_death_seconds + 0.1)
-	_placer.select(BALANCED)
+	_placer.select(_instant)
 	_check(not _placer.can_place_at(FREE_POINT), "después de perder no se puede construir")
 	_placer.cancel()
+
+
+# remove() usa queue_free(): acá se borran en el momento para no ocupar lugar en la prueba siguiente.
+func _clear_units() -> void:
+	for unit in _level.get_node("Units").get_children():
+		unit.free()
 
 
 func _check(condition: bool, description: String) -> void:

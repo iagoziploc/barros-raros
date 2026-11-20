@@ -9,6 +9,12 @@ extends Resource
 @export var earth_cost := 20
 @export var water_cost := 10
 
+@export_group("Construcción")
+## Segundos que tarda en construirse. Mientras tanto no ataca y no se puede construir otra.
+@export var build_time := 3.0
+## Distancia mínima en píxeles entre esta unidad y cualquier otra.
+@export var spacing := 72.0
+
 @export_group("Ataque")
 ## Daño de cada golpe, antes de restar la armadura del enemigo.
 @export var damage := 4
@@ -20,7 +26,7 @@ extends Resource
 @export_group("Visual y sonido")
 @export var texture: Texture2D
 @export var sprite_scale := 0.12
-## Se reproduce al colocarlo. Puede quedar vacío.
+## Se reproduce al terminar de construirse. Puede quedar vacío.
 @export var spawn_sound: AudioStream
-## Cuánto puede subir o bajar el tono al nacer. 0.2 = entre 80% y 120% del tono original.
+## Cuánto puede subir o bajar el tono del sonido al terminar. 0.2 = entre 80% y 120% del tono original.
 @export_range(0.0, 0.5, 0.01) var pitch_variation := 0.2

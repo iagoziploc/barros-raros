@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Speaker" format=3 uid="uid://ctvu4cuydliuq"]
+
+[ext_resource type="Script" uid="uid://cnhcyylgjsiyv" path="res://systems/dialogue/speaker.gd" id="1_8md6h"]
+
+[resource]
+script = ExtResource("1_8md6h")
+name_key = "SPEAKER_LOBITO"
+name_color = Color(1, 0.75, 0.55, 1)

@@ -9,6 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://c6ecn8dvfy32e" path="res://ui/hud/hud.tscn" id="6_hud"]
 [ext_resource type="PackedScene" path="res://systems/building/unit_placer.tscn" id="7_placer"]
 [ext_resource type="PackedScene" path="res://ui/build_bar/build_bar.tscn" id="8_build_bar"]
+[ext_resource type="PackedScene" path="res://ui/dialogue_box/dialogue_box.tscn" id="9_dialogue_box"]
+[ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="10_dialogue"]
+[ext_resource type="Resource" uid="uid://dbcs02v22kb4v" path="res://data/dialogues/intro.tres" id="11_intro"]
+[ext_resource type="Resource" uid="uid://or5dwh6iiy8" path="res://data/dialogues/wave_01.tres" id="12_wave_01_dialogue"]
+[ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -24,6 +29,9 @@ size = Vector2(1280, 120)
 
 [node name="Level01" type="Node2D" unique_id=734465246]
 script = ExtResource("1_71kry")
+intro = ExtResource("11_intro")
+wave_dialogues = Array[ExtResource("10_dialogue")]([ExtResource("12_wave_01_dialogue")])
+ending = ExtResource("13_ending")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1878776281]
 offset_right = 1280.0
@@ -85,6 +93,7 @@ path = NodePath("../EnemyPath")
 container = NodePath("../Units")
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1202783320]
+process_mode = 3
 stream = ExtResource("5_dm0pi")
 autoplay = true
 bus = &"BGM"
@@ -92,3 +101,5 @@ bus = &"BGM"
 [node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
 
 [node name="BuildBar" parent="." unique_id=1635987965 instance=ExtResource("8_build_bar")]
+
+[node name="DialogueBox" parent="." unique_id=1198107075 instance=ExtResource("9_dialogue_box")]
