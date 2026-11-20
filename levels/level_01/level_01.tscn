@@ -15,6 +15,8 @@
 [ext_resource type="Resource" uid="uid://dbcs02v22kb4v" path="res://data/dialogues/intro.tres" id="11_intro"]
 [ext_resource type="Resource" uid="uid://or5dwh6iiy8" path="res://data/dialogues/wave_01.tres" id="12_wave_01_dialogue"]
 [ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]
+[ext_resource type="Texture2D" uid="uid://bqsqus15hjpj1" path="res://assets/art/Escenario/Mapa.png" id="16_7sc7i"]
+[ext_resource type="Texture2D" uid="uid://wium5p420jik" path="res://assets/art/Escenario/Roble.png" id="17_anxy3"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -112,3 +114,12 @@ container = NodePath("../Units")
 [node name="BuildBar" parent="." unique_id=1635987965 instance=ExtResource("8_build_bar")]
 
 [node name="DialogueBox" parent="." unique_id=1198107075 instance=ExtResource("9_dialogue_box")]
+
+[node name="Mapa" type="Sprite2D" parent="." unique_id=54913331]
+position = Vector2(641, 340)
+texture = ExtResource("16_7sc7i")
+
+[node name="Roble" type="Sprite2D" parent="." unique_id=231492465]
+z_index = 1
+position = Vector2(132, 392)
+texture = ExtResource("17_anxy3")
