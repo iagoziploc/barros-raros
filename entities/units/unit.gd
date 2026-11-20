@@ -18,7 +18,7 @@ var _build_time_left := 0.0
 # Segundos que faltan para poder volver a golpear.
 var _cooldown := 0.0
 
-@onready var _sprite: Sprite2D = $Sprite
+@onready var _sprite: AnimatedSprite2D = $Sprite
 @onready var _range: Area2D = $Range
 @onready var _range_shape: CollisionShape2D = $Range/Shape
 @onready var _spawn_sound: AudioStreamPlayer2D = $SpawnSound
@@ -27,8 +27,10 @@ var _cooldown := 0.0
 
 ## Aplica imagen y rango desde `data` y arranca la construcción.
 func _ready() -> void:
-	_sprite.texture = data.texture
+	_sprite.sprite_frames = data.sprite_frames
 	_sprite.scale = Vector2.ONE * data.sprite_scale
+	_sprite.animation_finished.connect(func(): _sprite.play("idle"))
+	_sprite.play("idle")
 
 	# Una forma nueva por unidad: si la compartieran, cambiar el radio de una las cambiaría a todas.
 	var circle := CircleShape2D.new()
@@ -102,5 +104,6 @@ func _find_target() -> Enemy:
 func _play_punch(target_position: Vector2) -> void:
 	var direction := (target_position - global_position).normalized()
 	var tween := create_tween()
+	_sprite.play("hit")
 	tween.tween_property(_sprite, "position", direction * 10.0, 0.06)
 	tween.tween_property(_sprite, "position", Vector2.ZERO, 0.12)

@@ -6,7 +6,7 @@
 z_index = 1
 script = ExtResource("1_unit")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1696495947]
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=876404183]
 
 [node name="Range" type="Area2D" parent="." unique_id=307341479]
 collision_layer = 0
@@ -18,7 +18,7 @@ monitorable = false
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="." unique_id=562840973]
 bus = &"SFX"
 
-[node name="BuildProgress" type="ProgressBar" parent="."]
+[node name="BuildProgress" type="ProgressBar" parent="." unique_id=649680420]
 visible = false
 offset_left = -30.0
 offset_top = 40.0

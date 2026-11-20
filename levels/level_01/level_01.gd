@@ -34,6 +34,7 @@ func _ready() -> void:
 	Economy.reset()
 	_spawner.wave_started.connect(_on_wave_started)
 	_build_bar.unit_selected.connect(_placer.select)
+	_placer.building_changed.connect(_build_bar.set_building)
 	if start_on_ready:
 		_run()
 

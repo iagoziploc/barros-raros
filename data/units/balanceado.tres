@@ -2,12 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://2ogrx87a21w8" path="res://assets/art/provisorio/unidad_1.png" id="2_texture"]
+[ext_resource type="SpriteFrames" uid="uid://fpd4v6ikoc2w" path="res://data/units/balanceado_frames.tres" id="3_db1de"]
 [ext_resource type="AudioStream" uid="uid://hmwingi8o40k" path="res://assets/audio/provisorio/unidad_nace.wav" id="3_sound"]
 
 [resource]
 script = ExtResource("1")
 name_key = "UNIT_BALANCED"
 earth_cost = 15
+sprite_frames = ExtResource("3_db1de")
 texture = ExtResource("2_texture")
+sprite_scale = 0.3
 spawn_sound = ExtResource("3_sound")
-pitch_variation = 0.2

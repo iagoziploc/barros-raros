@@ -8,6 +8,7 @@ signal unit_selected(data: UnitData)
 
 # Botón -> UnitData que representa.
 var _buttons := {}
+var _is_building := false
 
 @onready var _buttons_box: HBoxContainer = %Buttons
 
@@ -53,4 +54,10 @@ func _on_economy_changed(_earth: int, _water: int) -> void:
 func _refresh_buttons() -> void:
 	for button: Button in _buttons:
 		var data: UnitData = _buttons[button]
-		button.disabled = not Economy.can_afford(data.earth_cost, data.water_cost)
+		button.disabled = not Economy.can_afford(data.earth_cost, data.water_cost) or _is_building
+
+## Recibe UnitPlacer.building_changed: desactiva todo mientras se construye.
+func set_building(is_building: bool) -> void:
+	_is_building = is_building
+	_refresh_buttons()
+	

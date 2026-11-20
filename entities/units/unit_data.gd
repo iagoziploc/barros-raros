@@ -24,6 +24,7 @@ extends Resource
 @export var attack_range := 90.0
 
 @export_group("Visual y sonido")
+@export var sprite_frames: SpriteFrames
 @export var texture: Texture2D
 @export var sprite_scale := 0.12
 ## Se reproduce al terminar de construirse. Puede quedar vacío.
