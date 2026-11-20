@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" path="res://ui/build_bar/build_bar.tscn" id="8_build_bar"]
 [ext_resource type="PackedScene" path="res://ui/dialogue_box/dialogue_box.tscn" id="9_dialogue_box"]
 [ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="10_dialogue"]
-[ext_resource type="AudioStream" uid="uid://w4djr7njaixv" path="res://assets/audio/provisorio/bgm2.wav" id="11_cfw67"]
+[ext_resource type="AudioStream" uid="uid://v6624hfvsow1" path="res://assets/audio/BGM/bgm_partida.ogg" id="11_cfw67"]
 [ext_resource type="Resource" uid="uid://dbcs02v22kb4v" path="res://data/dialogues/intro.tres" id="11_intro"]
 [ext_resource type="Resource" uid="uid://or5dwh6iiy8" path="res://data/dialogues/wave_01.tres" id="12_wave_01_dialogue"]
 [ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]

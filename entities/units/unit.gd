@@ -10,10 +10,19 @@ extends Node2D
 signal built(unit: Unit)
 
 const BUILDING_COLOR := Color(1.0, 1.0, 1.0, 0.45)
+const DEBUG_HIT_COLOR := Color(1.0, 0.9, 0.3)
 
 @export var data: UnitData
+## Herramienta de depuración: dibuja el alcance y, en cada golpe, el área (`splash_radius`)
+## alrededor del objetivo. Se activa en el inspector de unit.tscn.
+@export var show_debug_areas := false
 
 var is_built := false
+
+# Para show_debug_areas: dónde fue el último golpe (en coordenadas de la unidad)
+# y qué tan visible queda el círculo (1 = recién, 0 = ya se borró).
+var _debug_hit_position := Vector2.ZERO
+var _debug_hit_alpha := 0.0
 
 # Segundos que faltan para terminar de construirse.
 var _build_time_left := 0.0
@@ -133,6 +142,8 @@ func _strike(index: int) -> void:
 		if enemy == target or distance <= data.splash_radius:
 			enemy.take_damage(damage)
 	_play_sound(_hit_sound, data.hit_sound)
+	if show_debug_areas:
+		_show_debug_hit(target.global_position)
 
 
 ## Devuelve el enemigo dentro del rango con mayor `progress`, o null si no hay ninguno.
@@ -171,6 +182,31 @@ func _on_sprite_frame_changed() -> void:
 	while _next_hit < data.hit_frames.size() and _sprite.frame >= data.hit_frames[_next_hit]:
 		_strike(_next_hit)
 		_next_hit += 1
+
+
+## Con show_debug_areas: el círculo de alcance y, si hubo un golpe reciente, su área.
+func _draw() -> void:
+	if not show_debug_areas:
+		return
+	draw_arc(Vector2.ZERO, data.attack_range, 0.0, TAU, 64, Color(1, 1, 1, 0.3), 1.0)
+	if _debug_hit_alpha > 0.0:
+		var color := Color(DEBUG_HIT_COLOR, _debug_hit_alpha)
+		draw_circle(_debug_hit_position, maxf(data.splash_radius, 3.0), Color(color, 0.25 * _debug_hit_alpha))
+		draw_arc(_debug_hit_position, maxf(data.splash_radius, 3.0), 0.0, TAU, 48, color, 2.0)
+
+
+## Marca el área del golpe en `global_point` y la desvanece en medio segundo.
+func _show_debug_hit(global_point: Vector2) -> void:
+	_debug_hit_position = to_local(global_point)
+	_debug_hit_alpha = 1.0
+	# tween_method llama a la función con valores que van de 1 a 0 durante 0,5 s.
+	create_tween().tween_method(_set_debug_hit_alpha, 1.0, 0.0, 0.5)
+
+
+## Usada por el tween de _show_debug_hit: actualiza la transparencia y redibuja.
+func _set_debug_hit_alpha(alpha: float) -> void:
+	_debug_hit_alpha = alpha
+	queue_redraw()
 
 
 ## Al terminar cualquier animación sin loop (como "hit"), vuelve a "idle".

@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://2ogrx87a21w8" path="res://assets/art/provisorio/unidad_1.png" id="2_texture"]
 [ext_resource type="SpriteFrames" uid="uid://fpd4v6ikoc2w" path="res://data/units/balanceado_frames.tres" id="3_db1de"]
-[ext_resource type="AudioStream" uid="uid://hmwingi8o40k" path="res://assets/audio/provisorio/unidad_nace.wav" id="3_sound"]
-[ext_resource type="AudioStream" uid="uid://dc5cuglo00gps" path="res://assets/audio/SFX/unidad_piñas.ogg" id="4_hit_sound"]
+[ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="3_ecbj8"]
+[ext_resource type="AudioStream" uid="uid://dc5cuglo00gps" path="res://assets/audio/SFX/unidad_hit.ogg" id="4_hit_sound"]
 
 [resource]
 script = ExtResource("1")
@@ -12,9 +12,9 @@ name_key = "UNIT_BALANCED"
 earth_cost = 15
 hit_damages = Array[int]([1, 3])
 hit_frames = Array[int]([4, 8])
-splash_radius = 24.0
+splash_radius = 60.0
 sprite_frames = ExtResource("3_db1de")
 texture = ExtResource("2_texture")
-sprite_scale = 0.3
-spawn_sound = ExtResource("3_sound")
+sprite_scale = 0.2
+spawn_sound = ExtResource("3_ecbj8")
 hit_sound = ExtResource("4_hit_sound")

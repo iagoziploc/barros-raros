@@ -18,7 +18,7 @@ monitorable = false
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="." unique_id=562840973]
 bus = &"SFX"
 
-[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+[node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=337896579]
 bus = &"SFX"
 
 [node name="BuildProgress" type="ProgressBar" parent="." unique_id=649680420]
