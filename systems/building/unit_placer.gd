@@ -74,7 +74,7 @@ func select(data: UnitData) -> void:
 	if is_building():
 		return
 	_selected = data
-	_ghost.texture = data.texture
+	_ghost.texture = data.get_icon()
 	_ghost.scale = Vector2.ONE * data.sprite_scale
 	_ghost.show()
 

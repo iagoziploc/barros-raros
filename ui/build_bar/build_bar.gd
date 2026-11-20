@@ -35,7 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 func _add_button(data: UnitData) -> void:
 	var button := Button.new()
 	button.text = "%s\n%s" % [tr(data.name_key), tr("BUILD_COST") % [data.earth_cost, data.water_cost]]
-	button.icon = data.texture
+	button.icon = data.get_icon()
 	button.expand_icon = true
 	button.custom_minimum_size = Vector2(220, 72)
 	# Sin foco: así la barra espaciadora y las flechas no "aprietan" el botón.

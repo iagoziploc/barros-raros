@@ -41,6 +41,9 @@ func _ready() -> void:
 	await _test_building()
 	_test_refunds()
 	await _test_fight()
+	await _test_hits_and_splash()
+	await _test_animated_hits()
+	_test_icon()
 	_test_defeat_blocks_building()
 
 	print("")
@@ -137,6 +140,88 @@ func _test_fight() -> void:
 		time_left -= get_process_delta_time()
 	_check(deaths.size() == 1, "la unidad mata al enemigo que pasa cerca")
 	unit.free()
+
+
+func _test_hits_and_splash() -> void:
+	print("Golpes y área")
+	Economy.reset()
+	var data: UnitData = _instant.duplicate()
+	data.hit_frames = []  # Sin animación: todos los golpes al instante.
+	data.hit_damages = [1, 3]
+	data.splash_radius = 24.0
+	var unit := _place_near_path(data, 300.0)
+
+	var close_pair := [_spawn_still_enemy(300.0), _spawn_still_enemy(310.0)]
+	var far_enemy := _spawn_still_enemy(300.0 + data.attack_range * 3)
+	await _wait_until(func(): return close_pair[0].health < 100)
+
+	_check(close_pair[0].health == 96, "el objetivo recibe los dos golpes (1 + 3)")
+	_check(close_pair[1].health == 96, "el enemigo pegado también los recibe (área)")
+	_check(far_enemy.health == 100, "el enemigo lejano no recibe nada")
+	for node in close_pair + [far_enemy, unit]:
+		node.free()
+
+
+func _test_animated_hits() -> void:
+	print("Golpes sincronizados con la animación")
+	# Tiempo real: acelerado, los dos cuadros de golpe caerían en el mismo frame
+	# y no se vería la vida intermedia entre el jab y el golpe fuerte.
+	Engine.time_scale = 1.0
+	Economy.reset()
+	var unit := _place_near_path(_instant, 300.0)
+	var enemy := _spawn_still_enemy(300.0)
+	var healths: Array[int] = []
+	var total: int = 0
+	for damage in _instant.hit_damages:
+		total += damage
+
+	var time_left := 5.0
+	while enemy.health > 100 - total and time_left > 0.0:
+		await get_tree().process_frame
+		time_left -= get_process_delta_time()
+		if healths.is_empty() or healths.back() != enemy.health:
+			healths.append(enemy.health)
+
+	_check(enemy.health == 100 - total, "un ataque completo hace la suma de sus golpes")
+	_check(healths.has(100 - _instant.hit_damages[0]), "el primer golpe llega antes que el segundo")
+	enemy.free()
+	unit.free()
+	Engine.time_scale = 8.0
+
+
+func _test_icon() -> void:
+	print("Ícono")
+	var first_frame := BALANCED.sprite_frames.get_frame_texture("idle", 0)
+	_check(BALANCED.get_icon() == first_frame, "el ícono es el primer cuadro de idle")
+	var no_frames := UnitData.new()
+	no_frames.texture = BALANCED.texture
+	_check(no_frames.get_icon() == BALANCED.texture, "sin animaciones, el ícono es la textura")
+
+
+# Coloca una unidad de tipo `data` al costado del camino, a `distance` px del inicio.
+func _place_near_path(data: UnitData, distance: float) -> Unit:
+	_placer.select(data)
+	return _placer.place_at(_path.curve.sample_baked(distance) + Vector2(0, 50))
+
+
+# Un enemigo quieto con 100 de vida, a `distance` px del inicio del camino.
+func _spawn_still_enemy(distance: float) -> Enemy:
+	var data := EnemyData.new()
+	data.speed = 0.0
+	data.max_health = 100
+	var enemy: Enemy = ENEMY.instantiate()
+	enemy.data = data
+	enemy.progress = distance
+	_path.add_child(enemy)
+	return enemy
+
+
+# Espera frames hasta que `condition` dé true, o hasta 5 segundos de juego.
+func _wait_until(condition: Callable) -> void:
+	var time_left := 5.0
+	while not condition.call() and time_left > 0.0:
+		await get_tree().process_frame
+		time_left -= get_process_delta_time()
 
 
 func _test_defeat_blocks_building() -> void:
