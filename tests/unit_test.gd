@@ -29,7 +29,7 @@ func _ready() -> void:
 
 	_level = LEVEL.instantiate()
 	_level.start_on_ready = false
-	_level.get_node("BGM").autoplay = false
+	TestUtils.silence(_level)
 	add_child(_level)
 	_placer = _level.get_node("UnitPlacer")
 	_path = _level.get_node("EnemyPath")

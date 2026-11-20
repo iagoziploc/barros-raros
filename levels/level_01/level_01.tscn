@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c6ecn8dvfy32e" path="res://ui/hud/hud.tscn" id="6_hud"]
 [ext_resource type="PackedScene" path="res://systems/building/unit_placer.tscn" id="7_placer"]
 [ext_resource type="PackedScene" path="res://ui/build_bar/build_bar.tscn" id="8_build_bar"]
+[ext_resource type="AudioStream" uid="uid://dgsv5fofa15my" path="res://assets/audio/AMB/amb_ambiente_rio_pajaros.ogg" id="8_ehlne"]
 [ext_resource type="PackedScene" path="res://ui/dialogue_box/dialogue_box.tscn" id="9_dialogue_box"]
 [ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="10_dialogue"]
 [ext_resource type="AudioStream" uid="uid://v6624hfvsow1" path="res://assets/audio/BGM/bgm_partida.ogg" id="11_cfw67"]
@@ -82,6 +83,20 @@ color = Color(0.2, 0.45, 0.6, 1)
 [node name="Shape" type="CollisionShape2D" parent="River" unique_id=360105706]
 shape = SubResource("RectangleShape2D_river")
 
+[node name="Sound" type="Node" parent="." unique_id=658700723]
+
+[node name="BGM" type="AudioStreamPlayer" parent="Sound" unique_id=1202783320]
+process_mode = 3
+stream = ExtResource("11_cfw67")
+autoplay = true
+bus = &"BGM"
+
+[node name="AMB" type="AudioStreamPlayer" parent="Sound" unique_id=1517519177]
+process_mode = 3
+stream = ExtResource("8_ehlne")
+autoplay = true
+bus = &"AMB"
+
 [node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("path")]
 script = ExtResource("2_spawner")
 waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01")])
@@ -91,12 +106,6 @@ path = NodePath("../EnemyPath")
 
 [node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container") instance=ExtResource("7_placer")]
 container = NodePath("../Units")
-
-[node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1202783320]
-process_mode = 3
-stream = ExtResource("11_cfw67")
-autoplay = true
-bus = &"BGM"
 
 [node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
 

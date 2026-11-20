@@ -20,15 +20,18 @@ var health: int
 var _is_gone := false
 # Segundos que le quedan detenido robando tierra. 0 = está caminando.
 var _steal_time_left := 0.0
+# Velocidad de este enemigo en particular: data.speed con una variación al azar.
+var _speed := 0.0
 
 @onready var _sprite: Sprite2D = $Sprite
 @onready var _placeholder: ColorRect = $Placeholder
 @onready var _hitbox: Area2D = $Hitbox
 
 
-## Inicializa la vida y el aspecto desde `data` y empieza a escuchar su hitbox.
+## Inicializa vida, velocidad y aspecto desde `data` y empieza a escuchar su hitbox.
 func _ready() -> void:
 	health = data.max_health
+	_speed = data.speed * randf_range(1.0 - data.speed_variation, 1.0 + data.speed_variation)
 	_apply_visual()
 	_hitbox.area_entered.connect(_on_hitbox_area_entered)
 
@@ -42,7 +45,7 @@ func _process(delta: float) -> void:
 			Economy.steal(Economy.Kind.EARTH, data.earth_stolen)
 		return
 
-	progress += data.speed * delta
+	progress += _speed * delta
 	if progress_ratio >= 1.0:
 		_escape()
 

@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/amb_ambiente_rio_pajaros.ogg-918921813dd83583
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0

@@ -5,6 +5,8 @@ extends Resource
 @export_group("Movimiento y vida")
 ## Píxeles por segundo a lo largo del camino.
 @export var speed := 60.0
+## Cuánto puede variar la velocidad de cada enemigo, al azar. 0.15 = entre 85% y 115% de `speed`.
+@export_range(0.0, 0.5, 0.01) var speed_variation := 0.15
 @export var max_health := 10
 ## Se resta al daño de cada golpe. Cada golpe hace al menos 1 de daño.
 @export var armor := 0

@@ -48,8 +48,7 @@ func _test_spawner() -> void:
 	var spawner: WaveSpawner = level.get_node("WaveSpawner")
 	level.start_on_ready = false
 	spawner.waves = [_make_wave()]
-	# Sin música: si suena al cerrar, Godot avisa que la reproducción quedó sin liberar.
-	level.get_node("BGM").autoplay = false
+	TestUtils.silence(level)
 	add_child(level)
 
 	var spawned: Array[Enemy] = []

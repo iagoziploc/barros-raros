@@ -22,14 +22,14 @@ func _ready() -> void:
 	var level := LEVEL.instantiate()
 	# Sin oleadas: la prueba decide qué enemigos aparecen.
 	level.start_on_ready = false
-	# Sin música: si suena al cerrar, Godot avisa que la reproducción quedó sin liberar.
-	level.get_node("BGM").autoplay = false
+	TestUtils.silence(level)
 	add_child(level)
 	_path = level.get_node("EnemyPath")
 
 	await _test_route_and_steal()
 	await _test_stops_to_steal_earth()
 	_test_damage_and_armor()
+	_test_speed_variation()
 
 	print("")
 	print("Resultado: %d falla(s)" % _failures)
@@ -75,6 +75,25 @@ func _test_stops_to_steal_earth() -> void:
 	enemy.take_damage(1000)
 	await get_tree().create_timer(PALITA.earth_steal_duration + 0.5).timeout
 	_check(Economy.earth == Economy.config.starting_earth, "si muere robando, no se lleva nada")
+
+
+func _test_speed_variation() -> void:
+	print("Variación de velocidad")
+	var data := EnemyData.new()
+	data.speed = 100.0
+	data.speed_variation = 0.2
+	var speeds := []
+	for i in 20:
+		var enemy := _spawn(data)
+		speeds.append(enemy._speed)
+		enemy.free()
+	_check(speeds.all(func(s): return s >= 80.0 and s <= 120.0), "todas quedan entre 80% y 120%")
+	_check(speeds.min() != speeds.max(), "no son todas iguales")
+
+	data.speed_variation = 0.0
+	var steady := _spawn(data)
+	_check(steady._speed == 100.0, "con variación 0, la velocidad es exacta")
+	steady.free()
 
 
 func _test_damage_and_armor() -> void:
