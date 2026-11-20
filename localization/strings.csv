@@ -9,7 +9,7 @@ HUD_VICTORY,¡El río sigue siendo nuestro!
 UNIT_BALANCED,Unidad balanceada
 BUILD_COST,Tierra %d · Agua %d
 SPEAKER_PROTAGONIST,Protagonista
-SPEAKER_GRANDMA,Abuela
+SPEAKER_ABUELA,Abuela
 SPEAKER_LOBITO,Lobito
 INTRO_01,"El litoral está de remate y del norte llegan los inversores. Vienen por las tierras raras, vienen por el agua dulce."
 INTRO_02,Minga.
@@ -19,4 +19,5 @@ WAVE_01_02,¡nos quieren invartir!
 WAVE_01_03,¡nos quieren invertar?
 WAVE_01_04,¡nos quieren invadir!
 WAVE_01_05,"Sería tanto más fácil con ayuda humana, pero me temo que están totalmente [b]en otra[/b]."
+WAVE_01_06,"Bueno, che, no te calentés..."
 ENDING_01,Continuará…

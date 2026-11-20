@@ -55,6 +55,30 @@ Al terminar la oleada, las unidades se disuelven y devuelven todo su costo. Si l
 - **Nombres de archivos:** minúsculas, con `_` y sin tildes ni ñ (`fondo_rio.png`, no `Fondo Río.png`). La versión web distingue mayúsculas.
 - Los archivos `.import` que Godot crea al lado de cada imagen o sonido **se suben al repo**: guardan cómo se importan (por ejemplo, el loop de la música).
 
+### Cómo trabajamos con Git
+
+**Ramas:**
+
+- **`main`** es la versión jugable. Es la que bajan y prueban todos, y donde **audio y arte suben sus archivos**.
+- **`dev`** es donde se programa. Cuando algo está probado, se pasa a `main`.
+
+Si no programás, trabajá siempre en `main`. En GitHub Desktop se ve arriba, en *Current branch*.
+
+**Para subir tus archivos (GitHub Desktop):**
+
+1. **Antes de empezar:** *Fetch origin* → *Pull origin*. Así arrancás con lo último.
+2. Agregá tus archivos en la carpeta que corresponde (`assets/audio/`, `assets/art/`…), y abrí Godot una vez para que cree los `.import`.
+3. En GitHub Desktop, abajo a la izquierda: escribí un resumen (por ejemplo, *"Sonido de robo del salary-man"*) y tocá **Commit to main**.
+4. **Tocá Push origin** (arriba). **Sin este paso, el commit queda solo en tu compu**: nadie más lo ve.
+
+Si al hacer Push aparece que primero hay que hacer Pull, hacé **Pull origin** y después **Push origin** otra vez.
+
+**Para no pisarnos:**
+
+- **Agregar archivos nuevos** (sprites, sonidos) nunca molesta: hacelo libremente.
+- **Modificar archivos que ya existen** (una escena `.tscn`, los buses de audio, un `.tres`): avisá antes por el grupo. Si dos personas cambian el mismo archivo a la vez, Git no siempre puede mezclarlo solo.
+- Los buses de audio (`default_bus_layout.tres`) son del área de audio: el resto no los toca.
+
 ### Estructura
 
 | Carpeta | Qué va ahí |
