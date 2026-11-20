@@ -31,7 +31,8 @@ var _speed := 0.0
 ## Inicializa vida, velocidad y aspecto desde `data` y empieza a escuchar su hitbox.
 func _ready() -> void:
 	health = data.max_health
-	_speed = data.speed * randf_range(1.0 - data.speed_variation, 1.0 + data.speed_variation)
+	_speed = data.speed * randf_range(1.0 - data.speed_variation, 1.0 + data.speed_variation) \
+			* Modifiers.multiplier(Modifiers.Stat.ENEMY_SPEED)
 	_apply_visual()
 	_hitbox.area_entered.connect(_on_hitbox_area_entered)
 
@@ -55,11 +56,13 @@ func is_stealing() -> bool:
 	return _steal_time_left > 0.0
 
 
-## Resta `amount - data.armor` de vida (mínimo 1). Si llega a 0, muere.
-func take_damage(amount: int) -> void:
+## Resta `amount` menos la armadura de vida (mínimo 1). Si llega a 0, muere.
+## `armor_piercing` son puntos de armadura que el golpe ignora.
+func take_damage(amount: int, armor_piercing := 0) -> void:
 	if _is_gone:
 		return
-	health -= maxi(amount - data.armor, 1)
+	var armor := maxi(data.armor - armor_piercing, 0)
+	health -= maxi(amount - armor, 1)
 	if health <= 0:
 		_is_gone = true
 		died.emit(self)

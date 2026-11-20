@@ -101,9 +101,13 @@ func is_building() -> bool:
 func place_at(point: Vector2) -> Unit:
 	if not can_place_at(point):
 		return null
-	Economy.spend(_selected.earth_cost, _selected.water_cost)
+	var earth_cost := Modifiers.earth_cost(_selected)
+	var water_cost := Modifiers.water_cost(_selected)
+	Economy.spend(earth_cost, water_cost)
 	var unit: Unit = unit_scene.instantiate()
 	unit.data = _selected
+	unit.paid_earth = earth_cost
+	unit.paid_water = water_cost
 	unit.position = point
 	container.add_child(unit)
 	cancel()
@@ -118,7 +122,7 @@ func place_at(point: Vector2) -> Unit:
 func can_place_at(point: Vector2) -> bool:
 	if _selected == null or is_building():
 		return false
-	if not Economy.can_afford(_selected.earth_cost, _selected.water_cost):
+	if not Economy.can_afford(Modifiers.earth_cost(_selected), Modifiers.water_cost(_selected)):
 		return false
 	for unit: Unit in container.get_children():
 		# Vale la distancia más grande de las dos unidades.

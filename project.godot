@@ -21,6 +21,7 @@ buses/default_bus_layout="uid://s58xlkpmjqnf"
 [autoload]
 
 Economy="*res://systems/economy/economy.gd"
+Modifiers="*res://systems/modifiers/modifiers.gd"
 
 [display]
 

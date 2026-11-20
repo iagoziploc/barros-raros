@@ -46,7 +46,7 @@ func _process(delta: float) -> void:
 ## Arma el cronograma de la oleada `index` y empieza a contar el tiempo.
 func start_wave(index: int) -> void:
 	current_wave = index
-	_schedule = waves[index].build_schedule()
+	_schedule = waves[index].build_schedule(Modifiers.multiplier(Modifiers.Stat.ENEMY_COUNT))
 	_elapsed = 0.0
 	_alive = 0
 	_is_running = true
