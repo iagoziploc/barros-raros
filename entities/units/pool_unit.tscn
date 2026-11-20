@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://entities/units/unit.tscn" id="1_unit"]
+[ext_resource type="Script" path="res://entities/units/pool_unit.gd" id="2_script"]
+
+[node name="PoolUnit" instance=ExtResource("1_unit")]
+script = ExtResource("2_script")
+z_index = 0

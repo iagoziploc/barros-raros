@@ -111,8 +111,9 @@ path = NodePath("../EnemyPath")
 
 [node name="Units" type="Node2D" parent="." unique_id=1957256721]
 
-[node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container") instance=ExtResource("7_placer")]
+[node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container", "path") instance=ExtResource("7_placer")]
 container = NodePath("../Units")
+path = NodePath("../EnemyPath")
 
 [node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
 

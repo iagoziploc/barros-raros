@@ -2,8 +2,16 @@ class_name UnitData
 extends Resource
 ## Datos de un tipo de unidad. Cada tipo es un .tres en data/units/.
 
+## Dónde se puede colocar.
+enum Placement {
+	ANYWHERE,  ## En cualquier lugar libre (también sobre el camino).
+	ON_PATH,   ## Solo sobre el camino.
+}
+
 ## Clave de localization/strings.csv con el nombre.
 @export var name_key := ""
+## Escena que se instancia al colocarla. Vacía = unit.tscn (la de piñas).
+@export var scene: PackedScene
 
 @export_group("Costo")
 @export var earth_cost := 20
@@ -14,6 +22,7 @@ extends Resource
 @export var build_time := 3.0
 ## Distancia mínima en píxeles entre esta unidad y cualquier otra.
 @export var spacing := 72.0
+@export var placement := Placement.ANYWHERE
 
 @export_group("Ataque")
 ## Daño de cada golpe de un ataque, en orden. [1, 3] = un jab de 1 y un golpe de 3.
@@ -26,8 +35,22 @@ extends Resource
 @export var splash_radius := 0.0
 ## Segundos entre el comienzo de un ataque y el siguiente.
 @export var attack_interval := 0.8
-## Radio en píxeles dentro del cual detecta enemigos.
+## Radio en píxeles dentro del cual detecta enemigos. En la pileta, el tamaño del charco.
 @export var attack_range := 90.0
+
+@export_group("Mortero")
+## Segundos que tarda el proyectil en caer.
+@export var projectile_flight_time := 0.9
+## Altura en píxeles de la parábola del proyectil.
+@export var projectile_arc_height := 90.0
+## Imagen del proyectil. Vacía = un círculo marrón.
+@export var projectile_texture: Texture2D
+
+@export_group("Pileta")
+## Cuántos enemigos puede estar hundiendo a la vez.
+@export var pool_capacity := 3
+## Segundos que tarda en hundir a cada enemigo.
+@export var pool_consume_time := 3.0
 
 @export_group("Visual y sonido")
 ## Animaciones "idle" (quieta) y "hit" (ataque). Si está vacío se usa `texture` sin animar.

@@ -7,6 +7,8 @@ HUD_DEFEAT,Se llevaron todo
 HUD_WAVE,Oleada %d
 HUD_VICTORY,¡El río sigue siendo nuestro!
 UNIT_BALANCED,Unidad balanceada
+UNIT_EARTH,Unidad de tierra
+UNIT_WATER,Unidad de agua
 BUILD_COST,Tierra %d · Agua %d
 SPEAKER_PROTAGONIST,Protagonista
 SPEAKER_ABUELA,Abuela

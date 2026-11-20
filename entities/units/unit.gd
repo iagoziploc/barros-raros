@@ -5,6 +5,8 @@ extends Node2D
 ## ataca al enemigo de su rango que está más avanzado en el camino.
 ## Un ataque son uno o más golpes (`data.hit_damages`). Con animación "hit", cada golpe
 ## cae en su cuadro (`data.hit_frames`); sin animación, caen todos al instante.
+## Es la unidad de piñas y la base de las demás: MortarUnit y PoolUnit la extienden
+## y reemplazan solo lo que hacen distinto (_strike y _act).
 
 ## Terminó de construirse.
 signal built(unit: Unit)
@@ -71,7 +73,7 @@ func _ready() -> void:
 		_build_progress.show()
 
 
-## Mientras se construye, avanza la barra. Construida, ataca cuando el cooldown llega a 0.
+## Mientras se construye, avanza la barra. Construida, hace lo suyo en _act().
 func _process(delta: float) -> void:
 	if not is_built:
 		_build_time_left -= delta
@@ -79,7 +81,12 @@ func _process(delta: float) -> void:
 		if _build_time_left <= 0.0:
 			_finish_building()
 		return
+	_act(delta)
 
+
+## Lo que hace la unidad construida en cada frame: ataca cuando el cooldown llega a 0.
+## Las unidades que no atacan así (la pileta) lo reemplazan.
+func _act(delta: float) -> void:
 	_cooldown = maxf(_cooldown - delta, 0.0)
 	if _cooldown > 0.0:
 		return
@@ -149,9 +156,8 @@ func _strike(index: int) -> void:
 	var target := _find_target()
 	if target == null:
 		return
-	var base_damage: int = data.hit_damages[index]
-	var damage := maxi(roundi(base_damage * Modifiers.multiplier(Modifiers.Stat.UNIT_DAMAGE)), 1)
-	var piercing := roundi(Modifiers.get_value(Modifiers.Stat.UNIT_ARMOR_PIERCING))
+	var damage := _hit_damage(index)
+	var piercing := _armor_piercing()
 	for enemy in _enemies_in_range():
 		var distance := enemy.global_position.distance_to(target.global_position)
 		if enemy == target or distance <= data.splash_radius:
@@ -161,10 +167,24 @@ func _strike(index: int) -> void:
 		_show_debug_hit(target.global_position)
 
 
+## Daño del golpe número `index`, con los modificadores. Siempre al menos 1.
+func _hit_damage(index: int) -> int:
+	var base_damage: int = data.hit_damages[index]
+	return maxi(roundi(base_damage * Modifiers.multiplier(Modifiers.Stat.UNIT_DAMAGE)), 1)
+
+
+## Puntos de armadura que ignoran los golpes, según los modificadores.
+func _armor_piercing() -> int:
+	return roundi(Modifiers.get_value(Modifiers.Stat.UNIT_ARMOR_PIERCING))
+
+
 ## Devuelve el enemigo dentro del rango con mayor `progress`, o null si no hay ninguno.
+## Ignora a los que se está hundiendo una pileta: ya están perdidos.
 func _find_target() -> Enemy:
 	var best: Enemy = null
 	for enemy in _enemies_in_range():
+		if enemy.is_trapped():
+			continue
 		if best == null or enemy.progress > best.progress:
 			best = enemy
 	return best

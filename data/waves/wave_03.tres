@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="WaveData" load_steps=9 format=3]
+[gd_resource type="Resource" script_class="WaveData" format=3]
 
 [ext_resource type="Script" path="res://systems/waves/wave_data.gd" id="1_wave"]
 [ext_resource type="Script" path="res://systems/waves/wave_entry.gd" id="2_entry"]
+[ext_resource type="Script" path="res://entities/units/unit_data.gd" id="9_unit_data"]
+[ext_resource type="Resource" path="res://data/units/agua.tres" id="10_new_unit"]
 [ext_resource type="Resource" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
 [ext_resource type="Resource" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
 [ext_resource type="Resource" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
@@ -38,3 +40,4 @@ start_time = 10.0
 [resource]
 script = ExtResource("1_wave")
 entries = Array[ExtResource("2_entry")]([SubResource("Resource_palitas"), SubResource("Resource_botellitas"), SubResource("Resource_fits"), SubResource("Resource_tecnologicos")])
+new_units = Array[ExtResource("9_unit_data")]([ExtResource("10_new_unit")])

@@ -7,6 +7,8 @@ const LEVEL := preload("res://levels/level_01/level_01.tscn")
 const ENEMY := preload("res://entities/enemies/enemy.tscn")
 const BALANCED := preload("res://data/units/balanceado.tres")
 const PALITA := preload("res://data/enemies/salaryman_palita.tres")
+const EARTH_UNIT := preload("res://data/units/tierra.tres")
+const WATER_UNIT := preload("res://data/units/agua.tres")
 
 ## Tiempo máximo de juego (no real) que se espera a que la unidad mate al enemigo.
 const FIGHT_TIMEOUT := 60.0
@@ -44,6 +46,9 @@ func _ready() -> void:
 	await _test_hits_and_splash()
 	await _test_animated_hits()
 	_test_icon()
+	await _test_mortar()
+	await _test_pool()
+	_test_unlock()
 	_test_defeat_blocks_building()
 
 	print("")
@@ -222,6 +227,79 @@ func _wait_until(condition: Callable) -> void:
 	while not condition.call() and time_left > 0.0:
 		await get_tree().process_frame
 		time_left -= get_process_delta_time()
+
+
+func _test_mortar() -> void:
+	print("Mortero")
+	Economy.reset()
+	var mortar_data: UnitData = EARTH_UNIT.duplicate()
+	mortar_data.build_time = 0.0
+	var mortar := _place_near_path(mortar_data, 300.0)
+	_check(mortar is MortarUnit, "la unidad de tierra usa su propia escena (MortarUnit)")
+
+	var target := _spawn_still_enemy(300.0)
+	var neighbor := _spawn_still_enemy(300.0 + mortar_data.splash_radius * 0.5)
+	await _wait_until(func(): return target.health < 100)
+	var damage := mortar_data.hit_damages[0]
+	_check(target.health == 100 - damage, "el terrón daña al objetivo al caer")
+	_check(neighbor.health == 100 - damage, "y a los que están dentro del área")
+	target.free()
+	neighbor.free()
+
+	# Un enemigo que camina: el terrón tiene que caer donde VA a estar.
+	var walker := _spawn_still_enemy(150.0)
+	walker._speed = 60.0
+	await _wait_until(func(): return walker.health < 100)
+	_check(walker.health < 100, "le acierta a un enemigo que camina (apunta adelante)")
+	walker.free()
+	_clear_units()
+
+
+func _test_pool() -> void:
+	print("Pileta")
+	Economy.reset()
+	var pool_data: UnitData = WATER_UNIT.duplicate()
+	pool_data.build_time = 0.0
+	pool_data.pool_capacity = 2
+	pool_data.pool_consume_time = 2.0
+	var on_path := _path.to_global(_path.curve.sample_baked(300.0))
+	_placer.select(pool_data)
+	_check(not _placer.can_place_at(FREE_POINT), "no se puede colocar fuera del camino")
+	_check(_placer.can_place_at(on_path), "sí sobre el camino")
+	var pool := _placer.place_at(on_path)
+	_check(pool is PoolUnit, "la unidad de agua usa su propia escena (PoolUnit)")
+
+	# Atrapa primero a los más avanzados: el blindado y el segundo; el tercero queda afuera.
+	var armored := _spawn_still_enemy(304.0)
+	armored.data.armor = 99
+	var second := _spawn_still_enemy(302.0)
+	var third := _spawn_still_enemy(300.0)
+	var deaths := [0]  # Un array para que la lambda pueda modificarlo.
+	for enemy in [armored, second, third]:
+		enemy.died.connect(func(_e): deaths[0] += 1)
+
+	await _wait_until(func(): return armored.is_trapped() and second.is_trapped())
+	_check(armored.is_trapped() and second.is_trapped(), "atrapa a los que la pisan")
+	_check(not third.is_trapped(), "llena, deja pasar al siguiente")
+
+	await _wait_until(func(): return deaths[0] >= 2)
+	_check(deaths[0] == 2, "los hunde aunque tengan armadura")
+	await _wait_until(func(): return third.is_trapped())
+	_check(third.is_trapped(), "al liberarse un lugar atrapa al siguiente")
+	await _wait_until(func(): return deaths[0] >= 3)
+	_clear_units()
+
+
+func _test_unlock() -> void:
+	print("Unidades que se estrenan por oleada")
+	var build_bar := _level.get_node("BuildBar")
+	_check(build_bar.units.size() == 1, "la oleada 1 arranca solo con la balanceada")
+	_level._on_wave_started(1)
+	_check(EARTH_UNIT in build_bar.units, "en la oleada 2 se suma la de tierra")
+	_level._on_wave_started(2)
+	_level._on_wave_started(2)
+	_check(WATER_UNIT in build_bar.units and build_bar.units.size() == 3,
+			"en la 3 se suma la de agua, sin repetir")
 
 
 func _test_defeat_blocks_building() -> void:

@@ -1,10 +1,14 @@
 extends CanvasLayer
 ## Un botón por cada unidad de `units`, con su costo actual (con modificadores).
+## Las unidades que se estrenan más tarde se suman con unlock().
 ## Los botones se desactivan si no alcanzan los recursos o si hay una construcción en curso.
 ## Las teclas 1, 2, 3… seleccionan la primera, segunda, tercera unidad.
 
 signal unit_selected(data: UnitData)
+## Se sumó una unidad nueva a la barra.
+signal unit_unlocked(data: UnitData)
 
+## Unidades disponibles desde el comienzo.
 @export var units: Array[UnitData] = []
 
 # Botón -> UnitData que representa.
@@ -31,6 +35,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	var index := key.keycode - KEY_1
 	if index >= 0 and index < units.size():
 		unit_selected.emit(units[index])
+
+
+## Suma `data` a la barra (si no estaba) con su botón y su tecla.
+func unlock(data: UnitData) -> void:
+	if data in units:
+		return
+	units.append(data)
+	_add_button(data)
+	_refresh_buttons()
+	unit_unlocked.emit(data)
 
 
 ## Recibe UnitPlacer.building_changed: desactiva todo mientras se construye.

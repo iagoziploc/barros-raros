@@ -95,9 +95,11 @@ func _play_once(dialogue: Dialogue) -> void:
 	await _dialogue_box.play(dialogue)
 
 
-## Actualiza el número de oleada en el HUD.
+## Actualiza el número de oleada en el HUD y suma a la barra las unidades que se estrenan.
 func _on_wave_started(index: int) -> void:
 	_hud.set_wave(index + 1)
+	for data in _spawner.waves[index].new_units:
+		_build_bar.unlock(data)
 
 
 ## Disuelve las unidades que llegaron al final de la oleada (devuelven todo su costo).
