@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Speaker" format=3 uid="uid://c0f4ay11uulv0"]
+
+[ext_resource type="Script" uid="uid://cnhcyylgjsiyv" path="res://systems/dialogue/speaker.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+name_key = "SPEAKER_ABUELA"
+metadata/_custom_type_script = "uid://cnhcyylgjsiyv"

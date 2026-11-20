@@ -5,12 +5,12 @@
 [ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
-[ext_resource type="AudioStream" uid="uid://b2b2fp33erf7q" path="res://assets/audio/provisorio/bgm1.wav" id="5_dm0pi"]
 [ext_resource type="PackedScene" uid="uid://c6ecn8dvfy32e" path="res://ui/hud/hud.tscn" id="6_hud"]
 [ext_resource type="PackedScene" path="res://systems/building/unit_placer.tscn" id="7_placer"]
 [ext_resource type="PackedScene" path="res://ui/build_bar/build_bar.tscn" id="8_build_bar"]
 [ext_resource type="PackedScene" path="res://ui/dialogue_box/dialogue_box.tscn" id="9_dialogue_box"]
 [ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="10_dialogue"]
+[ext_resource type="AudioStream" uid="uid://w4djr7njaixv" path="res://assets/audio/provisorio/bgm2.wav" id="11_cfw67"]
 [ext_resource type="Resource" uid="uid://dbcs02v22kb4v" path="res://data/dialogues/intro.tres" id="11_intro"]
 [ext_resource type="Resource" uid="uid://or5dwh6iiy8" path="res://data/dialogues/wave_01.tres" id="12_wave_01_dialogue"]
 [ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]
@@ -94,7 +94,7 @@ container = NodePath("../Units")
 
 [node name="BGM" type="AudioStreamPlayer" parent="." unique_id=1202783320]
 process_mode = 3
-stream = ExtResource("5_dm0pi")
+stream = ExtResource("11_cfw67")
 autoplay = true
 bus = &"BGM"
 
