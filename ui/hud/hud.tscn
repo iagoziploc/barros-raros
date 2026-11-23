@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6ecn8dvfy32e"]
 
 [ext_resource type="Script" uid="uid://bu4u2uvta0gy0" path="res://ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/hud/mute_button.gd" id="2_mute"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1154340702]
 script = ExtResource("1_hud")
@@ -35,6 +36,21 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 6
 theme_override_font_sizes/font_size = 24
 text = "Oleada: 0"
+
+[node name="UltimateBar" type="ProgressBar" parent="Resources"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 14)
+layout_mode = 2
+mouse_filter = 2
+max_value = 1.0
+show_percentage = false
+
+[node name="UltimateButton" type="Button" parent="Resources"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 18
+text = "Ultimate"
 
 [node name="Alerts" type="VBoxContainer" parent="." unique_id=907632883]
 anchors_preset = 5
@@ -89,3 +105,59 @@ theme_override_font_sizes/font_size = 56
 text = "Se llevaron todo"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="RetryLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = 50.0
+offset_right = 400.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 30
+text = "R para reintentar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UnlockLabel" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -160.0
+offset_right = 400.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.6, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 40
+text = "¡Nueva unidad!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MuteButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 60.0
+grow_horizontal = 0
+tooltip_text = "M"
+script = ExtResource("2_mute")

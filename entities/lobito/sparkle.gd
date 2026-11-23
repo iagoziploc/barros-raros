@@ -11,6 +11,11 @@ const RADIUS := 7.0
 var kind := Economy.Kind.EARTH
 
 
+## El color de un recurso: dorado la tierra, celeste el agua. Lo usa también el lobito.
+static func color_for(resource: Economy.Kind) -> Color:
+	return EARTH_COLOR if resource == Economy.Kind.EARTH else WATER_COLOR
+
+
 ## Arranca a latir (se agranda y se achica sin parar).
 func _ready() -> void:
 	var tween := create_tween().set_loops()
@@ -20,6 +25,6 @@ func _ready() -> void:
 
 ## Un círculo con un halo, del color del recurso.
 func _draw() -> void:
-	var color := EARTH_COLOR if kind == Economy.Kind.EARTH else WATER_COLOR
+	var color := color_for(kind)
 	draw_circle(Vector2.ZERO, RADIUS * 1.8, Color(color, 0.3))
 	draw_circle(Vector2.ZERO, RADIUS, color)

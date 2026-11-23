@@ -29,6 +29,7 @@ var _is_trapped := false
 @onready var _sprite: Sprite2D = $Sprite
 @onready var _placeholder: ColorRect = $Placeholder
 @onready var _hitbox: Area2D = $Hitbox
+@onready var _dig_sound: AudioStreamPlayer2D = $DigSound
 
 
 ## Inicializa vida, velocidad y aspecto desde `data` y empieza a escuchar su hitbox.
@@ -104,11 +105,12 @@ func predict_position(seconds: float) -> Vector2:
 	return path.to_global(future)
 
 
-## Muere: avisa con `died` y se borra.
+## Muere: grita (con un reproductor aparte, que no se borra con él), avisa con `died` y se borra.
 func _die() -> void:
 	if _is_gone:
 		return
 	_is_gone = true
+	Sfx.play_detached(data.death_sound, self)
 	died.emit(self)
 	queue_free()
 
@@ -135,7 +137,7 @@ func _apply_visual() -> void:
 ## Reacciona a las zonas del nivel según su grupo: zona húmeda o río.
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("wet_zone"):
-		if data.earth_stolen > 0:
+		if data.steals_earth():
 			_start_stealing_earth()
 	elif area.is_in_group("river"):
 		if data.water_stolen > 0:
@@ -143,9 +145,12 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		_escape()
 
 
-## Arranca la pausa de robo de tierra. Si muere antes de terminarla, no roba.
+## Arranca la pausa de robo de tierra (con el sonido de la pala). Si muere antes de terminarla, no roba.
 func _start_stealing_earth() -> void:
 	steal_started.emit(Economy.Kind.EARTH)
+	if data.dig_sound:
+		_dig_sound.stream = data.dig_sound
+		_dig_sound.play()
 	if data.earth_steal_duration <= 0.0:
 		Economy.steal(Economy.Kind.EARTH, data.earth_stolen)
 	else:

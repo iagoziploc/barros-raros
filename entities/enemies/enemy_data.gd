@@ -23,8 +23,19 @@ extends Resource
 ## Cuánto carga la barra de la ultimate al morir.
 @export var ultimate_charge := 1
 
+@export_group("Sonido")
+## Suena al morir. Puede ser un AudioStreamRandomizer (uno al azar de varios).
+@export var death_sound: AudioStream
+## Suena al empezar a robar tierra (la pala).
+@export var dig_sound: AudioStream
+
 @export_group("Visual")
 ## Si es null se dibuja un cuadrado de `placeholder_color`.
 @export var texture: Texture2D
 @export var sprite_scale := 1.0
 @export var placeholder_color := Color.WHITE
+
+
+## true si roba tierra: cava en el pozo y por eso solo usa entradas que pasan por él.
+func steals_earth() -> bool:
+	return earth_stolen > 0

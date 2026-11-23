@@ -63,6 +63,14 @@ enum Placement {
 @export var spawn_sound: AudioStream
 ## Se reproduce en cada golpe que conecta. Puede quedar vacío.
 @export var hit_sound: AudioStream
+## Se reproduce al empezar cada ataque (el lanzamiento del mortero). Puede quedar vacío.
+@export var attack_sound: AudioStream
+## Suena en loop mientras la unidad está construida (el lodo de la pileta). Puede quedar vacío.
+@export var loop_sound: AudioStream
+## Volumen del loop, en decibeles (0 = normal, -10 = bastante más bajo).
+@export var loop_volume_db := -10.0
+## Suena al destruirse: al terminar la oleada o con clic derecho. Puede quedar vacío.
+@export var death_sound: AudioStream
 ## Cuánto puede subir o bajar el tono de los sonidos. 0.2 = entre 80% y 120% del tono original.
 @export_range(0.0, 0.5, 0.01) var pitch_variation := 0.2
 

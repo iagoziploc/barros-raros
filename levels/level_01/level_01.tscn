@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" path="res://ui/start_screen/start_screen.tscn" id="21_start_screen"]
 [ext_resource type="AudioStream" path="res://assets/audio/BGM/bgm_menu.ogg" id="22_bgm_menu"]
 [ext_resource type="Texture2D" path="res://assets/art/provisorio/protagonista.png" id="23_protagonist"]
+[ext_resource type="Script" path="res://systems/ultimate/ultimate.gd" id="24_ultimate"]
 [ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
@@ -207,6 +208,11 @@ shape = SubResource("RectangleShape2D_protagonist")
 
 [node name="Lobito" parent="." unique_id=220062580 node_paths=PackedStringArray("home") instance=ExtResource("12_y3njl")]
 home = NodePath("../Protagonist")
+
+[node name="Ultimate" type="Node" parent="." node_paths=PackedStringArray("lobito", "spawner")]
+script = ExtResource("24_ultimate")
+lobito = NodePath("../Lobito")
+spawner = NodePath("../WaveSpawner")
 
 [node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("entrances")]
 script = ExtResource("2_spawner")
