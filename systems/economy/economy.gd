@@ -20,6 +20,9 @@ var water: int
 ## Son variables, no constantes, para poder subirlas temporalmente.
 var max_earth: int
 var max_water: int
+## Cuánto se puede pasar del máximo ahora mismo (lo usa la ultimate). 0 = nada.
+## Lo que quede por encima del máximo cuando vuelve a 0 se conserva hasta que se gaste.
+var bonus_max := 0
 
 # Recursos en muerte súbita -> segundos que les quedan. Ej.: { Kind.WATER: 3.2 }
 var _sudden_death := {}
@@ -52,6 +55,7 @@ func reset() -> void:
 	water = config.starting_water
 	max_earth = config.max_earth
 	max_water = config.max_water
+	bonus_max = 0
 	_sudden_death.clear()
 	_is_defeated = false
 	changed.emit(earth, water)
@@ -76,7 +80,7 @@ func spend(earth_cost: int, water_cost: int) -> bool:
 	return true
 
 
-## Suma recursos sin pasar de max_earth / max_water.
+## Suma recursos sin pasar de max_earth / max_water (más `bonus_max`).
 func add(earth_amount: int, water_amount: int) -> void:
 	_set_amounts(earth + earth_amount, water + water_amount)
 
@@ -121,12 +125,20 @@ func _set_amounts(new_earth: int, new_water: int) -> void:
 	if _is_defeated:
 		return
 
-	earth = clampi(new_earth, 0, max_earth)
-	water = clampi(new_water, 0, max_water)
+	earth = _limit(new_earth, earth, max_earth + bonus_max)
+	water = _limit(new_water, water, max_water + bonus_max)
 	changed.emit(earth, water)
 
 	_update_sudden_death(Kind.EARTH, earth)
 	_update_sudden_death(Kind.WATER, water)
+
+
+## El valor nuevo de un recurso, entre 0 y `cap`. Si ya estaba por encima de `cap`
+## (sobró de una ultimate), puede bajar pero no subir: lo que sobró se conserva.
+func _limit(new_amount: int, old_amount: int, cap: int) -> int:
+	if new_amount <= cap:
+		return maxi(new_amount, 0)
+	return maxi(cap, mini(new_amount, old_amount))
 
 
 ## Arranca la cuenta regresiva al llegar a 0 y la cancela al salir de 0.

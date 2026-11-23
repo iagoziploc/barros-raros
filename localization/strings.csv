@@ -46,5 +46,9 @@ NEWS_02_B,Opción B (provisoria)
 START_TITLE,Barros Raros
 START_CONTROLS,"Clic en una unidad de la barra (o 1, 2, 3) y clic en el mapa para construirla
 Clic derecho sobre una unidad: destruirla (devuelve la mitad)
-Esc: saltear un diálogo o cancelar · M: sonido sí / no · R: reiniciar"
+Espacio: llamar a los lobitos cuando la barra está llena
+Esc: saltear un diálogo o cancelar · M: sonido sí / no · R: reintentar"
 START_CLICK,Clic para empezar
+HUD_RETRY,R para reintentar
+HUD_ULTIMATE,Llamar lobitos (espacio)
+UNIT_UNLOCKED,¡Nueva unidad: %s!

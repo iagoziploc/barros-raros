@@ -33,6 +33,7 @@ static var _seen_dialogues: Array[String] = []
 @onready var _dialogue_box: DialogueBox = $DialogueBox
 @onready var _news_choice: NewsChoice = $NewsChoice
 @onready var _start_screen: StartScreen = $StartScreen
+@onready var _ultimate: Ultimate = $Ultimate
 @onready var _menu_bgm: AudioStreamPlayer = $Sound/MenuBGM
 @onready var _bgm: AudioStreamPlayer = $Sound/BGM
 
@@ -44,6 +45,10 @@ func _ready() -> void:
 	_spawner.wave_started.connect(_on_wave_started)
 	_build_bar.unit_selected.connect(_placer.select)
 	_placer.building_changed.connect(_build_bar.set_building)
+	_build_bar.unit_unlocked.connect(_hud.show_unit_unlocked)
+	_ultimate.changed.connect(_hud.set_ultimate)
+	_hud.ultimate_pressed.connect(_ultimate.activate)
+	_hud.set_ultimate(0.0, false, false)
 	if start_on_ready:
 		_run()
 

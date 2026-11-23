@@ -19,6 +19,7 @@ func _ready() -> void:
 	await _test_sudden_death()
 	_test_defeat()
 	_test_mute_button()
+	_test_unit_unlocked()
 
 	print("")
 	print("Resultado: %d falla(s)" % _failures)
@@ -57,6 +58,15 @@ func _test_defeat() -> void:
 	Economy._process(Economy.config.sudden_death_seconds + 0.1)
 	_check(_label("MessageLabel").visible, "aparece el cartel de derrota")
 	_check(_label("MessageLabel").text == tr("HUD_DEFEAT"), "con el texto de derrota")
+	_check(_label("RetryLabel").visible, "y cómo reintentar")
+
+
+func _test_unit_unlocked() -> void:
+	print("Cartel de unidad nueva")
+	var data: UnitData = load("res://data/units/tierra.tres")
+	_hud.show_unit_unlocked(data)
+	_check(_label("UnlockLabel").visible, "aparece")
+	_check(_label("UnlockLabel").text == tr("UNIT_UNLOCKED") % tr(data.name_key), "con el nombre de la unidad")
 
 
 func _test_mute_button() -> void:

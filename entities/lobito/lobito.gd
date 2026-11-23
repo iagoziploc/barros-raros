@@ -1,8 +1,13 @@
+class_name Lobito
 extends Node2D
 ## El lobito de río. Cada `interval` segundos aparece un brillo del recurso más bajo
 ## (hasta `max_sparkles` a la vez). El lobito los va a buscar de a uno, vuelve a casa
 ## (el Cara de Barro) y entrega `amount`. Los brillos aparecen más rápido de lo que él
 ## alcanza a juntarlos: se acumulan hasta el máximo. Hasta que llegue su dibujo, es un punto.
+## Con la ultimate aparecen lobitos ayudantes (`helper_of`), que juntan de los mismos brillos.
+
+## Apareció un brillo nuevo. Los ayudantes lo escuchan para salir a buscar.
+signal sparkle_spawned
 
 ## Segundos entre un brillo y el siguiente.
 @export var interval := 2.5
@@ -22,23 +27,46 @@ extends Node2D
 const COLOR := Color(0.35, 0.22, 0.12)
 const OUTLINE_COLOR := Color(0.95, 0.85, 0.65)
 
-# Brillos que están en el mapa esperando que los busquen.
+## Lobito principal del que este es ayudante, o null si es el principal. Un ayudante no
+## hace aparecer brillos: junta los del principal. Se asigna antes de agregarlo al árbol.
+var helper_of: Lobito
+
+# Brillos que están en el mapa esperando que los busquen (solo los usa el principal).
 var _sparkles: Array[Sparkle] = []
 # Brillo que el lobito trae en la boca de vuelta a casa, o null.
 var _carrying: Sparkle
 # true mientras está en un viaje (yendo o volviendo).
 var _is_busy := false
+# true si es un ayudante al que se le terminó el tiempo: termina el viaje y se va.
+var _is_retiring := false
 
 @onready var _timer: Timer = $RecoverTimer
 
 
-## Se ubica en casa, configura el reloj y lo arranca. El reloj se repite solo.
+## Se ubica en casa. El principal arranca el reloj de los brillos (se repite solo);
+## el ayudante sale a buscar cada vez que el principal avisa que hay un brillo nuevo.
 func _ready() -> void:
 	if home:
 		global_position = home.global_position
+	if helper_of:
+		helper_of.sparkle_spawned.connect(_on_sparkle_spawned)
+		_fetch_all.call_deferred()
+		return
 	_timer.wait_time = interval
 	_timer.timeout.connect(_on_recover_timer_timeout)
 	_timer.start()
+
+
+## Hace que los brillos aparezcan `multiplier` veces más rápido (1 = normal).
+func set_sparkle_rate(multiplier: float) -> void:
+	_timer.wait_time = interval / multiplier
+
+
+## Para un ayudante: termina el viaje que esté haciendo, entrega y desaparece.
+func retire() -> void:
+	_is_retiring = true
+	if not _is_busy:
+		queue_free()
 
 
 ## Hace aparecer un brillo del recurso más bajo (si no se llegó al máximo)
@@ -53,22 +81,35 @@ func _on_recover_timer_timeout() -> void:
 		_fetch_all()
 
 
-## Agrega un brillo de `kind` en un punto al azar de su zona.
+## Para un ayudante: el principal avisó que hay un brillo nuevo.
+func _on_sparkle_spawned() -> void:
+	if not _is_busy:
+		_fetch_all()
+
+
+## Agrega un brillo de `kind` en un punto al azar de su zona y avisa con `sparkle_spawned`.
 func _spawn_sparkle(kind: Economy.Kind) -> void:
 	var sparkle := Sparkle.new()
 	sparkle.kind = kind
 	sparkle.position = _random_point(earth_area if kind == Economy.Kind.EARTH else water_area)
 	get_parent().add_child(sparkle)
 	_sparkles.append(sparkle)
+	sparkle_spawned.emit()
+
+
+## La lista de brillos de la que junta: la propia, o la del principal si es ayudante.
+func _pending() -> Array[Sparkle]:
+	return helper_of._sparkles if helper_of else _sparkles
 
 
 ## Busca brillos de a uno hasta que no quede ninguno: va, lo agarra, vuelve y entrega.
-## Cada await espera a que termine un tramo del viaje.
+## Cada await espera a que termine un tramo del viaje. Un ayudante retirado se va al terminar.
 func _fetch_all() -> void:
 	_is_busy = true
-	while not _sparkles.is_empty():
+	while not _pending().is_empty() and not _is_retiring:
 		var sparkle := _pick_next()
-		_sparkles.erase(sparkle)
+		# Se saca de la lista antes de salir: así otro lobito no va a buscar el mismo.
+		_pending().erase(sparkle)
 		await _walk_to(sparkle.global_position)
 		_carrying = sparkle
 		sparkle.hide()
@@ -83,6 +124,8 @@ func _fetch_all() -> void:
 		else:
 			Economy.add(0, amount)
 	_is_busy = false
+	if _is_retiring:
+		queue_free()
 
 
 ## Elige el próximo brillo: el más cercano del recurso que esté más bajo ahora;
@@ -90,7 +133,7 @@ func _fetch_all() -> void:
 func _pick_next() -> Sparkle:
 	var lowest := Economy.Kind.EARTH if Economy.earth <= Economy.water else Economy.Kind.WATER
 	var best: Sparkle = null
-	for sparkle in _sparkles:
+	for sparkle in _pending():
 		if best == null or _is_better(sparkle, best, lowest):
 			best = sparkle
 	return best
