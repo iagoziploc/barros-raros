@@ -22,6 +22,9 @@
 [ext_resource type="Resource" uid="uid://du25k0rotmjog" path="res://data/news/news_01.tres" id="17_news_01"]
 [ext_resource type="Resource" uid="uid://f3jegvs087oo" path="res://data/news/news_02.tres" id="18_news_02"]
 [ext_resource type="PackedScene" path="res://ui/news_choice/news_choice.tscn" id="19_news_choice"]
+[ext_resource type="Texture2D" uid="uid://bqsqus15hjpj1" path="res://assets/art/Escenario/Mapa.png" id="16_7sc7i"]
+[ext_resource type="Texture2D" uid="uid://wium5p420jik" path="res://assets/art/Escenario/Roble.png" id="17_anxy3"]
+[ext_resource type="Texture2D" uid="uid://dtpaladpl6lmr" path="res://assets/art/Escenario/Arbol.png" id="18_t0q2h"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
 _data = {
@@ -125,3 +128,17 @@ path = NodePath("../EnemyPath")
 [node name="DialogueBox" parent="." unique_id=1198107075 instance=ExtResource("9_dialogue_box")]
 
 [node name="NewsChoice" parent="." unique_id=719054392 instance=ExtResource("19_news_choice")]
+
+[node name="Mapa" type="Sprite2D" parent="." unique_id=54913331]
+position = Vector2(641, 340)
+texture = ExtResource("16_7sc7i")
+
+[node name="Roble" type="Sprite2D" parent="." unique_id=231492465]
+z_index = 1
+position = Vector2(132, 392)
+texture = ExtResource("17_anxy3")
+
+[node name="Arbol" type="Sprite2D" parent="." unique_id=1314073722]
+z_index = 1
+position = Vector2(276, 176)
+texture = ExtResource("18_t0q2h")

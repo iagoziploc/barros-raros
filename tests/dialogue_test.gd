@@ -56,6 +56,7 @@ func _test_level_flow() -> void:
 	print("Flujo de partida")
 	var level := LEVEL.instantiate()
 	TestUtils.silence(level)
+	TestUtils.remove_lobito(level)
 	level.intro = _make_dialogue(1)
 	# Los arrays tipados se crean con su tipo: un [] común no se convierte solo
 	# al asignarlo a través de una variable sin tipo como `level`.

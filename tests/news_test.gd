@@ -107,6 +107,7 @@ func _test_news_between_waves() -> void:
 	print("Noticia entre oleadas")
 	var level := LEVEL.instantiate()
 	TestUtils.silence(level)
+	TestUtils.remove_lobito(level)
 	level.intro = null
 	var no_dialogues: Array[Dialogue] = []
 	level.wave_dialogues = no_dialogues
