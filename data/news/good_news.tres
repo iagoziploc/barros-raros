@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EffectPool" format=3]
+
+[ext_resource type="Script" path="res://systems/news/effect_pool.gd" id="1_pool"]
+[ext_resource type="Script" path="res://systems/news/effect_range.gd" id="2_range"]
+
+[sub_resource type="Resource" id="GOOD_UNIT_DAMAGE"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_DAMAGE"
+stat = 2
+min_amount = 0.15
+max_amount = 0.25
+
+[sub_resource type="Resource" id="GOOD_UNIT_ATTACK_SPEED"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_ATTACK_SPEED"
+stat = 3
+min_amount = 0.15
+max_amount = 0.25
+
+[sub_resource type="Resource" id="GOOD_UNIT_BUILD_TIME"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_BUILD_TIME"
+stat = 4
+min_amount = -0.3
+max_amount = -0.2
+
+[sub_resource type="Resource" id="GOOD_UNIT_ARMOR_PIERCING"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_ARMOR_PIERCING"
+stat = 5
+min_amount = 1.0
+max_amount = 2.0
+
+[sub_resource type="Resource" id="GOOD_UNIT_EARTH_COST"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_EARTH_COST"
+stat = 0
+min_amount = -0.2
+max_amount = -0.1
+
+[sub_resource type="Resource" id="GOOD_UNIT_WATER_COST"]
+script = ExtResource("2_range")
+name_key = "GOOD_UNIT_WATER_COST"
+stat = 1
+min_amount = -0.2
+max_amount = -0.1
+
+[sub_resource type="Resource" id="GOOD_EARTH_NOW"]
+script = ExtResource("2_range")
+name_key = "GOOD_EARTH_NOW"
+stat = 8
+min_amount = 15.0
+max_amount = 30.0
+
+[sub_resource type="Resource" id="GOOD_WATER_NOW"]
+script = ExtResource("2_range")
+name_key = "GOOD_WATER_NOW"
+stat = 9
+min_amount = 15.0
+max_amount = 30.0
+
+[sub_resource type="Resource" id="GOOD_ENEMY_SPEED"]
+script = ExtResource("2_range")
+name_key = "GOOD_ENEMY_SPEED"
+stat = 7
+min_amount = -0.15
+max_amount = -0.1
+
+[sub_resource type="Resource" id="GOOD_ENEMY_COUNT"]
+script = ExtResource("2_range")
+name_key = "GOOD_ENEMY_COUNT"
+stat = 6
+min_amount = -0.15
+max_amount = -0.1
+
+[resource]
+script = ExtResource("1_pool")
+entries = Array[ExtResource("2_range")]([SubResource("GOOD_UNIT_DAMAGE"), SubResource("GOOD_UNIT_ATTACK_SPEED"), SubResource("GOOD_UNIT_BUILD_TIME"), SubResource("GOOD_UNIT_ARMOR_PIERCING"), SubResource("GOOD_UNIT_EARTH_COST"), SubResource("GOOD_UNIT_WATER_COST"), SubResource("GOOD_EARTH_NOW"), SubResource("GOOD_WATER_NOW"), SubResource("GOOD_ENEMY_SPEED"), SubResource("GOOD_ENEMY_COUNT")])

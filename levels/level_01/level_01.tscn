@@ -29,6 +29,8 @@
 [ext_resource type="AudioStream" uid="uid://2y6p8l6ta4py" path="res://assets/audio/BGM/bgm_menu.ogg" id="22_bgm_menu"]
 [ext_resource type="Texture2D" uid="uid://blsw0vnslyavn" path="res://assets/art/provisorio/protagonista.png" id="23_protagonist"]
 [ext_resource type="Script" uid="uid://b1e1in2fupkr1" path="res://systems/ultimate/ultimate.gd" id="24_ultimate"]
+[ext_resource type="Resource" path="res://data/news/good_news.tres" id="25_good_news"]
+[ext_resource type="Resource" path="res://data/news/bad_news.tres" id="26_bad_news"]
 
 [sub_resource type="Curve2D" id="Curve2D_TopLeftEntry"]
 _data = {
@@ -84,6 +86,8 @@ script = ExtResource("1_71kry")
 intro = ExtResource("11_intro")
 wave_dialogues = Array[ExtResource("10_dialogue")]([ExtResource("12_wave_01_dialogue")])
 wave_news = Array[ExtResource("16_news_event")]([ExtResource("17_news_01"), ExtResource("18_news_02")])
+good_news = ExtResource("25_good_news")
+bad_news = ExtResource("26_bad_news")
 ending = ExtResource("13_ending")
 
 [node name="Background" type="ColorRect" parent="." unique_id=1878776281]

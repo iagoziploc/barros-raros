@@ -25,7 +25,7 @@ WAVE_01_03,¡nos quieren invertar?
 WAVE_01_04,¡nos quieren invadir!
 WAVE_01_05,"Sería tanto más fácil con ayuda humana, pero me temo que están totalmente [b]en otra[/b]."
 ENDING_01,Continuará…
-NEWS_TITLE,¿Qué hacemos?
+NEWS_TITLE,Buenas y malas noticias...
 NEWS_CHOOSE,Elegir
 EFFECT_UNIT_EARTH_COST,Costo de tierra: %s
 EFFECT_UNIT_WATER_COST,Costo de agua: %s
@@ -38,11 +38,7 @@ EFFECT_ENEMY_SPEED,Velocidad de los enemigos: %s
 EFFECT_EARTH_NOW,Tierra ahora: %s
 EFFECT_WATER_NOW,Agua ahora: %s
 NEWS_01_01,"Malas noticias, viento norte. Las llamas se extienden."
-NEWS_01_A,Opción A (provisoria)
-NEWS_01_B,Opción B (provisoria)
 NEWS_02_01,¡Todos saluden al gran estado de Holy Faith!
-NEWS_02_A,Opción A (provisoria)
-NEWS_02_B,Opción B (provisoria)
 START_TITLE,Barros Raros
 START_CONTROLS,"Clic en una unidad de la barra (o 1, 2, 3) y clic en el mapa para construirla
 Clic derecho sobre una unidad: destruirla (devuelve la mitad)
@@ -52,3 +48,26 @@ START_CLICK,Clic para empezar
 HUD_RETRY,R para reintentar
 HUD_ULTIMATE,Llamar lobitos (espacio)
 UNIT_UNLOCKED,¡Nueva unidad: %s!
+NEWS_GOOD_CARD,"¡La buena, por favor una buena!"
+NEWS_BAD_CARD,Si no queda otra...
+NEWS_REROLL_FREE,Otras opciones (gratis)
+NEWS_REROLL,Otras opciones (%d tierra · %d agua)
+GOOD_UNIT_DAMAGE,Buena: daño (nombre provisorio)
+GOOD_UNIT_ATTACK_SPEED,Buena: velocidad de ataque (nombre provisorio)
+GOOD_UNIT_BUILD_TIME,Buena: construcción (nombre provisorio)
+GOOD_UNIT_ARMOR_PIERCING,Buena: penetración (nombre provisorio)
+GOOD_UNIT_EARTH_COST,Buena: costo de tierra (nombre provisorio)
+GOOD_UNIT_WATER_COST,Buena: costo de agua (nombre provisorio)
+GOOD_EARTH_NOW,Buena: tierra (nombre provisorio)
+GOOD_WATER_NOW,Buena: agua (nombre provisorio)
+GOOD_ENEMY_SPEED,Buena: velocidad enemiga (nombre provisorio)
+GOOD_ENEMY_COUNT,Buena: cantidad de enemigos (nombre provisorio)
+BAD_UNIT_DAMAGE,Mala: daño (nombre provisorio)
+BAD_UNIT_ATTACK_SPEED,Mala: velocidad de ataque (nombre provisorio)
+BAD_UNIT_BUILD_TIME,Mala: construcción (nombre provisorio)
+BAD_UNIT_EARTH_COST,Mala: costo de tierra (nombre provisorio)
+BAD_UNIT_WATER_COST,Mala: costo de agua (nombre provisorio)
+BAD_EARTH_NOW,Mala: tierra (nombre provisorio)
+BAD_WATER_NOW,Mala: agua (nombre provisorio)
+BAD_ENEMY_SPEED,Mala: velocidad enemiga (nombre provisorio)
+BAD_ENEMY_COUNT,Mala: cantidad de enemigos (nombre provisorio)
