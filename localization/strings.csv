@@ -7,10 +7,15 @@ HUD_DEFEAT,Se llevaron todo
 HUD_WAVE,Oleada %d
 HUD_VICTORY,¡El río sigue siendo nuestro!
 UNIT_BALANCED,Unidad balanceada
+UNIT_EARTH,Unidad de tierra
+UNIT_WATER,Unidad de agua
 BUILD_COST,Tierra %d · Agua %d
 SPEAKER_PROTAGONIST,Protagonista
 SPEAKER_ABUELA,Abuela
-SPEAKER_LOBITO,Lobito
+SPEAKER_LOBITO,Lobito del Río
+SPEAKER_PESCADOR,Pescador
+SPEAKER_SABALO,Sábalo
+SPEAKER_DORADO,Dorado
 INTRO_01,"El litoral está de remate y del norte llegan los inversores. Vienen por las tierras raras, vienen por el agua dulce."
 INTRO_02,Minga.
 INTRO_03,"El Cara de Barro ha despertado. Traigan sus palas, baldes, excavadoras, les presentará batalla."
@@ -19,5 +24,22 @@ WAVE_01_02,¡nos quieren invartir!
 WAVE_01_03,¡nos quieren invertar?
 WAVE_01_04,¡nos quieren invadir!
 WAVE_01_05,"Sería tanto más fácil con ayuda humana, pero me temo que están totalmente [b]en otra[/b]."
-WAVE_01_06,"Bueno, che, no te calentés..."
 ENDING_01,Continuará…
+NEWS_TITLE,¿Qué hacemos?
+NEWS_CHOOSE,Elegir
+EFFECT_UNIT_EARTH_COST,Costo de tierra: %s
+EFFECT_UNIT_WATER_COST,Costo de agua: %s
+EFFECT_UNIT_DAMAGE,Daño de las unidades: %s
+EFFECT_UNIT_ATTACK_SPEED,Velocidad de ataque: %s
+EFFECT_UNIT_BUILD_TIME,Tiempo de construcción: %s
+EFFECT_UNIT_ARMOR_PIERCING,Penetración de armadura: %s
+EFFECT_ENEMY_COUNT,Cantidad de enemigos: %s
+EFFECT_ENEMY_SPEED,Velocidad de los enemigos: %s
+EFFECT_EARTH_NOW,Tierra ahora: %s
+EFFECT_WATER_NOW,Agua ahora: %s
+NEWS_01_01,"Malas noticias, viento norte. Las llamas se extienden."
+NEWS_01_A,Opción A (provisoria)
+NEWS_01_B,Opción B (provisoria)
+NEWS_02_01,¡Todos saluden al gran estado de Holy Faith!
+NEWS_02_A,Opción A (provisoria)
+NEWS_02_B,Opción B (provisoria)

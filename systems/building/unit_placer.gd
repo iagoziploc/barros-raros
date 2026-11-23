@@ -13,6 +13,10 @@ signal building_changed(is_building: bool)
 @export var unit_scene: PackedScene = preload("res://entities/units/unit.tscn")
 ## Nodo donde se agregan las unidades.
 @export var container: Node2D
+## Camino de los enemigos, para las unidades que solo van sobre él (`UnitData.Placement.ON_PATH`).
+@export var path: Path2D
+## Hasta cuántos píxeles del centro del camino cuenta como "sobre el camino" (la mitad del ancho).
+@export var path_half_width := 24.0
 ## Distancia máxima a la unidad para destruirla con clic derecho.
 @export var destroy_radius := 36.0
 
@@ -101,9 +105,14 @@ func is_building() -> bool:
 func place_at(point: Vector2) -> Unit:
 	if not can_place_at(point):
 		return null
-	Economy.spend(_selected.earth_cost, _selected.water_cost)
-	var unit: Unit = unit_scene.instantiate()
+	var earth_cost := Modifiers.earth_cost(_selected)
+	var water_cost := Modifiers.water_cost(_selected)
+	Economy.spend(earth_cost, water_cost)
+	var scene := _selected.scene if _selected.scene else unit_scene
+	var unit: Unit = scene.instantiate()
 	unit.data = _selected
+	unit.paid_earth = earth_cost
+	unit.paid_water = water_cost
 	unit.position = point
 	container.add_child(unit)
 	cancel()
@@ -114,18 +123,30 @@ func place_at(point: Vector2) -> Unit:
 
 
 ## true si hay unidad seleccionada, no hay otra en construcción, alcanzan los recursos,
-## se respeta la distancia mínima (`spacing`) y el punto no está en un área `no_build`.
+## se respeta la distancia mínima (`spacing`), el punto no está en un área `no_build`
+## y, si la unidad va solo sobre el camino, el punto está sobre el camino.
 func can_place_at(point: Vector2) -> bool:
 	if _selected == null or is_building():
 		return false
-	if not Economy.can_afford(_selected.earth_cost, _selected.water_cost):
+	if not Economy.can_afford(Modifiers.earth_cost(_selected), Modifiers.water_cost(_selected)):
 		return false
 	for unit: Unit in container.get_children():
 		# Vale la distancia más grande de las dos unidades.
 		var spacing := maxf(unit.data.spacing, _selected.spacing)
 		if unit.position.distance_to(point) < spacing:
 			return false
+	if _selected.placement == UnitData.Placement.ON_PATH and not _is_on_path(point):
+		return false
 	return not _is_in_no_build_area(point)
+
+
+## true si `point` está a menos de `path_half_width` de la curva del camino.
+func _is_on_path(point: Vector2) -> bool:
+	if path == null:
+		return false
+	# La curva está en coordenadas del Path2D: se pasa el punto a esas coordenadas y se vuelve.
+	var closest := path.to_global(path.curve.get_closest_point(path.to_local(point)))
+	return closest.distance_to(point) <= path_half_width
 
 
 ## Registra `unit` como la construcción en curso hasta que termine o desaparezca.

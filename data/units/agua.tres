@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="UnitData" format=3]
+
+[ext_resource type="Script" path="res://entities/units/unit_data.gd" id="1"]
+[ext_resource type="PackedScene" path="res://entities/units/pool_unit.tscn" id="2_scene"]
+[ext_resource type="Texture2D" path="res://assets/art/provisorio/unidad_3.png" id="3_texture"]
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="4_spawn"]
+
+[resource]
+script = ExtResource("1")
+name_key = "UNIT_WATER"
+scene = ExtResource("2_scene")
+earth_cost = 10
+water_cost = 30
+build_time = 4.0
+placement = 1
+attack_range = 34.0
+texture = ExtResource("3_texture")
+sprite_scale = 0.06
+spawn_sound = ExtResource("4_spawn")

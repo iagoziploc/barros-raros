@@ -23,6 +23,7 @@ func _ready() -> void:
 	# Sin oleadas: la prueba decide qué enemigos aparecen.
 	level.start_on_ready = false
 	TestUtils.silence(level)
+	TestUtils.remove_lobito(level)
 	add_child(level)
 	_path = level.get_node("EnemyPath")
 

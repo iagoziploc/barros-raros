@@ -3,14 +3,17 @@ extends Resource
 ## Una oleada: la lista de grupos de enemigos que la forman.
 
 @export var entries: Array[WaveEntry] = []
+## Unidades que se estrenan al empezar esta oleada: se suman a la barra de construcción.
+@export var new_units: Array[UnitData] = []
 
 
 ## Devuelve todas las apariciones de la oleada ordenadas por tiempo:
 ## [{ "time": float, "enemy": EnemyData }, ...]
-func build_schedule() -> Array[Dictionary]:
+## `count_multiplier` agranda o achica cada grupo (1.2 = 20% más enemigos, mismo intervalo).
+func build_schedule(count_multiplier := 1.0) -> Array[Dictionary]:
 	var schedule: Array[Dictionary] = []
 	for entry in entries:
-		for i in entry.count:
+		for i in roundi(entry.count * count_multiplier):
 			schedule.append({
 				"time": entry.start_time + i * entry.interval,
 				"enemy": entry.enemy,

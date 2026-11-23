@@ -49,6 +49,7 @@ func _test_spawner() -> void:
 	level.start_on_ready = false
 	spawner.waves = [_make_wave()]
 	TestUtils.silence(level)
+	TestUtils.remove_lobito(level)
 	add_child(level)
 
 	var spawned: Array[Enemy] = []

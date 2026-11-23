@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://djwqbmwxal5sx"]
+
+[ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="1_wave"]
+[ext_resource type="Script" uid="uid://cfnbrknj5b71y" path="res://systems/waves/wave_entry.gd" id="2_entry"]
+[ext_resource type="Resource" uid="uid://2ke18jsubg10" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
+[ext_resource type="Resource" uid="uid://cyb8uwl0aftqn" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
+[ext_resource type="Resource" uid="uid://buo742kyinkj" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
+[ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="9_unit_data"]
+[ext_resource type="Resource" path="res://data/units/tierra.tres" id="10_new_unit"]
+
+[sub_resource type="Resource" id="Resource_palitas"]
+script = ExtResource("2_entry")
+enemy = ExtResource("3_palita")
+count = 12
+interval = 2.5
+
+[sub_resource type="Resource" id="Resource_botellitas"]
+script = ExtResource("2_entry")
+enemy = ExtResource("4_botellita")
+count = 12
+interval = 2.5
+start_time = 1.25
+
+[sub_resource type="Resource" id="Resource_fits"]
+script = ExtResource("2_entry")
+enemy = ExtResource("5_fit")
+count = 16
+interval = 1.8
+start_time = 6.0
+
+[resource]
+script = ExtResource("1_wave")
+entries = Array[ExtResource("2_entry")]([SubResource("Resource_palitas"), SubResource("Resource_botellitas"), SubResource("Resource_fits")])
+new_units = Array[ExtResource("9_unit_data")]([ExtResource("10_new_unit")])
