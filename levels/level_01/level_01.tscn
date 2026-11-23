@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bej88xwdq4xnj"]
 
 [ext_resource type="Script" uid="uid://dk1j7c5o33egu" path="res://levels/level_01/level_01.gd" id="1_71kry"]
-[ext_resource type="Script" uid="uid://8p13xa15sdku" path="res://levels/road.gd" id="1_road"]
+[ext_resource type="Script" path="res://systems/waves/route.gd" id="20_route"]
 [ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
@@ -26,14 +26,47 @@
 [ext_resource type="Texture2D" uid="uid://wium5p420jik" path="res://assets/art/Escenario/Roble.png" id="17_anxy3"]
 [ext_resource type="Texture2D" uid="uid://dtpaladpl6lmr" path="res://assets/art/Escenario/Arbol.png" id="18_t0q2h"]
 
-[sub_resource type="Curve2D" id="Curve2D_enemy_path"]
+[sub_resource type="Curve2D" id="Curve2D_TopLeftEntry"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 120, 240, -40, -160, 0, 160, 0, 480, 200, 0, -100, 0, 100, 860, 330, 160, 0, -160, 0, 560, 470, 0, -80, 0, 0, 400, 610)
+"points": PackedVector2Array(0, 0, 0, 0, 248, -30, 0, 0, 0, 0, 250, 30, 0, 0, 0, 0, 270, 85, 0, 0, 0, 0, 315, 130, 0, 0, 0, 0, 380, 165, 0, 0, 0, 0, 470, 190, 0, 0, 0, 0, 580, 205, 0, 0, 0, 0, 690, 212, 0, 0, 0, 0, 775, 222)
+}
+point_count = 9
+
+[sub_resource type="Curve2D" id="Curve2D_TopRightEntry"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1045, -30, 0, 0, 0, 0, 1042, 30, 0, 0, 0, 0, 1020, 90, 0, 0, 0, 0, 975, 140, 0, 0, 0, 0, 900, 180, 0, 0, 0, 0, 830, 205, 0, 0, 0, 0, 775, 222)
+}
+point_count = 7
+
+[sub_resource type="Curve2D" id="Curve2D_UpperTrunk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 775, 222, 0, 0, 0, 0, 830, 250, 0, 0, 0, 0, 858, 290, 0, 0, 0, 0, 865, 320)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_DigDetour"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 865, 320, 0, 0, 0, 0, 805, 328, 0, 0, 0, 0, 755, 335, 0, 0, 0, 0, 805, 345, 0, 0, 0, 0, 862, 350)
 }
 point_count = 5
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wet_zone"]
-size = Vector2(320, 140)
+[sub_resource type="Curve2D" id="Curve2D_LowerTrunk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 862, 350, 0, 0, 0, 0, 860, 385, 0, 0, 0, 0, 835, 425, 0, 0, 0, 0, 780, 455, 0, 0, 0, 0, 680, 475, 0, 0, 0, 0, 560, 485, 0, 0, 0, 0, 480, 495, 0, 0, 0, 0, 440, 525, 0, 0, 0, 0, 420, 570, 0, 0, 0, 0, 412, 615, 0, 0, 0, 0, 410, 660)
+}
+point_count = 11
+
+[sub_resource type="Curve2D" id="Curve2D_LeftEntry"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -30, 322, 0, 0, 0, 0, 60, 322, 0, 0, 0, 0, 160, 340, 0, 0, 0, 0, 250, 372, 0, 0, 0, 0, 320, 410, 0, 0, 0, 0, 365, 455, 0, 0, 0, 0, 400, 500, 0, 0, 0, 0, 420, 540, 0, 0, 0, 0, 415, 600, 0, 0, 0, 0, 410, 660)
+}
+point_count = 10
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dig_site"]
+radius = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trunk"]
+size = Vector2(40, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_river"]
 size = Vector2(1280, 120)
@@ -49,47 +82,87 @@ ending = ExtResource("13_ending")
 offset_right = 1280.0
 offset_bottom = 720.0
 mouse_filter = 2
-color = Color(0.45, 0.33, 0.22, 1)
+color = Color(0.11, 0.42, 0.58, 1)
 
-[node name="EnemyPath" type="Path2D" parent="." unique_id=1470913966]
-curve = SubResource("Curve2D_enemy_path")
+[node name="Mapa" type="Sprite2D" parent="." unique_id=54913331]
+position = Vector2(641, 340)
+texture = ExtResource("16_7sc7i")
 
-[node name="Road" type="Line2D" parent="EnemyPath" unique_id=1885897247]
-width = 48.0
-default_color = Color(0.66, 0.54, 0.38, 1)
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-script = ExtResource("1_road")
+[node name="RouteSegments" type="Node2D" parent="."]
 
-[node name="WetZone" type="Area2D" parent="." unique_id=130723279 groups=["wet_zone"]]
-position = Vector2(560, 470)
+[node name="TopLeftEntry" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_TopLeftEntry")
+
+[node name="TopRightEntry" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_TopRightEntry")
+
+[node name="UpperTrunk" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_UpperTrunk")
+
+[node name="DigDetour" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_DigDetour")
+
+[node name="LowerTrunk" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_LowerTrunk")
+
+[node name="LeftEntry" type="Path2D" parent="RouteSegments"]
+curve = SubResource("Curve2D_LeftEntry")
+
+[node name="Routes" type="Node2D" parent="."]
+
+[node name="TopLeft" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments", "dig_route")]
+script = ExtResource("20_route")
+segments = [NodePath("../../RouteSegments/TopLeftEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/LowerTrunk")]
+dig_route = NodePath("../TopLeftDig")
+
+[node name="TopLeftDig" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+script = ExtResource("20_route")
+segments = [NodePath("../../RouteSegments/TopLeftEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/DigDetour"), NodePath("../../RouteSegments/LowerTrunk")]
+
+[node name="TopRight" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments", "dig_route")]
+script = ExtResource("20_route")
+segments = [NodePath("../../RouteSegments/TopRightEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/LowerTrunk")]
+dig_route = NodePath("../TopRightDig")
+
+[node name="TopRightDig" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+script = ExtResource("20_route")
+segments = [NodePath("../../RouteSegments/TopRightEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/DigDetour"), NodePath("../../RouteSegments/LowerTrunk")]
+
+[node name="Left" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+script = ExtResource("20_route")
+segments = [NodePath("../../RouteSegments/LeftEntry")]
+
+[node name="DigSite" type="Area2D" parent="." groups=["wet_zone"]]
+position = Vector2(755, 335)
 collision_mask = 0
 monitoring = false
 
-[node name="Visual" type="ColorRect" parent="WetZone" unique_id=1930257983]
-offset_left = -160.0
-offset_top = -70.0
-offset_right = 160.0
-offset_bottom = 70.0
-mouse_filter = 2
-color = Color(0.25, 0.2, 0.14, 0.6)
+[node name="Shape" type="CollisionShape2D" parent="DigSite"]
+shape = SubResource("CircleShape2D_dig_site")
 
-[node name="Shape" type="CollisionShape2D" parent="WetZone" unique_id=1609982002]
-shape = SubResource("RectangleShape2D_wet_zone")
+[node name="BurntZone" type="Area2D" parent="." groups=["no_build"]]
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionPolygon2D" parent="BurntZone"]
+polygon = PackedVector2Array(320, 0, 1000, 0, 990, 60, 930, 120, 840, 160, 720, 172, 600, 165, 480, 140, 390, 95, 335, 40)
+
+[node name="TreeTrunks" type="Area2D" parent="." groups=["no_build"]]
+collision_mask = 0
+monitoring = false
+
+[node name="Roble" type="CollisionShape2D" parent="TreeTrunks"]
+position = Vector2(92, 465)
+shape = SubResource("RectangleShape2D_trunk")
+
+[node name="Arbol" type="CollisionShape2D" parent="TreeTrunks"]
+position = Vector2(276, 262)
+shape = SubResource("RectangleShape2D_trunk")
 
 [node name="River" type="Area2D" parent="." unique_id=1941931543 groups=["no_build", "river"]]
-position = Vector2(640, 660)
+position = Vector2(640, 670)
 collision_mask = 0
 monitoring = false
-
-[node name="Visual" type="ColorRect" parent="River" unique_id=1845645484]
-offset_left = -640.0
-offset_top = -60.0
-offset_right = 640.0
-offset_bottom = 60.0
-mouse_filter = 2
-color = Color(0.2, 0.45, 0.6, 1)
 
 [node name="Shape" type="CollisionShape2D" parent="River" unique_id=360105706]
 shape = SubResource("RectangleShape2D_river")
@@ -110,16 +183,16 @@ bus = &"AMB"
 
 [node name="Lobito" parent="." unique_id=220062580 instance=ExtResource("12_y3njl")]
 
-[node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("path")]
+[node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("entrances")]
 script = ExtResource("2_spawner")
 waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01"), ExtResource("14_wave_02"), ExtResource("15_wave_03")])
-path = NodePath("../EnemyPath")
+entrances = [NodePath("../Routes/TopLeft"), NodePath("../Routes/TopRight"), NodePath("../Routes/Left")]
 
 [node name="Units" type="Node2D" parent="." unique_id=1957256721]
 
-[node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container", "path") instance=ExtResource("7_placer")]
+[node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container", "routes") instance=ExtResource("7_placer")]
 container = NodePath("../Units")
-path = NodePath("../EnemyPath")
+routes = [NodePath("../Routes/TopLeft"), NodePath("../Routes/TopRight"), NodePath("../Routes/Left")]
 
 [node name="HUD" parent="." unique_id=340168702 instance=ExtResource("6_hud")]
 
@@ -128,10 +201,6 @@ path = NodePath("../EnemyPath")
 [node name="DialogueBox" parent="." unique_id=1198107075 instance=ExtResource("9_dialogue_box")]
 
 [node name="NewsChoice" parent="." unique_id=719054392 instance=ExtResource("19_news_choice")]
-
-[node name="Mapa" type="Sprite2D" parent="." unique_id=54913331]
-position = Vector2(641, 340)
-texture = ExtResource("16_7sc7i")
 
 [node name="Roble" type="Sprite2D" parent="." unique_id=231492465]
 z_index = 1

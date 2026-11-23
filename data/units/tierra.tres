@@ -8,6 +8,7 @@
 [resource]
 script = ExtResource("1")
 name_key = "UNIT_EARTH"
+placement = 2
 scene = ExtResource("2_scene")
 earth_cost = 30
 water_cost = 10

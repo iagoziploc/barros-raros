@@ -8,7 +8,7 @@ extends Resource
 
 
 ## Devuelve todas las apariciones de la oleada ordenadas por tiempo:
-## [{ "time": float, "enemy": EnemyData }, ...]
+## [{ "time": float, "enemy": EnemyData, "entrances": int }, ...]
 ## `count_multiplier` agranda o achica cada grupo (1.2 = 20% más enemigos, mismo intervalo).
 func build_schedule(count_multiplier := 1.0) -> Array[Dictionary]:
 	var schedule: Array[Dictionary] = []
@@ -17,6 +17,7 @@ func build_schedule(count_multiplier := 1.0) -> Array[Dictionary]:
 			schedule.append({
 				"time": entry.start_time + i * entry.interval,
 				"enemy": entry.enemy,
+				"entrances": entry.entrances,
 			})
 	schedule.sort_custom(func(a, b): return a.time < b.time)
 	return schedule

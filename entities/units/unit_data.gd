@@ -6,6 +6,7 @@ extends Resource
 enum Placement {
 	ANYWHERE,  ## En cualquier lugar libre (también sobre el camino).
 	ON_PATH,   ## Solo sobre el camino.
+	OFF_PATH,  ## Solo fuera del camino.
 }
 
 ## Clave de localization/strings.csv con el nombre.

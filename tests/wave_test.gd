@@ -20,6 +20,7 @@ func _ready() -> void:
 	_test_schedule()
 	_test_wave_01_data()
 	await _test_spawner()
+	await _test_routes()
 
 	print("")
 	print("Resultado: %d falla(s)" % _failures)
@@ -69,6 +70,42 @@ func _test_spawner() -> void:
 	_check(cleared == [0], "avisa que la oleada 0 terminó")
 	_check(not spawner.is_running(), "deja de correr")
 	_check(not spawner.has_more_waves(), "no hay más oleadas")
+	level.queue_free()
+
+
+func _test_routes() -> void:
+	print("Rutas y entradas")
+	var level := LEVEL.instantiate()
+	level.start_on_ready = false
+	TestUtils.silence(level)
+	TestUtils.remove_lobito(level)
+	add_child(level)
+	var spawner: WaveSpawner = level.get_node("WaveSpawner")
+	var top_left: Route = level.get_node("Routes/TopLeft")
+	var top_left_dig: Route = level.get_node("Routes/TopLeftDig")
+	var left: Route = level.get_node("Routes/Left")
+
+	var segment_lengths := 0.0
+	for segment in top_left.segments:
+		segment_lengths += segment.curve.get_baked_length()
+	_check(absf(top_left.curve.get_baked_length() - segment_lengths) < 60.0,
+			"una ruta mide lo mismo que sus tramos pegados (más el paso entre tramos)")
+	_check(top_left_dig.curve.get_baked_length() > top_left.curve.get_baked_length(),
+			"la variante con pozo es más larga (hace el desvío)")
+
+	var walker := EnemyData.new()
+	var picks := {}
+	for i in 60:
+		picks[spawner._pick_route(walker, 7)] = true
+	_check(picks.size() == 3, "con las tres casillas tildadas, sale por las tres entradas")
+	_check(spawner._pick_route(walker, 4) == left, "con una sola casilla, siempre por esa")
+
+	var digger_routes := {}
+	for i in 60:
+		digger_routes[spawner._pick_route(PALITA, 7)] = true
+	_check(not digger_routes.has(left), "los que roban tierra nunca entran por la izquierda")
+	_check(digger_routes.has(top_left_dig), "y van por la variante con pozo")
+	_check(spawner._pick_route(PALITA, 4) != left, "aunque solo esté tildada la izquierda")
 	level.queue_free()
 
 

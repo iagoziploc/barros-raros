@@ -25,7 +25,7 @@ func _ready() -> void:
 	TestUtils.silence(level)
 	TestUtils.remove_lobito(level)
 	add_child(level)
-	_path = level.get_node("EnemyPath")
+	_path = level.get_node("Routes/TopLeftDig")
 
 	await _test_route_and_steal()
 	await _test_stops_to_steal_earth()

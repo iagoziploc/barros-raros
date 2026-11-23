@@ -1,6 +1,7 @@
 class_name WaveSpawner
 extends Node
-## Hace aparecer los enemigos de cada oleada sobre `path`, según su WaveData.
+## Hace aparecer los enemigos de cada oleada según su WaveData. Cada enemigo sale por una
+## de las entradas que permite su grupo, sorteada; si roba tierra, va por la ruta con pozo.
 
 signal wave_started(index: int)
 ## Ya salieron todos los enemigos de la oleada y no queda ninguno en el mapa.
@@ -9,7 +10,9 @@ signal wave_cleared(index: int)
 signal enemy_spawned(enemy: Enemy)
 
 @export var waves: Array[WaveData] = []
-@export var path: Path2D
+## Ruta de cada entrada, en el orden de las casillas de WaveEntry.entrances:
+## arriba izquierda, arriba derecha, izquierda.
+@export var entrances: Array[Route] = []
 @export var enemy_scene: PackedScene = preload("res://entities/enemies/enemy.tscn")
 ## Arranca la primera oleada al cargar. Pensado para probar mientras no hay flujo de partida.
 @export var autostart := false
@@ -36,7 +39,8 @@ func _process(delta: float) -> void:
 	_elapsed += delta
 	# while y no if: si en un frame se cumplieron varios tiempos, salen todos.
 	while not _schedule.is_empty() and _schedule[0].time <= _elapsed:
-		_spawn(_schedule.pop_front().enemy)
+		var spawn: Dictionary = _schedule.pop_front()
+		_spawn(spawn.enemy, spawn.entrances)
 
 	if _schedule.is_empty() and _alive == 0:
 		_is_running = false
@@ -63,15 +67,36 @@ func has_more_waves() -> bool:
 	return current_wave + 1 < waves.size()
 
 
-## Crea un enemigo con `data` sobre el camino y lo cuenta como vivo.
-func _spawn(data: EnemyData) -> void:
+## Crea un enemigo con `data` en una de las entradas de `allowed_entrances` y lo cuenta como vivo.
+func _spawn(data: EnemyData, allowed_entrances: int) -> void:
 	var enemy: Enemy = enemy_scene.instantiate()
 	enemy.data = data
 	enemy.died.connect(_on_enemy_removed)
 	enemy.escaped.connect(_on_enemy_removed)
-	path.add_child(enemy)
+	_pick_route(data, allowed_entrances).add_child(enemy)
 	_alive += 1
 	enemy_spawned.emit(enemy)
+
+
+## Sortea la ruta de un enemigo entre las entradas tildadas en `allowed_entrances`
+## (un número donde cada bit es una casilla). Los que roban tierra usan la variante con pozo
+## y descartan las entradas que no tienen. Si no queda ninguna, sortea entre todas.
+func _pick_route(data: EnemyData, allowed_entrances: int) -> Route:
+	var options: Array[Route] = []
+	var fallback: Array[Route] = []
+	for index in entrances.size():
+		var route := entrances[index]
+		if data.earth_stolen > 0:
+			route = route.dig_route
+		if route == null:
+			continue
+		fallback.append(route)
+		# 1 << index es el bit de la casilla número index: 1, 2, 4...
+		if allowed_entrances & (1 << index):
+			options.append(route)
+	if options.is_empty():
+		options = fallback
+	return options.pick_random()
 
 
 ## Un enemigo murió o escapó: deja de contarlo.

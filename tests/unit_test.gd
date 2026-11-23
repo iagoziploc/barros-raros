@@ -35,7 +35,7 @@ func _ready() -> void:
 	TestUtils.remove_lobito(_level)
 	add_child(_level)
 	_placer = _level.get_node("UnitPlacer")
-	_path = _level.get_node("EnemyPath")
+	_path = _level.get_node("Routes/TopLeft")
 
 	# Esperar un frame de física para que las áreas ya estén registradas.
 	await get_tree().physics_frame

@@ -27,6 +27,7 @@ enemy = ExtResource("5_fit")
 count = 16
 interval = 1.8
 start_time = 6.0
+entrances = 3
 
 [resource]
 script = ExtResource("1_wave")
