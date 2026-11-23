@@ -24,9 +24,6 @@ bus = &"SFX"
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
-[node name="LoopSound" type="AudioStreamPlayer2D" parent="."]
-bus = &"SFX"
-
 [node name="BuildProgress" type="ProgressBar" parent="." unique_id=649680420]
 visible = false
 offset_left = -30.0

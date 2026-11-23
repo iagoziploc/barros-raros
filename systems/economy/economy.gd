@@ -49,6 +49,12 @@ func _process(delta: float) -> void:
 			return
 
 
+## Cambia cuánto se puede pasar del máximo y avisa con `changed` (el HUD muestra el máximo nuevo).
+func set_bonus_max(amount: int) -> void:
+	bonus_max = amount
+	changed.emit(earth, water)
+
+
 ## Vuelve a los valores iniciales de `config`.
 func reset() -> void:
 	earth = config.starting_earth

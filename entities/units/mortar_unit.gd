@@ -26,6 +26,6 @@ func _on_shot_landed(point: Vector2, damage: int) -> void:
 	for enemy: Enemy in get_tree().get_nodes_in_group("enemies"):
 		if enemy.global_position.distance_to(point) <= data.splash_radius:
 			enemy.take_damage(damage, piercing)
-	_play_sound(_hit_sound, data.hit_sound)
+	_play_sound(_hit_sound, data.hit_sound, data.hit_volume_db)
 	if show_debug_areas:
 		_show_debug_hit(point)

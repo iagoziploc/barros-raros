@@ -125,6 +125,9 @@ func _fetch_all() -> void:
 			Economy.add(amount, 0)
 		else:
 			Economy.add(0, amount)
+		# Un "+3" del color del recurso, para que se entienda qué trajo.
+		FloatingText.spawn(get_parent(), global_position + Vector2(0, -24), "+%d" % amount,
+				Sparkle.color_for(sparkle.kind))
 	_is_busy = false
 	if _is_retiring:
 		queue_free()

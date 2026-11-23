@@ -25,6 +25,7 @@ var _was_paused := false
 @onready var _cinematic_portrait: TextureRect = %CinematicPortrait
 @onready var _cinematic_name: Label = %CinematicName
 @onready var _cinematic_text: RichTextLabel = %CinematicText
+@onready var _advance_sound: AudioStreamPlayer = $AdvanceSound
 
 
 ## Arranca oculto.
@@ -87,6 +88,7 @@ func advance() -> void:
 		text.visible_characters = -1  # -1 = mostrar todo.
 		return
 
+	_advance_sound.play()
 	_index += 1
 	if _index >= _dialogue.lines.size():
 		_finish()

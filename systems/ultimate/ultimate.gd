@@ -89,12 +89,16 @@ func activate() -> void:
 		return
 	charge = 0
 	_time_left = duration
-	Economy.bonus_max = resource_bonus
+	Economy.set_bonus_max(resource_bonus)
 	lobito.set_sparkle_rate(sparkle_rate)
 	for i in extra_lobitos:
 		var helper: Lobito = lobito_scene.instantiate()
 		helper.helper_of = lobito
 		helper.home = lobito.home
+		# Los mismos números que el principal (los que se ajustaron en el nivel, no los de la escena).
+		helper.amount = lobito.amount
+		helper.speed = lobito.speed
+		helper.pause_at_stops = lobito.pause_at_stops
 		helper.modulate = Color(1.0, 0.9, 0.7)
 		# Justo después del lobito en el árbol: así también pasa por detrás de los árboles.
 		lobito.add_sibling(helper)
@@ -105,7 +109,7 @@ func activate() -> void:
 ## Se terminó: los ayudantes vuelven y se van, los brillos y el máximo vuelven a lo normal.
 func _end() -> void:
 	_time_left = 0.0
-	Economy.bonus_max = 0
+	Economy.set_bonus_max(0)
 	lobito.set_sparkle_rate(1.0)
 	for helper in _helpers:
 		if is_instance_valid(helper):

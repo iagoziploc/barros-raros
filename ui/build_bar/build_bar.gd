@@ -2,6 +2,7 @@ extends CanvasLayer
 ## Un botón por cada unidad de `units`, con su costo actual (con modificadores).
 ## Las unidades que se estrenan más tarde se suman con unlock().
 ## Los botones se desactivan si no alcanzan los recursos o si hay una construcción en curso.
+## El recurso que falta se pinta de rojo en el costo.
 ## Las teclas 1, 2, 3… seleccionan la primera, segunda, tercera unidad.
 
 signal unit_selected(data: UnitData)
@@ -11,8 +12,12 @@ signal unit_unlocked(data: UnitData)
 ## Unidades disponibles desde el comienzo.
 @export var units: Array[UnitData] = []
 
+const MISSING_COLOR := "#ff6b5b"
+
 # Botón -> UnitData que representa.
 var _buttons := {}
+# Botón -> RichTextLabel con su nombre y costo.
+var _labels := {}
 var _is_building := false
 
 @onready var _buttons_box: HBoxContainer = %Buttons
@@ -54,17 +59,30 @@ func set_building(is_building: bool) -> void:
 
 
 ## Crea un botón con la imagen de la unidad y lo agrega a la barra.
-## El texto (nombre y costo) lo escribe _refresh_buttons().
+## El texto (nombre y costo) va en un RichTextLabel adentro del botón, porque un Button
+## no puede pintar una parte de su texto de otro color. Lo escribe _refresh_buttons().
 func _add_button(data: UnitData) -> void:
 	var button := Button.new()
 	button.icon = data.get_icon()
 	button.expand_icon = true
-	button.custom_minimum_size = Vector2(220, 72)
+	button.icon_alignment = HORIZONTAL_ALIGNMENT_LEFT
+	button.custom_minimum_size = Vector2(240, 72)
 	# Sin foco: así la barra espaciadora y las flechas no "aprietan" el botón.
 	button.focus_mode = Control.FOCUS_NONE
 	button.pressed.connect(func(): unit_selected.emit(data))
+
+	var label := RichTextLabel.new()
+	label.bbcode_enabled = true
+	label.scroll_active = false
+	label.mouse_filter = Control.MOUSE_FILTER_IGNORE  # Que el clic llegue al botón.
+	label.set_anchors_preset(Control.PRESET_FULL_RECT)
+	label.offset_left = 64  # A la derecha del ícono.
+	label.offset_top = 10
+	button.add_child(label)
+
 	_buttons_box.add_child(button)
 	_buttons[button] = data
+	_labels[button] = label
 
 
 ## Responde a Economy.changed.
@@ -78,5 +96,11 @@ func _refresh_buttons() -> void:
 		var data: UnitData = _buttons[button]
 		var earth_cost := Modifiers.earth_cost(data)
 		var water_cost := Modifiers.water_cost(data)
-		button.text = "%s\n%s" % [tr(data.name_key), tr("BUILD_COST") % [earth_cost, water_cost]]
+		var earth_text := tr("BUILD_COST_EARTH") % earth_cost
+		var water_text := tr("BUILD_COST_WATER") % water_cost
+		if Economy.earth < earth_cost:
+			earth_text = "[color=%s]%s[/color]" % [MISSING_COLOR, earth_text]
+		if Economy.water < water_cost:
+			water_text = "[color=%s]%s[/color]" % [MISSING_COLOR, water_text]
+		_labels[button].text = "%s\n%s · %s" % [tr(data.name_key), earth_text, water_text]
 		button.disabled = _is_building or not Economy.can_afford(earth_cost, water_cost)

@@ -7,6 +7,12 @@ extends CanvasLayer
 signal ultimate_pressed
 
 const ULTIMATE_READY_COLOR := Color(1.0, 0.85, 0.4)
+## Relleno de la barra de la ultimate según su estado.
+const ULTIMATE_CHARGING_FILL := Color(0.55, 0.4, 0.22)
+const ULTIMATE_READY_FILL := Color(1.0, 0.78, 0.25)
+const ULTIMATE_ACTIVE_FILL := Color(0.45, 0.85, 1.0)
+## Color de tierra y agua mientras la ultimate deja pasar el máximo.
+const BONUS_MAX_COLOR := Color(1.0, 0.85, 0.4)
 
 @onready var _earth_label: Label = %EarthLabel
 @onready var _water_label: Label = %WaterLabel
@@ -36,6 +42,7 @@ func _ready() -> void:
 	_retry_label.text = tr("HUD_RETRY")
 	_ultimate_button.text = tr("HUD_ULTIMATE")
 	_ultimate_button.pressed.connect(ultimate_pressed.emit)
+	_ultimate_bar.add_theme_stylebox_override("background", _bar_style(Color(0, 0, 0, 0.5)))
 	set_ultimate(0.0, false, false)
 
 
@@ -57,6 +64,12 @@ func set_wave(number: int) -> void:
 func set_ultimate(fraction: float, is_ready: bool, is_active: bool) -> void:
 	_ultimate_bar.value = fraction
 	_ultimate_button.disabled = not is_ready
+	var fill := ULTIMATE_CHARGING_FILL
+	if is_active:
+		fill = ULTIMATE_ACTIVE_FILL
+	elif is_ready:
+		fill = ULTIMATE_READY_FILL
+	_ultimate_bar.add_theme_stylebox_override("fill", _bar_style(fill))
 	if is_ready and _ultimate_pulse == null:
 		_ultimate_pulse = create_tween().set_loops()
 		_ultimate_pulse.tween_property(_ultimate_button, "modulate", ULTIMATE_READY_COLOR, 0.4)
@@ -65,7 +78,6 @@ func set_ultimate(fraction: float, is_ready: bool, is_active: bool) -> void:
 		_ultimate_pulse.kill()
 		_ultimate_pulse = null
 		_ultimate_button.modulate = Color.WHITE
-	_ultimate_bar.modulate = ULTIMATE_READY_COLOR if is_active else Color.WHITE
 
 
 ## Muestra el cartel de unidad nueva un segundo y medio y lo desvanece.
@@ -78,15 +90,27 @@ func show_unit_unlocked(data: UnitData) -> void:
 	tween.tween_property(_unlock_label, "modulate:a", 0.0, 0.8)
 
 
+## Una caja de color liso con bordes redondeados, para el relleno y el fondo de la barra.
+func _bar_style(color: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = color
+	style.set_corner_radius_all(4)
+	return style
+
+
 ## Muestra el cartel de victoria.
 func show_victory() -> void:
 	_show_message("HUD_VICTORY")
 
 
 ## Actualiza las etiquetas de tierra y agua.
+## Mientras la ultimate deja pasar el máximo, lo muestra (por ejemplo 150) y pinta el texto de dorado.
 func _on_economy_changed(earth: int, water: int) -> void:
-	_earth_label.text = tr("HUD_EARTH") % [earth, Economy.max_earth]
-	_water_label.text = tr("HUD_WATER") % [water, Economy.max_water]
+	_earth_label.text = tr("HUD_EARTH") % [earth, Economy.max_earth + Economy.bonus_max]
+	_water_label.text = tr("HUD_WATER") % [water, Economy.max_water + Economy.bonus_max]
+	var color := BONUS_MAX_COLOR if Economy.bonus_max > 0 else Color.WHITE
+	_earth_label.add_theme_color_override("font_color", color)
+	_water_label.add_theme_color_override("font_color", color)
 
 
 ## Muestra el cartel de derrota y cómo reintentar.

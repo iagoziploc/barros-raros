@@ -1,12 +1,11 @@
-[gd_resource type="Resource" script_class="EffectPool" format=3]
+[gd_resource type="Resource" script_class="EffectPool" format=3 uid="uid://d0s43rl1vewhw"]
 
-[ext_resource type="Script" path="res://systems/news/effect_pool.gd" id="1_pool"]
-[ext_resource type="Script" path="res://systems/news/effect_range.gd" id="2_range"]
+[ext_resource type="Script" uid="uid://bpt0lptbhf1qg" path="res://systems/news/effect_pool.gd" id="1_pool"]
+[ext_resource type="Script" uid="uid://5lupivreopgd" path="res://systems/news/effect_range.gd" id="2_range"]
 
 [sub_resource type="Resource" id="BAD_UNIT_DAMAGE"]
 script = ExtResource("2_range")
 name_key = "BAD_UNIT_DAMAGE"
-stat = 2
 min_amount = -0.2
 max_amount = -0.1
 

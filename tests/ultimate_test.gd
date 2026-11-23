@@ -47,6 +47,7 @@ func _test_ultimate() -> void:
 	add_child(level)
 	var ultimate: Ultimate = level.get_node("Ultimate")
 	var lobito: Lobito = level.get_node("Lobito")
+	lobito.amount = 3
 
 	ultimate.activate()
 	_check(not ultimate.is_active(), "sin carga no se puede tirar")
@@ -65,6 +66,11 @@ func _test_ultimate() -> void:
 	ultimate.activate()
 	_check(ultimate.is_active() and ultimate.charge == 0, "se tira y se vacía la carga")
 	_check(_count_lobitos(level) == lobitos_before + ultimate.extra_lobitos, "aparecen los lobitos ayudantes")
+	var helper_amounts_match := true
+	for child in level.get_children():
+		if child is Lobito and child.helper_of:
+			helper_amounts_match = helper_amounts_match and child.amount == lobito.amount
+	_check(helper_amounts_match, "los ayudantes traen lo mismo que el lobito principal")
 	_check(Economy.bonus_max == ultimate.resource_bonus, "se puede pasar el máximo")
 	_check(is_equal_approx(lobito._timer.wait_time, lobito.interval / ultimate.sparkle_rate),
 			"los brillos aparecen más rápido")

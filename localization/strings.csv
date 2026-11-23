@@ -9,7 +9,8 @@ HUD_VICTORY,¡El río sigue siendo nuestro!
 UNIT_BALANCED,Unidad balanceada
 UNIT_EARTH,Unidad de tierra
 UNIT_WATER,Unidad de agua
-BUILD_COST,Tierra %d · Agua %d
+BUILD_COST_EARTH,Tierra %d
+BUILD_COST_WATER,Agua %d
 SPEAKER_PROTAGONIST,Protagonista
 SPEAKER_ABUELA,Abuela
 SPEAKER_LOBITO,Lobito del Río

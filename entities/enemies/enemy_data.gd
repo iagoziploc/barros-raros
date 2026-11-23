@@ -32,9 +32,16 @@ extends Resource
 @export var dig_sound: AudioStream
 
 @export_group("Visual")
-## Si es null se dibuja un cuadrado de `placeholder_color`.
+## Si es null se dibuja un cuadrado de `placeholder_color`. Puede ser una tira de cuadros
+## iguales, uno al lado del otro (un spritesheet de una fila): ver `frames`.
 @export var texture: Texture2D
+## Cuántos cuadros tiene `texture` a lo ancho. 1 = imagen fija.
+@export var frames := 1
+## Cuadros por segundo de la caminata.
+@export var walk_fps := 6.0
 @export var sprite_scale := 1.0
+## Píxeles transparentes debajo de los pies (o las ruedas) en la imagen original.
+@export var foot_offset := 0.0
 @export var placeholder_color := Color.WHITE
 
 

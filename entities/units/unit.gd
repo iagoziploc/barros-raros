@@ -44,7 +44,6 @@ var _next_hit := 0
 @onready var _spawn_sound: AudioStreamPlayer2D = $SpawnSound
 @onready var _hit_sound: AudioStreamPlayer2D = $HitSound
 @onready var _attack_sound: AudioStreamPlayer2D = $AttackSound
-@onready var _loop_sound: AudioStreamPlayer2D = $LoopSound
 @onready var _build_progress: ProgressBar = $BuildProgress
 
 
@@ -131,18 +130,7 @@ func _finish_building() -> void:
 	_sprite.modulate = Color.WHITE
 	_build_progress.hide()
 	_play_sound(_spawn_sound, data.spawn_sound)
-	_start_loop_sound()
 	built.emit(self)
-
-
-## Si la unidad tiene `loop_sound`, lo hace sonar sin parar (vuelve a empezar al terminar).
-func _start_loop_sound() -> void:
-	if data.loop_sound == null:
-		return
-	_loop_sound.stream = data.loop_sound
-	_loop_sound.volume_db = data.loop_volume_db
-	_loop_sound.finished.connect(_loop_sound.play)
-	_loop_sound.play()
 
 
 ## Mira hacia `target` y arranca el ataque: con la animación "hit" si se puede usar,
@@ -151,7 +139,7 @@ func _start_attack(target: Enemy) -> void:
 	# El dibujo pega hacia la izquierda: si el objetivo está a la derecha, se espeja.
 	_sprite.flip_h = target.global_position.x > global_position.x
 	_next_hit = 0
-	_play_sound(_attack_sound, data.attack_sound)
+	_play_sound(_attack_sound, data.attack_sound, data.attack_volume_db)
 	if _can_animate_hits():
 		# Si ataca más rápido, la animación también: así los golpes siguen cayendo en sus cuadros.
 		_sprite.speed_scale = _attack_speed()
@@ -179,7 +167,7 @@ func _strike(index: int) -> void:
 		var distance := enemy.global_position.distance_to(target.global_position)
 		if enemy == target or distance <= data.splash_radius:
 			enemy.take_damage(damage, piercing)
-	_play_sound(_hit_sound, data.hit_sound)
+	_play_sound(_hit_sound, data.hit_sound, data.hit_volume_db)
 	if show_debug_areas:
 		_show_debug_hit(target.global_position)
 
@@ -228,11 +216,13 @@ func _enemies_in_range() -> Array[Enemy]:
 	return enemies
 
 
-## Reproduce `stream` en `player` con un tono al azar según `data.pitch_variation`.
-func _play_sound(player: AudioStreamPlayer2D, stream: AudioStream) -> void:
+## Reproduce `stream` en `player` a `volume_db` decibeles, con un tono al azar según
+## `data.pitch_variation`.
+func _play_sound(player: AudioStreamPlayer2D, stream: AudioStream, volume_db := 0.0) -> void:
 	if stream == null:
 		return
 	player.stream = stream
+	player.volume_db = volume_db
 	player.pitch_scale = randf_range(1.0 - data.pitch_variation, 1.0 + data.pitch_variation)
 	player.play()
 

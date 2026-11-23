@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b7ekp21ttwgnm" path="res://entities/enemies/enemy_data.gd" id="1"]
 [ext_resource type="AudioStream" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
 [ext_resource type="AudioStream" path="res://data/sounds/enemigo_pala.tres" id="s_pala"]
+[ext_resource type="Texture2D" path="res://assets/art/spritesheets/enemy_1.png" id="tex_enemy"]
 
 [resource]
 script = ExtResource("1")
@@ -10,3 +11,7 @@ earth_stolen = 5
 death_sound = ExtResource("s_grito")
 dig_sound = ExtResource("s_pala")
 placeholder_color = Color(0.3, 0.3, 0.36, 1)
+texture = ExtResource("tex_enemy")
+frames = 2
+sprite_scale = 0.1
+foot_offset = 15

@@ -31,6 +31,7 @@
 [ext_resource type="Script" uid="uid://b1e1in2fupkr1" path="res://systems/ultimate/ultimate.gd" id="24_ultimate"]
 [ext_resource type="Resource" path="res://data/news/good_news.tres" id="25_good_news"]
 [ext_resource type="Resource" path="res://data/news/bad_news.tres" id="26_bad_news"]
+[ext_resource type="Script" path="res://systems/audio/presence_sounds.gd" id="27_presence"]
 
 [sub_resource type="Curve2D" id="Curve2D_TopLeftEntry"]
 _data = {
@@ -237,6 +238,10 @@ entrances = [NodePath("../Routes/TopLeft"), NodePath("../Routes/TopRight"), Node
 
 [node name="Units" type="Node2D" parent="." unique_id=1957256721]
 y_sort_enabled = true
+
+[node name="PresenceSounds" type="Node" parent="." node_paths=PackedStringArray("units")]
+script = ExtResource("27_presence")
+units = NodePath("../Units")
 
 [node name="UnitPlacer" parent="." unique_id=946285816 node_paths=PackedStringArray("container", "routes") instance=ExtResource("7_placer")]
 container = NodePath("../Units")

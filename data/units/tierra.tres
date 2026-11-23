@@ -23,3 +23,4 @@ sprite_scale = 0.13
 spawn_sound = ExtResource("4_spawn")
 attack_sound = ExtResource("s_throw")
 death_sound = ExtResource("s_muerte")
+attack_volume_db = 10.0

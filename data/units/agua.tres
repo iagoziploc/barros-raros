@@ -21,5 +21,6 @@ texture = ExtResource("3_texture")
 sprite_scale = 0.06
 spawn_sound = ExtResource("4_spawn")
 hit_sound = ExtResource("s_arrastre")
-loop_sound = ExtResource("s_lodo")
+presence_sound = ExtResource("s_lodo")
+presence_volume_db = 3.0
 death_sound = ExtResource("s_muerte")

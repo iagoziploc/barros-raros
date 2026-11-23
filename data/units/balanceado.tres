@@ -21,3 +21,5 @@ sprite_scale = 0.2
 spawn_sound = ExtResource("3_ecbj8")
 hit_sound = ExtResource("4_hit_sound")
 death_sound = ExtResource("s_muerte")
+hit_volume_db = 6.0
+pitch_variation = 0.08

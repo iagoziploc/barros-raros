@@ -25,6 +25,8 @@ var _steal_time_left := 0.0
 var _speed := 0.0
 # true desde que lo atrapa una pileta.
 var _is_trapped := false
+# Segundos caminando, para elegir el cuadro de la caminata.
+var _walk_time := 0.0
 
 @onready var _sprite: Sprite2D = $Sprite
 @onready var _placeholder: ColorRect = $Placeholder
@@ -54,9 +56,21 @@ func _process(delta: float) -> void:
 			Economy.steal(Economy.Kind.EARTH, data.earth_stolen)
 		return
 
+	var x_before := global_position.x
 	progress += _speed * delta
+	_animate_walk(delta, global_position.x - x_before)
 	if progress_ratio >= 1.0:
 		_escape()
+
+
+## Avanza la caminata y mira hacia donde va. `dx` es cuánto se movió en x en este frame.
+## El dibujo mira a la derecha: si va hacia la izquierda, se espeja.
+func _animate_walk(delta: float, dx: float) -> void:
+	_walk_time += delta
+	# El cuadro sale del tiempo: con 6 cuadros por segundo y 2 cuadros, alterna 0, 1, 0, 1...
+	_sprite.frame = int(_walk_time * data.walk_fps) % data.frames
+	if absf(dx) > 0.01:
+		_sprite.flip_h = dx < 0.0
 
 
 ## true mientras está detenido en la zona húmeda.
@@ -106,11 +120,13 @@ func predict_position(seconds: float) -> Vector2:
 
 
 ## Muere: grita (con un reproductor aparte, que no se borra con él), avisa con `died` y se borra.
+## Si lo hundió una pileta no grita: esa muerte ya tiene su sonido (el lodo, al atraparlo).
 func _die() -> void:
 	if _is_gone:
 		return
 	_is_gone = true
-	Sfx.play_detached(data.death_sound, self)
+	if not _is_trapped:
+		Sfx.play_detached(data.death_sound, self)
 	died.emit(self)
 	queue_free()
 
@@ -127,9 +143,10 @@ func _flash() -> void:
 func _apply_visual() -> void:
 	if data.texture:
 		_sprite.texture = data.texture
+		_sprite.hframes = data.frames  # Corta la imagen en `frames` cuadros iguales a lo ancho.
 		_sprite.scale = Vector2.ONE * data.sprite_scale
 		# Igual que las unidades: la posición sobre el camino son sus pies.
-		_sprite.offset = Vector2(0, -data.texture.get_height() / 2.0)
+		_sprite.offset = Vector2(0, -data.texture.get_height() / 2.0 + data.foot_offset)
 		_placeholder.hide()
 	else:
 		_sprite.hide()

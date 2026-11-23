@@ -29,7 +29,7 @@ func _trap(enemy: Enemy) -> void:
 	_trapped.append(enemy)
 	enemy.died.connect(_on_trapped_enemy_died)
 	enemy.trap(data.pool_consume_time * enemy.data.sink_time_multiplier)
-	_play_sound(_hit_sound, data.hit_sound)
+	_play_sound(_hit_sound, data.hit_sound, data.hit_volume_db)
 
 
 ## Se hundió (o lo mató otra unidad antes): libera su lugar.

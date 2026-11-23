@@ -1,4 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene format=3]
+
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/hud_menu_aceptar.ogg" id="s_advance"]
 
 [ext_resource type="Script" path="res://ui/dialogue_box/dialogue_box.gd" id="1_dialogue_box"]
 
@@ -137,3 +139,7 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "[center]Texto de prueba.[/center]"
 scroll_active = false
+
+[node name="AdvanceSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("s_advance")
+bus = &"SFX"

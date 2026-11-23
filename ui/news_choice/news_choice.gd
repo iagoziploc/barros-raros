@@ -38,6 +38,7 @@ var _shown_options: Array[NewsOption] = []
 @onready var _title: Label = %Title
 @onready var _cards_box: HBoxContainer = %Cards
 @onready var _reroll_button: Button = %RerollButton
+@onready var _select_sound: AudioStreamPlayer = $SelectSound
 
 
 ## Arranca oculta. El botón de re-roll se conecta una sola vez.
@@ -68,11 +69,13 @@ func run(good_pool: EffectPool, bad_pool: EffectPool) -> void:
 
 ## Da vuelta la tarjeta `kind` como si el jugador la hubiera tocado (lo usan las pruebas).
 func pick_kind(kind: Kind) -> void:
+	_select_sound.play()
 	kind_picked.emit(kind)
 
 
 ## Elige `option` como si el jugador hubiera tocado su tarjeta (lo usan las pruebas).
 func pick(option: NewsOption) -> void:
+	_select_sound.play()
 	chosen.emit(option)
 
 
