@@ -5,9 +5,9 @@
 [ext_resource type="Resource" uid="uid://2ke18jsubg10" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
 [ext_resource type="Resource" uid="uid://cyb8uwl0aftqn" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
 [ext_resource type="Resource" uid="uid://buo742kyinkj" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
-[ext_resource type="Resource" path="res://data/enemies/tecnologico.tres" id="6_tecnologico"]
+[ext_resource type="Resource" uid="uid://cyy57etg37krn" path="res://data/enemies/tecnologico.tres" id="6_tecnologico"]
 [ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="9_unit_data"]
-[ext_resource type="Resource" path="res://data/units/agua.tres" id="10_new_unit"]
+[ext_resource type="Resource" uid="uid://c1xa2t4odv40i" path="res://data/units/agua.tres" id="10_new_unit"]
 
 [sub_resource type="Resource" id="Resource_palitas"]
 script = ExtResource("2_entry")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://buo742kyinkj"]
 
 [ext_resource type="Script" uid="uid://b7ekp21ttwgnm" path="res://entities/enemies/enemy_data.gd" id="1_1tk0k"]
-[ext_resource type="AudioStreamRandomizer" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
+[ext_resource type="AudioStream" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
 
 [resource]
 script = ExtResource("1_1tk0k")
@@ -10,5 +10,5 @@ max_health = 12
 armor = 2
 water_stolen = 7
 ultimate_charge = 2
-placeholder_color = Color(0.7098462, 0.429804, 0.3405297, 1)
 death_sound = ExtResource("s_grito")
+placeholder_color = Color(0.7098462, 0.429804, 0.3405297, 1)

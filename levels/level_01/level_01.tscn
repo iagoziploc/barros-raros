@@ -1,11 +1,6 @@
 [gd_scene format=3 uid="uid://bej88xwdq4xnj"]
 
 [ext_resource type="Script" uid="uid://dk1j7c5o33egu" path="res://levels/level_01/level_01.gd" id="1_71kry"]
-[ext_resource type="Script" path="res://systems/waves/route.gd" id="20_route"]
-[ext_resource type="PackedScene" path="res://ui/start_screen/start_screen.tscn" id="21_start_screen"]
-[ext_resource type="AudioStream" path="res://assets/audio/BGM/bgm_menu.ogg" id="22_bgm_menu"]
-[ext_resource type="Texture2D" path="res://assets/art/provisorio/protagonista.png" id="23_protagonist"]
-[ext_resource type="Script" path="res://systems/ultimate/ultimate.gd" id="24_ultimate"]
 [ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
@@ -22,13 +17,18 @@
 [ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]
 [ext_resource type="Resource" uid="uid://djwqbmwxal5sx" path="res://data/waves/wave_02.tres" id="14_wave_02"]
 [ext_resource type="Resource" uid="uid://4atecnpnl5lc" path="res://data/waves/wave_03.tres" id="15_wave_03"]
+[ext_resource type="Texture2D" uid="uid://bqsqus15hjpj1" path="res://assets/art/Escenario/Mapa.png" id="16_7sc7i"]
 [ext_resource type="Script" uid="uid://peeheovu65hw" path="res://systems/news/news_event.gd" id="16_news_event"]
+[ext_resource type="Texture2D" uid="uid://wium5p420jik" path="res://assets/art/Escenario/Roble.png" id="17_anxy3"]
 [ext_resource type="Resource" uid="uid://du25k0rotmjog" path="res://data/news/news_01.tres" id="17_news_01"]
 [ext_resource type="Resource" uid="uid://f3jegvs087oo" path="res://data/news/news_02.tres" id="18_news_02"]
-[ext_resource type="PackedScene" path="res://ui/news_choice/news_choice.tscn" id="19_news_choice"]
-[ext_resource type="Texture2D" uid="uid://bqsqus15hjpj1" path="res://assets/art/Escenario/Mapa.png" id="16_7sc7i"]
-[ext_resource type="Texture2D" uid="uid://wium5p420jik" path="res://assets/art/Escenario/Roble.png" id="17_anxy3"]
 [ext_resource type="Texture2D" uid="uid://dtpaladpl6lmr" path="res://assets/art/Escenario/Arbol.png" id="18_t0q2h"]
+[ext_resource type="PackedScene" path="res://ui/news_choice/news_choice.tscn" id="19_news_choice"]
+[ext_resource type="Script" uid="uid://bt222x3t3225f" path="res://systems/waves/route.gd" id="20_route"]
+[ext_resource type="PackedScene" path="res://ui/start_screen/start_screen.tscn" id="21_start_screen"]
+[ext_resource type="AudioStream" uid="uid://2y6p8l6ta4py" path="res://assets/audio/BGM/bgm_menu.ogg" id="22_bgm_menu"]
+[ext_resource type="Texture2D" uid="uid://blsw0vnslyavn" path="res://assets/art/provisorio/protagonista.png" id="23_protagonist"]
+[ext_resource type="Script" uid="uid://b1e1in2fupkr1" path="res://systems/ultimate/ultimate.gd" id="24_ultimate"]
 
 [sub_resource type="Curve2D" id="Curve2D_TopLeftEntry"]
 _data = {
@@ -69,14 +69,14 @@ point_count = 10
 [sub_resource type="CircleShape2D" id="CircleShape2D_dig_site"]
 radius = 22.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_protagonist"]
-size = Vector2(70, 95)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trunk"]
 size = Vector2(40, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_river"]
 size = Vector2(1280, 120)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_protagonist"]
+size = Vector2(70, 95)
 
 [node name="Level01" type="Node2D" unique_id=734465246]
 script = ExtResource("1_71kry")
@@ -95,74 +95,74 @@ color = Color(0.11, 0.42, 0.58, 1)
 position = Vector2(641, 340)
 texture = ExtResource("16_7sc7i")
 
-[node name="RouteSegments" type="Node2D" parent="."]
+[node name="RouteSegments" type="Node2D" parent="." unique_id=853827867]
 
-[node name="TopLeftEntry" type="Path2D" parent="RouteSegments"]
+[node name="TopLeftEntry" type="Path2D" parent="RouteSegments" unique_id=299076702]
 curve = SubResource("Curve2D_TopLeftEntry")
 
-[node name="TopRightEntry" type="Path2D" parent="RouteSegments"]
+[node name="TopRightEntry" type="Path2D" parent="RouteSegments" unique_id=1622669040]
 curve = SubResource("Curve2D_TopRightEntry")
 
-[node name="UpperTrunk" type="Path2D" parent="RouteSegments"]
+[node name="UpperTrunk" type="Path2D" parent="RouteSegments" unique_id=7726278]
 curve = SubResource("Curve2D_UpperTrunk")
 
-[node name="DigDetour" type="Path2D" parent="RouteSegments"]
+[node name="DigDetour" type="Path2D" parent="RouteSegments" unique_id=584500353]
 curve = SubResource("Curve2D_DigDetour")
 
-[node name="LowerTrunk" type="Path2D" parent="RouteSegments"]
+[node name="LowerTrunk" type="Path2D" parent="RouteSegments" unique_id=2093304133]
 curve = SubResource("Curve2D_LowerTrunk")
 
-[node name="LeftEntry" type="Path2D" parent="RouteSegments"]
+[node name="LeftEntry" type="Path2D" parent="RouteSegments" unique_id=33156783]
 curve = SubResource("Curve2D_LeftEntry")
 
-[node name="Routes" type="Node2D" parent="."]
+[node name="Routes" type="Node2D" parent="." unique_id=1429261149]
 
-[node name="TopLeft" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments", "dig_route")]
+[node name="TopLeft" type="Path2D" parent="Routes" unique_id=975832489 node_paths=PackedStringArray("segments", "dig_route")]
 script = ExtResource("20_route")
 segments = [NodePath("../../RouteSegments/TopLeftEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/LowerTrunk")]
 dig_route = NodePath("../TopLeftDig")
 
-[node name="TopLeftDig" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+[node name="TopLeftDig" type="Path2D" parent="Routes" unique_id=1631970004 node_paths=PackedStringArray("segments")]
 script = ExtResource("20_route")
 segments = [NodePath("../../RouteSegments/TopLeftEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/DigDetour"), NodePath("../../RouteSegments/LowerTrunk")]
 
-[node name="TopRight" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments", "dig_route")]
+[node name="TopRight" type="Path2D" parent="Routes" unique_id=1781097505 node_paths=PackedStringArray("segments", "dig_route")]
 script = ExtResource("20_route")
 segments = [NodePath("../../RouteSegments/TopRightEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/LowerTrunk")]
 dig_route = NodePath("../TopRightDig")
 
-[node name="TopRightDig" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+[node name="TopRightDig" type="Path2D" parent="Routes" unique_id=934475491 node_paths=PackedStringArray("segments")]
 script = ExtResource("20_route")
 segments = [NodePath("../../RouteSegments/TopRightEntry"), NodePath("../../RouteSegments/UpperTrunk"), NodePath("../../RouteSegments/DigDetour"), NodePath("../../RouteSegments/LowerTrunk")]
 
-[node name="Left" type="Path2D" parent="Routes" node_paths=PackedStringArray("segments")]
+[node name="Left" type="Path2D" parent="Routes" unique_id=144829742 node_paths=PackedStringArray("segments")]
 script = ExtResource("20_route")
 segments = [NodePath("../../RouteSegments/LeftEntry")]
 
-[node name="DigSite" type="Area2D" parent="." groups=["wet_zone"]]
+[node name="DigSite" type="Area2D" parent="." unique_id=90566012 groups=["wet_zone"]]
 position = Vector2(755, 335)
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="DigSite"]
+[node name="Shape" type="CollisionShape2D" parent="DigSite" unique_id=232524161]
 shape = SubResource("CircleShape2D_dig_site")
 
-[node name="BurntZone" type="Area2D" parent="." groups=["no_build"]]
+[node name="BurntZone" type="Area2D" parent="." unique_id=887827320 groups=["no_build"]]
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionPolygon2D" parent="BurntZone"]
+[node name="Shape" type="CollisionPolygon2D" parent="BurntZone" unique_id=1527504276]
 polygon = PackedVector2Array(320, 0, 1000, 0, 990, 60, 930, 120, 840, 160, 720, 172, 600, 165, 480, 140, 390, 95, 335, 40)
 
-[node name="TreeTrunks" type="Area2D" parent="." groups=["no_build"]]
+[node name="TreeTrunks" type="Area2D" parent="." unique_id=667890896 groups=["no_build"]]
 collision_mask = 0
 monitoring = false
 
-[node name="Roble" type="CollisionShape2D" parent="TreeTrunks"]
+[node name="Roble" type="CollisionShape2D" parent="TreeTrunks" unique_id=581658644]
 position = Vector2(92, 465)
 shape = SubResource("RectangleShape2D_trunk")
 
-[node name="Arbol" type="CollisionShape2D" parent="TreeTrunks"]
+[node name="Arbol" type="CollisionShape2D" parent="TreeTrunks" unique_id=1010409220]
 position = Vector2(276, 262)
 shape = SubResource("RectangleShape2D_trunk")
 
@@ -181,7 +181,7 @@ process_mode = 3
 stream = ExtResource("11_cfw67")
 bus = &"BGM"
 
-[node name="MenuBGM" type="AudioStreamPlayer" parent="Sound"]
+[node name="MenuBGM" type="AudioStreamPlayer" parent="Sound" unique_id=2088529443]
 process_mode = 3
 stream = ExtResource("22_bgm_menu")
 bus = &"BGM"
@@ -192,24 +192,25 @@ stream = ExtResource("8_ehlne")
 autoplay = true
 bus = &"AMB"
 
-[node name="Protagonist" type="Sprite2D" parent="."]
+[node name="Protagonist" type="Sprite2D" parent="." unique_id=171622576]
 z_index = 1
 position = Vector2(1040, 500)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("23_protagonist")
 
-[node name="NoBuild" type="Area2D" parent="Protagonist" groups=["no_build"]]
+[node name="NoBuild" type="Area2D" parent="Protagonist" unique_id=2026075978 groups=["no_build"]]
 scale = Vector2(10, 10)
 collision_mask = 0
 monitoring = false
 
-[node name="Shape" type="CollisionShape2D" parent="Protagonist/NoBuild"]
+[node name="Shape" type="CollisionShape2D" parent="Protagonist/NoBuild" unique_id=1109300576]
 shape = SubResource("RectangleShape2D_protagonist")
 
 [node name="Lobito" parent="." unique_id=220062580 node_paths=PackedStringArray("home") instance=ExtResource("12_y3njl")]
+amount = 3
 home = NodePath("../Protagonist")
 
-[node name="Ultimate" type="Node" parent="." node_paths=PackedStringArray("lobito", "spawner")]
+[node name="Ultimate" type="Node" parent="." unique_id=97886582 node_paths=PackedStringArray("lobito", "spawner")]
 script = ExtResource("24_ultimate")
 lobito = NodePath("../Lobito")
 spawner = NodePath("../WaveSpawner")
@@ -243,4 +244,4 @@ z_index = 1
 position = Vector2(276, 176)
 texture = ExtResource("18_t0q2h")
 
-[node name="StartScreen" parent="." instance=ExtResource("21_start_screen")]
+[node name="StartScreen" parent="." unique_id=377896432 instance=ExtResource("21_start_screen")]

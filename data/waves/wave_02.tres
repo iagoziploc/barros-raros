@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cyb8uwl0aftqn" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
 [ext_resource type="Resource" uid="uid://buo742kyinkj" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
 [ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="9_unit_data"]
-[ext_resource type="Resource" path="res://data/units/tierra.tres" id="10_new_unit"]
+[ext_resource type="Resource" uid="uid://2oaynciddxb8" path="res://data/units/tierra.tres" id="10_new_unit"]
 
 [sub_resource type="Resource" id="Resource_palitas"]
 script = ExtResource("2_entry")

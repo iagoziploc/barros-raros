@@ -5,13 +5,13 @@
 [ext_resource type="SpriteFrames" uid="uid://fpd4v6ikoc2w" path="res://data/units/balanceado_frames.tres" id="3_db1de"]
 [ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="3_ecbj8"]
 [ext_resource type="AudioStream" uid="uid://dc5cuglo00gps" path="res://assets/audio/SFX/unidad_hit.ogg" id="4_hit_sound"]
-[ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
+[ext_resource type="AudioStream" uid="uid://c2nxvv4ogja1g" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
 
 [resource]
 script = ExtResource("1")
 name_key = "UNIT_BALANCED"
-placement = 2
 earth_cost = 15
+placement = 2
 hit_damages = Array[int]([1, 3])
 hit_frames = Array[int]([4, 8])
 splash_radius = 55.0

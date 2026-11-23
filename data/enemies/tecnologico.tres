@@ -1,8 +1,8 @@
-[gd_resource type="Resource" script_class="EnemyData" format=3]
+[gd_resource type="Resource" script_class="EnemyData" format=3 uid="uid://cyy57etg37krn"]
 
-[ext_resource type="Script" path="res://entities/enemies/enemy_data.gd" id="1"]
-[ext_resource type="AudioStreamRandomizer" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
-[ext_resource type="AudioStreamRandomizer" path="res://data/sounds/enemigo_pala.tres" id="s_pala"]
+[ext_resource type="Script" uid="uid://b7ekp21ttwgnm" path="res://entities/enemies/enemy_data.gd" id="1"]
+[ext_resource type="AudioStream" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
+[ext_resource type="AudioStream" path="res://data/sounds/enemigo_pala.tres" id="s_pala"]
 
 [resource]
 script = ExtResource("1")
@@ -13,6 +13,6 @@ earth_stolen = 5
 earth_steal_duration = 1.0
 water_stolen = 8
 ultimate_charge = 3
-placeholder_color = Color(0.45, 0.62, 0.55, 1)
 death_sound = ExtResource("s_grito")
 dig_sound = ExtResource("s_pala")
+placeholder_color = Color(0.45, 0.62, 0.55, 1)
