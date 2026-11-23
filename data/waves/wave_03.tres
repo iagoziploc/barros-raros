@@ -1,20 +1,19 @@
-[gd_resource type="Resource" script_class="WaveData" format=3]
+[gd_resource type="Resource" script_class="WaveData" format=3 uid="uid://4atecnpnl5lc"]
 
-[ext_resource type="Script" path="res://systems/waves/wave_data.gd" id="1_wave"]
-[ext_resource type="Script" path="res://systems/waves/wave_entry.gd" id="2_entry"]
-[ext_resource type="Script" path="res://entities/units/unit_data.gd" id="9_unit_data"]
-[ext_resource type="Resource" path="res://data/units/agua.tres" id="10_new_unit"]
-[ext_resource type="Resource" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
-[ext_resource type="Resource" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
-[ext_resource type="Resource" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
+[ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="1_wave"]
+[ext_resource type="Script" uid="uid://cfnbrknj5b71y" path="res://systems/waves/wave_entry.gd" id="2_entry"]
+[ext_resource type="Resource" uid="uid://2ke18jsubg10" path="res://data/enemies/salaryman_palita.tres" id="3_palita"]
+[ext_resource type="Resource" uid="uid://cyb8uwl0aftqn" path="res://data/enemies/salaryman_botellita.tres" id="4_botellita"]
+[ext_resource type="Resource" uid="uid://buo742kyinkj" path="res://data/enemies/empresario_fit.tres" id="5_fit"]
 [ext_resource type="Resource" path="res://data/enemies/tecnologico.tres" id="6_tecnologico"]
+[ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="9_unit_data"]
+[ext_resource type="Resource" path="res://data/units/agua.tres" id="10_new_unit"]
 
 [sub_resource type="Resource" id="Resource_palitas"]
 script = ExtResource("2_entry")
 enemy = ExtResource("3_palita")
 count = 15
 interval = 2.2
-start_time = 0.0
 
 [sub_resource type="Resource" id="Resource_botellitas"]
 script = ExtResource("2_entry")
@@ -27,7 +26,6 @@ start_time = 1.1
 script = ExtResource("2_entry")
 enemy = ExtResource("5_fit")
 count = 15
-interval = 2.0
 start_time = 5.0
 
 [sub_resource type="Resource" id="Resource_tecnologicos"]

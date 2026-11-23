@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cksajwytd0a5n"]
+
+[ext_resource type="Script" uid="uid://dp4ulbw6mutwj" path="res://entities/lobito/lobito.gd" id="1_md8wm"]
+
+[node name="Lobito" type="Node" unique_id=220062580]
+script = ExtResource("1_md8wm")
+
+[node name="RecoverTimer" type="Timer" parent="." unique_id=434968309]
+unique_name_in_owner = true

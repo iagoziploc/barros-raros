@@ -14,12 +14,13 @@
 [ext_resource type="AudioStream" uid="uid://v6624hfvsow1" path="res://assets/audio/BGM/bgm_partida.ogg" id="11_cfw67"]
 [ext_resource type="Resource" uid="uid://dbcs02v22kb4v" path="res://data/dialogues/intro.tres" id="11_intro"]
 [ext_resource type="Resource" uid="uid://or5dwh6iiy8" path="res://data/dialogues/wave_01.tres" id="12_wave_01_dialogue"]
+[ext_resource type="PackedScene" uid="uid://cksajwytd0a5n" path="res://entities/lobito/lobito.tscn" id="12_y3njl"]
 [ext_resource type="Resource" uid="uid://cx22u28s6x00l" path="res://data/dialogues/ending.tres" id="13_ending"]
-[ext_resource type="Resource" path="res://data/waves/wave_02.tres" id="14_wave_02"]
-[ext_resource type="Resource" path="res://data/waves/wave_03.tres" id="15_wave_03"]
-[ext_resource type="Script" path="res://systems/news/news_event.gd" id="16_news_event"]
-[ext_resource type="Resource" path="res://data/news/news_01.tres" id="17_news_01"]
-[ext_resource type="Resource" path="res://data/news/news_02.tres" id="18_news_02"]
+[ext_resource type="Resource" uid="uid://djwqbmwxal5sx" path="res://data/waves/wave_02.tres" id="14_wave_02"]
+[ext_resource type="Resource" uid="uid://4atecnpnl5lc" path="res://data/waves/wave_03.tres" id="15_wave_03"]
+[ext_resource type="Script" uid="uid://peeheovu65hw" path="res://systems/news/news_event.gd" id="16_news_event"]
+[ext_resource type="Resource" uid="uid://du25k0rotmjog" path="res://data/news/news_01.tres" id="17_news_01"]
+[ext_resource type="Resource" uid="uid://f3jegvs087oo" path="res://data/news/news_02.tres" id="18_news_02"]
 [ext_resource type="PackedScene" path="res://ui/news_choice/news_choice.tscn" id="19_news_choice"]
 
 [sub_resource type="Curve2D" id="Curve2D_enemy_path"]
@@ -104,6 +105,8 @@ stream = ExtResource("8_ehlne")
 autoplay = true
 bus = &"AMB"
 
+[node name="Lobito" parent="." unique_id=220062580 instance=ExtResource("12_y3njl")]
+
 [node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("path")]
 script = ExtResource("2_spawner")
 waves = Array[ExtResource("3_wave_data")]([ExtResource("4_wave_01"), ExtResource("14_wave_02"), ExtResource("15_wave_03")])
@@ -121,4 +124,4 @@ path = NodePath("../EnemyPath")
 
 [node name="DialogueBox" parent="." unique_id=1198107075 instance=ExtResource("9_dialogue_box")]
 
-[node name="NewsChoice" parent="." instance=ExtResource("19_news_choice")]
+[node name="NewsChoice" parent="." unique_id=719054392 instance=ExtResource("19_news_choice")]
