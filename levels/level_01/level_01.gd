@@ -48,7 +48,6 @@ func _ready() -> void:
 	_build_bar.unit_unlocked.connect(_hud.show_unit_unlocked)
 	_ultimate.changed.connect(_hud.set_ultimate)
 	_hud.ultimate_pressed.connect(_ultimate.activate)
-	_hud.set_ultimate(0.0, false, false)
 	if start_on_ready:
 		_run()
 

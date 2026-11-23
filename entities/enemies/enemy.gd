@@ -137,7 +137,7 @@ func _apply_visual() -> void:
 ## Reacciona a las zonas del nivel según su grupo: zona húmeda o río.
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("wet_zone"):
-		if data.earth_stolen > 0:
+		if data.steals_earth():
 			_start_stealing_earth()
 	elif area.is_in_group("river"):
 		if data.water_stolen > 0:

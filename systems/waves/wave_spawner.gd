@@ -14,8 +14,6 @@ signal enemy_spawned(enemy: Enemy)
 ## arriba izquierda, arriba derecha, izquierda.
 @export var entrances: Array[Route] = []
 @export var enemy_scene: PackedScene = preload("res://entities/enemies/enemy.tscn")
-## Arranca la primera oleada al cargar. Pensado para probar mientras no hay flujo de partida.
-@export var autostart := false
 
 var current_wave := -1
 
@@ -23,12 +21,6 @@ var _schedule: Array[Dictionary] = []
 var _elapsed := 0.0
 var _alive := 0
 var _is_running := false
-
-
-## Arranca la primera oleada si `autostart` está activo.
-func _ready() -> void:
-	if autostart and not waves.is_empty():
-		start_wave(0)
 
 
 ## Saca los enemigos cuyo tiempo ya llegó y avisa `wave_cleared` cuando no queda nadie.
@@ -86,7 +78,7 @@ func _pick_route(data: EnemyData, allowed_entrances: int) -> Route:
 	var fallback: Array[Route] = []
 	for index in entrances.size():
 		var route := entrances[index]
-		if data.earth_stolen > 0:
+		if data.steals_earth():
 			route = route.dig_route
 		if route == null:
 			continue

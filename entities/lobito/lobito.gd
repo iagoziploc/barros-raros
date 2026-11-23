@@ -165,5 +165,4 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO, 9.0, OUTLINE_COLOR)
 	draw_circle(Vector2.ZERO, 7.0, COLOR)
 	if _carrying:
-		var color := Sparkle.EARTH_COLOR if _carrying.kind == Economy.Kind.EARTH else Sparkle.WATER_COLOR
-		draw_circle(Vector2(0, -11), 4.0, color)
+		draw_circle(Vector2(0, -11), 4.0, Sparkle.color_for(_carrying.kind))

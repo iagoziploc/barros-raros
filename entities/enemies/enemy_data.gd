@@ -34,3 +34,8 @@ extends Resource
 @export var texture: Texture2D
 @export var sprite_scale := 1.0
 @export var placeholder_color := Color.WHITE
+
+
+## true si roba tierra: cava en el pozo y por eso solo usa entradas que pasan por él.
+func steals_earth() -> bool:
+	return earth_stolen > 0
