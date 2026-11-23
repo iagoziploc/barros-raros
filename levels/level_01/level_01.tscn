@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dk1j7c5o33egu" path="res://levels/level_01/level_01.gd" id="1_71kry"]
 [ext_resource type="Script" path="res://systems/waves/route.gd" id="20_route"]
+[ext_resource type="PackedScene" path="res://ui/start_screen/start_screen.tscn" id="21_start_screen"]
+[ext_resource type="AudioStream" path="res://assets/audio/BGM/bgm_menu.ogg" id="22_bgm_menu"]
+[ext_resource type="Texture2D" path="res://assets/art/provisorio/protagonista.png" id="23_protagonist"]
 [ext_resource type="Script" uid="uid://b20equpmgorg6" path="res://systems/waves/wave_spawner.gd" id="2_spawner"]
 [ext_resource type="Script" uid="uid://dh6iidbe12i6l" path="res://systems/waves/wave_data.gd" id="3_wave_data"]
 [ext_resource type="Resource" uid="uid://cghmxyocjwh1n" path="res://data/waves/wave_01.tres" id="4_wave_01"]
@@ -64,6 +67,9 @@ point_count = 10
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dig_site"]
 radius = 22.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_protagonist"]
+size = Vector2(70, 95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_trunk"]
 size = Vector2(40, 40)
@@ -172,7 +178,11 @@ shape = SubResource("RectangleShape2D_river")
 [node name="BGM" type="AudioStreamPlayer" parent="Sound" unique_id=1202783320]
 process_mode = 3
 stream = ExtResource("11_cfw67")
-autoplay = true
+bus = &"BGM"
+
+[node name="MenuBGM" type="AudioStreamPlayer" parent="Sound"]
+process_mode = 3
+stream = ExtResource("22_bgm_menu")
 bus = &"BGM"
 
 [node name="AMB" type="AudioStreamPlayer" parent="Sound" unique_id=1517519177]
@@ -181,7 +191,22 @@ stream = ExtResource("8_ehlne")
 autoplay = true
 bus = &"AMB"
 
-[node name="Lobito" parent="." unique_id=220062580 instance=ExtResource("12_y3njl")]
+[node name="Protagonist" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(1040, 500)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("23_protagonist")
+
+[node name="NoBuild" type="Area2D" parent="Protagonist" groups=["no_build"]]
+scale = Vector2(10, 10)
+collision_mask = 0
+monitoring = false
+
+[node name="Shape" type="CollisionShape2D" parent="Protagonist/NoBuild"]
+shape = SubResource("RectangleShape2D_protagonist")
+
+[node name="Lobito" parent="." unique_id=220062580 node_paths=PackedStringArray("home") instance=ExtResource("12_y3njl")]
+home = NodePath("../Protagonist")
 
 [node name="WaveSpawner" type="Node" parent="." unique_id=2082128550 node_paths=PackedStringArray("entrances")]
 script = ExtResource("2_spawner")
@@ -211,3 +236,5 @@ texture = ExtResource("17_anxy3")
 z_index = 1
 position = Vector2(276, 176)
 texture = ExtResource("18_t0q2h")
+
+[node name="StartScreen" parent="." instance=ExtResource("21_start_screen")]

@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://s58xlkpmjqnf"
 
 Economy="*res://systems/economy/economy.gd"
 Modifiers="*res://systems/modifiers/modifiers.gd"
+Mute="*res://systems/audio/mute.gd"
 
 [display]
 

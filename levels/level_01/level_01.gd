@@ -1,6 +1,7 @@
 extends Node2D
 ## Conecta las piezas del nivel y guía la partida de principio a fin:
-## intro -> (diálogo de la oleada -> oleada -> noticia) x N -> final.
+## pantalla de inicio -> intro -> (diálogo de la oleada -> oleada -> noticia) x N -> final.
+## Durante la pantalla de inicio y la intro suena la música de menú; en las oleadas, la del nivel.
 ## La secuencia completa está en _run(), escrita en orden con await.
 
 ## Segundos entre una oleada y la siguiente cuando no hay ni noticia ni diálogo en el medio.
@@ -31,6 +32,9 @@ static var _seen_dialogues: Array[String] = []
 @onready var _build_bar := $BuildBar
 @onready var _dialogue_box: DialogueBox = $DialogueBox
 @onready var _news_choice: NewsChoice = $NewsChoice
+@onready var _start_screen: StartScreen = $StartScreen
+@onready var _menu_bgm: AudioStreamPlayer = $Sound/MenuBGM
+@onready var _bgm: AudioStreamPlayer = $Sound/BGM
 
 
 ## Reinicia la economía y los modificadores, conecta las piezas y arranca la partida.
@@ -46,7 +50,11 @@ func _ready() -> void:
 
 ## La partida completa, en orden. Cada await espera a que termine ese momento.
 func _run() -> void:
+	_menu_bgm.play()
+	await _start_screen.wait_for_start()
 	await _play_once(intro)
+	_menu_bgm.stop()
+	_bgm.play()
 
 	var last_wave := _spawner.waves.size() - 1
 	for index in _spawner.waves.size():
@@ -108,7 +116,7 @@ func _dissolve_units() -> void:
 		unit.remove(true)
 
 
-## Tecla R: reinicia el nivel. Los diálogos ya vistos no se repiten.
+## Tecla R: reinicia el nivel. Los diálogos ya vistos y la pantalla de inicio no se repiten.
 func _unhandled_input(event: InputEvent) -> void:
 	var key := event as InputEventKey
 	if key == null or not key.pressed or key.echo:
