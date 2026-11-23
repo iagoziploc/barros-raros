@@ -18,6 +18,7 @@ func _ready() -> void:
 	_test_resources()
 	await _test_sudden_death()
 	_test_defeat()
+	_test_mute_button()
 
 	print("")
 	print("Resultado: %d falla(s)" % _failures)
@@ -56,6 +57,16 @@ func _test_defeat() -> void:
 	Economy._process(Economy.config.sudden_death_seconds + 0.1)
 	_check(_label("MessageLabel").visible, "aparece el cartel de derrota")
 	_check(_label("MessageLabel").text == tr("HUD_DEFEAT"), "con el texto de derrota")
+
+
+func _test_mute_button() -> void:
+	print("Parlantito")
+	var button: MuteButton = _hud.get_node("MuteButton")
+	Mute.set_muted(false)
+	button.pressed.emit()
+	_check(Mute.is_muted(), "tocarlo apaga el sonido")
+	button.pressed.emit()
+	_check(not Mute.is_muted(), "tocarlo de nuevo lo prende")
 
 
 # process_frame se emite antes de los _process() de ese frame:

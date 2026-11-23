@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6ecn8dvfy32e"]
 
 [ext_resource type="Script" uid="uid://bu4u2uvta0gy0" path="res://ui/hud/hud.gd" id="1_hud"]
+[ext_resource type="Script" path="res://ui/hud/mute_button.gd" id="2_mute"]
 
 [node name="HUD" type="CanvasLayer" unique_id=1154340702]
 script = ExtResource("1_hud")
@@ -89,3 +90,15 @@ theme_override_font_sizes/font_size = 56
 text = "Se llevaron todo"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MuteButton" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -60.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 60.0
+grow_horizontal = 0
+tooltip_text = "M"
+script = ExtResource("2_mute")
