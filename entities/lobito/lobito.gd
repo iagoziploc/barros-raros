@@ -15,8 +15,10 @@ signal sparkle_spawned
 @export var max_sparkles := 5
 ## Cuánto devuelve cada brillo.
 @export var amount := 2
-## Velocidad en píxeles por segundo.
-@export var speed := 140.0
+## Velocidad promedio en píxeles por segundo (arranca más lento, acelera y frena al llegar).
+@export var speed := 320.0
+## Segundos que se queda quieto al llegar a cada lugar (al brillo y a casa).
+@export var pause_at_stops := 0.5
 ## Adónde vuelve a entregar. Vacío = donde empieza.
 @export var home: Node2D
 ## Zona donde pueden aparecer los brillos de tierra.
@@ -146,12 +148,15 @@ func _is_better(a: Sparkle, b: Sparkle, lowest: Economy.Kind) -> bool:
 	return global_position.distance_to(a.global_position) < global_position.distance_to(b.global_position)
 
 
-## Camina en línea recta hasta `target` a `speed`. Usar con await.
+## Corre en línea recta hasta `target` y se queda quieto `pause_at_stops` segundos. Usar con await.
+## TRANS_QUAD + EASE_IN_OUT: arranca despacio, acelera, y frena al llegar.
 ## El tween se pausa con el juego, así que en los diálogos el lobito se queda quieto.
 func _walk_to(target: Vector2) -> void:
 	var duration := global_position.distance_to(target) / speed
 	var tween := create_tween()
-	tween.tween_property(self, "global_position", target, duration)
+	var step := tween.tween_property(self, "global_position", target, duration)
+	step.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_interval(pause_at_stops)
 	await tween.finished
 
 
