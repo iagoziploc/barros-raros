@@ -26,3 +26,6 @@ collision_mask = 1
 
 [node name="Shape" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("CircleShape2D_hitbox")
+
+[node name="DigSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"

@@ -31,6 +31,7 @@ func _ready() -> void:
 	await _test_stops_to_steal_earth()
 	_test_damage_and_armor()
 	_test_speed_variation()
+	_test_death_sound()
 
 	print("")
 	print("Resultado: %d falla(s)" % _failures)
@@ -95,6 +96,18 @@ func _test_speed_variation() -> void:
 	var steady := _spawn(data)
 	_check(steady._speed == 100.0, "con variación 0, la velocidad es exacta")
 	steady.free()
+
+
+func _test_death_sound() -> void:
+	print("Sonido al morir")
+	var enemy := _spawn(PALITA)
+	var scene := get_tree().current_scene
+	var before := scene.get_child_count()
+	enemy.take_damage(1000)
+	var player := scene.get_child(scene.get_child_count() - 1) as AudioStreamPlayer2D
+	_check(scene.get_child_count() == before + 1 and player != null, "al morir deja un reproductor aparte")
+	_check(player != null and player.stream == PALITA.death_sound, "con el grito del enemigo")
+	_check(PALITA.death_sound is AudioStreamRandomizer, "que elige uno al azar entre varios")
 
 
 func _test_damage_and_armor() -> void:

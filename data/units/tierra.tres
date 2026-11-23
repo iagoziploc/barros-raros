@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" path="res://entities/units/mortar_unit.tscn" id="2_scene"]
 [ext_resource type="Texture2D" path="res://assets/art/provisorio/unidad_2.png" id="3_texture"]
 [ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="4_spawn"]
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_throw.ogg" id="s_throw"]
 
 [resource]
 script = ExtResource("1")
@@ -20,3 +22,5 @@ attack_range = 220.0
 texture = ExtResource("3_texture")
 sprite_scale = 0.13
 spawn_sound = ExtResource("4_spawn")
+attack_sound = ExtResource("s_throw")
+death_sound = ExtResource("s_muerte")

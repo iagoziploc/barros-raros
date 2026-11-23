@@ -5,6 +5,7 @@
 [ext_resource type="SpriteFrames" uid="uid://fpd4v6ikoc2w" path="res://data/units/balanceado_frames.tres" id="3_db1de"]
 [ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="3_ecbj8"]
 [ext_resource type="AudioStream" uid="uid://dc5cuglo00gps" path="res://assets/audio/SFX/unidad_hit.ogg" id="4_hit_sound"]
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
 
 [resource]
 script = ExtResource("1")
@@ -19,3 +20,4 @@ texture = ExtResource("2_texture")
 sprite_scale = 0.2
 spawn_sound = ExtResource("3_ecbj8")
 hit_sound = ExtResource("4_hit_sound")
+death_sound = ExtResource("s_muerte")

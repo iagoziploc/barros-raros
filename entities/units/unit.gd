@@ -43,6 +43,8 @@ var _next_hit := 0
 @onready var _range_shape: CollisionShape2D = $Range/Shape
 @onready var _spawn_sound: AudioStreamPlayer2D = $SpawnSound
 @onready var _hit_sound: AudioStreamPlayer2D = $HitSound
+@onready var _attack_sound: AudioStreamPlayer2D = $AttackSound
+@onready var _loop_sound: AudioStreamPlayer2D = $LoopSound
 @onready var _build_progress: ProgressBar = $BuildProgress
 
 
@@ -107,6 +109,7 @@ func remove(survived: bool) -> void:
 		Economy.refund_survived(paid_earth, paid_water)
 	else:
 		Economy.refund_destroyed(paid_earth, paid_water)
+	Sfx.play_detached(data.death_sound, self)
 	queue_free()
 
 
@@ -126,7 +129,18 @@ func _finish_building() -> void:
 	_sprite.modulate = Color.WHITE
 	_build_progress.hide()
 	_play_sound(_spawn_sound, data.spawn_sound)
+	_start_loop_sound()
 	built.emit(self)
+
+
+## Si la unidad tiene `loop_sound`, lo hace sonar sin parar (vuelve a empezar al terminar).
+func _start_loop_sound() -> void:
+	if data.loop_sound == null:
+		return
+	_loop_sound.stream = data.loop_sound
+	_loop_sound.volume_db = data.loop_volume_db
+	_loop_sound.finished.connect(_loop_sound.play)
+	_loop_sound.play()
 
 
 ## Mira hacia `target` y arranca el ataque: con la animación "hit" si se puede usar,
@@ -135,6 +149,7 @@ func _start_attack(target: Enemy) -> void:
 	# El dibujo pega hacia la izquierda: si el objetivo está a la derecha, se espeja.
 	_sprite.flip_h = target.global_position.x > global_position.x
 	_next_hit = 0
+	_play_sound(_attack_sound, data.attack_sound)
 	if _can_animate_hits():
 		# Si ataca más rápido, la animación también: así los golpes siguen cayendo en sus cuadros.
 		_sprite.speed_scale = _attack_speed()
