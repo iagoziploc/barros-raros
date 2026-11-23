@@ -17,6 +17,14 @@ signal building_changed(is_building: bool)
 @export var routes: Array[Path2D] = []
 ## Hasta cuántos píxeles del centro del camino cuenta como "sobre el camino" (la mitad del ancho).
 @export var path_half_width := 34.0
+## Herramienta de diseño: con una unidad seleccionada, pinta de rojo dónde NO se puede
+## construir esa unidad (zonas prohibidas, camino, distancia a otras unidades).
+## Se activa en el inspector del nodo UnitPlacer del nivel.
+@export var show_build_map := false
+## Tamaño en píxeles de cada cuadradito del mapa de construcción.
+const BUILD_MAP_CELL := 16
+const BUILD_MAP_COLOR := Color(1.0, 0.2, 0.2, 0.35)
+
 ## Distancia máxima a la unidad para destruirla con clic derecho.
 @export var destroy_radius := 36.0
 
@@ -24,6 +32,8 @@ const VALID_COLOR := Color(1.0, 1.0, 1.0, 0.6)
 const INVALID_COLOR := Color(1.0, 0.3, 0.3, 0.6)
 
 var _selected: UnitData
+# Para show_build_map: esquinas de los cuadraditos donde no se puede construir.
+var _blocked_cells: Array[Vector2] = []
 # Unidad que se está construyendo, o null.
 var _building: Unit
 
@@ -46,6 +56,9 @@ func _process(_delta: float) -> void:
 
 ## Dibuja el círculo de alcance alrededor del fantasma.
 func _draw() -> void:
+	if _selected and show_build_map:
+		for cell in _blocked_cells:
+			draw_rect(Rect2(cell, Vector2.ONE * BUILD_MAP_CELL), BUILD_MAP_COLOR)
 	if _selected:
 		draw_arc(_ghost.position, _selected.attack_range, 0.0, TAU, 64, _ghost.modulate, 2.0)
 
@@ -81,6 +94,8 @@ func select(data: UnitData) -> void:
 	_ghost.texture = data.get_icon()
 	_ghost.scale = Vector2.ONE * data.sprite_scale
 	_ghost.show()
+	if show_build_map:
+		_update_build_map()
 
 
 ## Sale del modo colocación.
@@ -130,6 +145,12 @@ func can_place_at(point: Vector2) -> bool:
 		return false
 	if not Economy.can_afford(Modifiers.earth_cost(_selected), Modifiers.water_cost(_selected)):
 		return false
+	return is_buildable_spot(point)
+
+
+## true si el lugar sirve para la unidad seleccionada, sin mirar recursos ni construcciones:
+## distancia a otras unidades (`spacing`), `placement` (sobre o fuera del camino) y zonas `no_build`.
+func is_buildable_spot(point: Vector2) -> bool:
 	for unit: Unit in container.get_children():
 		# Vale la distancia más grande de las dos unidades.
 		var spacing := maxf(unit.data.spacing, _selected.spacing)
@@ -140,6 +161,17 @@ func can_place_at(point: Vector2) -> bool:
 	if _selected.placement == UnitData.Placement.OFF_PATH and _is_on_path(point):
 		return false
 	return not _is_in_no_build_area(point)
+
+
+## Para show_build_map: recorre la pantalla en cuadraditos y guarda los que no sirven.
+func _update_build_map() -> void:
+	_blocked_cells.clear()
+	var screen := get_viewport_rect().size
+	for y in range(0, int(screen.y), BUILD_MAP_CELL):
+		for x in range(0, int(screen.x), BUILD_MAP_CELL):
+			var corner := Vector2(x, y)
+			if not is_buildable_spot(corner + Vector2.ONE * BUILD_MAP_CELL / 2.0):
+				_blocked_cells.append(corner)
 
 
 ## true si `point` está a menos de `path_half_width` de la curva de alguna ruta.

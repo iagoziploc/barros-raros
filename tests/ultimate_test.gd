@@ -83,6 +83,12 @@ func _test_ultimate() -> void:
 		await get_tree().process_frame
 		time_left -= get_process_delta_time()
 	_check(_count_lobitos(level) == lobitos_before, "los ayudantes terminan su viaje y se van")
+
+	ultimate.add_charge(1000)
+	ultimate.activate()
+	ultimate.reset()
+	_check(not ultimate.is_active() and ultimate.charge == 0, "al terminar la oleada se corta y la carga vuelve a 0")
+	_check(Economy.bonus_max == 0, "y el máximo vuelve a la normalidad")
 	level.queue_free()
 
 

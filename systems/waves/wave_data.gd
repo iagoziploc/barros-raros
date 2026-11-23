@@ -3,6 +3,9 @@ extends Resource
 ## Una oleada: la lista de grupos de enemigos que la forman.
 
 @export var entries: Array[WaveEntry] = []
+## Segundos de respiro desde que arranca la oleada hasta que empiezan a contar los grupos
+## (un grupo con Start Time 0 sale recién después de esta demora).
+@export var start_delay := 1.0
 ## Unidades que se estrenan al empezar esta oleada: se suman a la barra de construcción.
 @export var new_units: Array[UnitData] = []
 

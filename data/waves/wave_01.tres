@@ -18,3 +18,4 @@ start_time = 1.0
 [resource]
 script = ExtResource("1_wave")
 entries = Array[ExtResource("2_entry")]([SubResource("Resource_palitas"), SubResource("Resource_botellitas")])
+start_delay = 3.0

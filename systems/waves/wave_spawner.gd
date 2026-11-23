@@ -43,7 +43,8 @@ func _process(delta: float) -> void:
 func start_wave(index: int) -> void:
 	current_wave = index
 	_schedule = waves[index].build_schedule(Modifiers.multiplier(Modifiers.Stat.ENEMY_COUNT))
-	_elapsed = 0.0
+	# Empieza en negativo: el reloj de los grupos llega a 0 recién después de la demora.
+	_elapsed = -waves[index].start_delay
 	_alive = 0
 	_is_running = true
 	wave_started.emit(index)

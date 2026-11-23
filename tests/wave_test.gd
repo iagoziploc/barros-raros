@@ -60,6 +60,8 @@ func _test_spawner() -> void:
 
 	spawner.start_wave(0)
 	_check(spawner.is_running(), "la oleada arranca")
+	await get_tree().process_frame
+	_check(spawned.is_empty(), "nadie sale durante la demora del comienzo (start_delay)")
 
 	var time_left := WAVE_TIMEOUT
 	while cleared.is_empty() and time_left > 0.0:

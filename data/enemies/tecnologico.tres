@@ -16,3 +16,4 @@ ultimate_charge = 3
 death_sound = ExtResource("s_grito")
 dig_sound = ExtResource("s_pala")
 placeholder_color = Color(0.45, 0.62, 0.55, 1)
+sink_time_multiplier = 2.0

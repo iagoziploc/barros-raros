@@ -28,7 +28,7 @@ func _act(_delta: float) -> void:
 func _trap(enemy: Enemy) -> void:
 	_trapped.append(enemy)
 	enemy.died.connect(_on_trapped_enemy_died)
-	enemy.trap(data.pool_consume_time)
+	enemy.trap(data.pool_consume_time * enemy.data.sink_time_multiplier)
 	_play_sound(_hit_sound, data.hit_sound)
 
 

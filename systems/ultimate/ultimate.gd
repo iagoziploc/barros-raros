@@ -67,6 +67,14 @@ func is_active() -> bool:
 	return _time_left > 0.0
 
 
+## Al terminar una oleada: si está activa la termina, y la carga vuelve a 0.
+func reset() -> void:
+	if is_active():
+		_end()
+	charge = 0
+	_emit_changed()
+
+
 ## Suma `amount` de carga, sin pasar de `charge_needed`. Mientras está activa no carga.
 func add_charge(amount: int) -> void:
 	if is_active():
@@ -88,7 +96,8 @@ func activate() -> void:
 		helper.helper_of = lobito
 		helper.home = lobito.home
 		helper.modulate = Color(1.0, 0.9, 0.7)
-		lobito.get_parent().add_child(helper)
+		# Justo después del lobito en el árbol: así también pasa por detrás de los árboles.
+		lobito.add_sibling(helper)
 		_helpers.append(helper)
 	_emit_changed()
 

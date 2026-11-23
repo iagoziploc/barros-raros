@@ -70,6 +70,7 @@ func _run() -> void:
 		if Economy.is_defeated():
 			return  # El HUD ya muestra la derrota.
 		_dissolve_units()
+		_ultimate.reset()
 
 		if index == last_wave:
 			break

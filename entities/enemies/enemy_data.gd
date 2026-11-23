@@ -10,6 +10,8 @@ extends Resource
 @export var max_health := 10
 ## Se resta al daño de cada golpe. Cada golpe hace al menos 1 de daño.
 @export var armor := 0
+## Multiplica el tiempo que tarda una pileta en hundirlo. 2 = tarda el doble.
+@export var sink_time_multiplier := 1.0
 
 @export_group("Robo")
 ## Tierra que roba en la zona húmeda. 0 = no roba tierra ni se detiene.
