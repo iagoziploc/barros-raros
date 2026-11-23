@@ -93,6 +93,7 @@ func select(data: UnitData) -> void:
 	_selected = data
 	_ghost.texture = data.get_icon()
 	_ghost.scale = Vector2.ONE * data.sprite_scale
+	_ghost.offset = data.feet_offset()  # Igual que la unidad: el mouse marca dónde van los pies.
 	_ghost.show()
 	if show_build_map:
 		_update_build_map()

@@ -52,6 +52,8 @@ var _next_hit := 0
 func _ready() -> void:
 	_sprite.sprite_frames = _make_sprite_frames()
 	_sprite.scale = Vector2.ONE * data.sprite_scale
+	# El dibujo sube para que la posición de la unidad sean sus pies (ver UnitData.feet_offset).
+	_sprite.offset = data.feet_offset()
 	_sprite.animation_finished.connect(_on_sprite_animation_finished)
 	_sprite.frame_changed.connect(_on_sprite_frame_changed)
 	_sprite.play("idle")
@@ -180,6 +182,12 @@ func _strike(index: int) -> void:
 	_play_sound(_hit_sound, data.hit_sound)
 	if show_debug_areas:
 		_show_debug_hit(target.global_position)
+
+
+## El centro del cuerpo en coordenadas del mundo (la posición de la unidad son sus pies).
+## De ahí sale, por ejemplo, el terrón del mortero.
+func body_position() -> Vector2:
+	return global_position + data.feet_offset() * data.sprite_scale
 
 
 ## Daño del golpe número `index`, con los modificadores. Siempre al menos 1.

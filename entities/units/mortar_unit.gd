@@ -15,7 +15,7 @@ func _strike(index: int) -> void:
 	var shot := MudShot.new()
 	add_child(shot)
 	shot.landed.connect(_on_shot_landed.bind(_hit_damage(index)))
-	shot.launch(global_position, landing, data.projectile_flight_time,
+	shot.launch(body_position(), landing, data.projectile_flight_time,
 			data.projectile_arc_height, data.projectile_texture)
 
 

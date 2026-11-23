@@ -59,6 +59,9 @@ enum Placement {
 ## Imagen fija, para unidades sin animaciones.
 @export var texture: Texture2D
 @export var sprite_scale := 0.12
+## La unidad se apoya en el borde de abajo de su imagen (sus pies). Si la imagen tiene
+## espacio transparente debajo de los pies, poné acá cuántos píxeles (de la imagen original).
+@export var foot_offset := 0.0
 ## Se reproduce al terminar de construirse. Puede quedar vacío.
 @export var spawn_sound: AudioStream
 ## Se reproduce en cada golpe que conecta. Puede quedar vacío.
@@ -73,6 +76,15 @@ enum Placement {
 @export var death_sound: AudioStream
 ## Cuánto puede subir o bajar el tono de los sonidos. 0.2 = entre 80% y 120% del tono original.
 @export_range(0.0, 0.5, 0.01) var pitch_variation := 0.2
+
+
+## Corrimiento del dibujo para que el punto de la unidad quede en sus pies y no en el centro:
+## la imagen sube la mitad de su alto (menos `foot_offset`). En píxeles de la imagen original.
+func feet_offset() -> Vector2:
+	var icon := get_icon()
+	if icon == null:
+		return Vector2.ZERO
+	return Vector2(0, -icon.get_height() / 2.0 + foot_offset)
 
 
 ## Imagen que representa a la unidad en el fantasma y en la barra:

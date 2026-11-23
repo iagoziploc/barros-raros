@@ -128,6 +128,8 @@ func _apply_visual() -> void:
 	if data.texture:
 		_sprite.texture = data.texture
 		_sprite.scale = Vector2.ONE * data.sprite_scale
+		# Igual que las unidades: la posición sobre el camino son sus pies.
+		_sprite.offset = Vector2(0, -data.texture.get_height() / 2.0)
 		_placeholder.hide()
 	else:
 		_sprite.hide()
