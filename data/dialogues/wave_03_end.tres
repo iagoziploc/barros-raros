@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="1_dialogue"]
+[ext_resource type="Script" uid="uid://bk2gd5fn8ng2e" path="res://systems/dialogue/dialogue_line.gd" id="2_line"]
+[ext_resource type="Resource" uid="uid://ck8ak81b854fk" path="res://data/speakers/protagonista.tres" id="3_protagonist"]
+[ext_resource type="Resource" uid="uid://ctvu4cuydliuq" path="res://data/speakers/lobito.tres" id="4_lobito"]
+
+[sub_resource type="Resource" id="Line_01"]
+script = ExtResource("2_line")
+speaker = ExtResource("3_protagonist")
+text_key = "WAVE_03_END_01"
+
+[sub_resource type="Resource" id="Line_02"]
+script = ExtResource("2_line")
+speaker = ExtResource("4_lobito")
+text_key = "WAVE_03_END_02"
+
+[resource]
+script = ExtResource("1_dialogue")
+lines = Array[ExtResource("2_line")]([SubResource("Line_01"), SubResource("Line_02")])

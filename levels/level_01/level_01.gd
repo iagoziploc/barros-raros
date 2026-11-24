@@ -15,6 +15,9 @@ extends Node2D
 ## Diálogo que se muestra antes de cada oleada, en el mismo orden que las oleadas.
 ## Un elemento vacío = esa oleada arranca sin diálogo.
 @export var wave_dialogues: Array[Dialogue] = []
+## Diálogo que se muestra al terminar cada oleada (antes de las noticias, o del final si es
+## la última), en el mismo orden que las oleadas. Un elemento vacío = sin diálogo.
+@export var wave_end_dialogues: Array[Dialogue] = []
 ## Diálogo de noticia que se cuenta después de cada oleada (la 0 después de la oleada 1,
 ## y así), antes de las buenas y malas noticias. Un elemento vacío = sin diálogo.
 @export var wave_news: Array[NewsEvent] = []
@@ -73,6 +76,8 @@ func _run() -> void:
 		if Economy.is_defeated():
 			return  # El HUD ya muestra la derrota.
 		_dissolve_units()
+		var end_dialogue: Dialogue = wave_end_dialogues[index] if index < wave_end_dialogues.size() else null
+		await _play_once(end_dialogue)
 		_ultimate.reset()
 
 		if index == last_wave:

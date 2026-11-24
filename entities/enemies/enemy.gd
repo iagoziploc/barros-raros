@@ -161,6 +161,8 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	elif area.is_in_group("river"):
 		if data.water_stolen > 0:
 			Economy.steal(Economy.Kind.WATER, data.water_stolen)
+			# Reproductor aparte: el enemigo se va del mapa en este mismo momento.
+			Sfx.play_detached(data.water_steal_sound, self)
 		_escape()
 
 

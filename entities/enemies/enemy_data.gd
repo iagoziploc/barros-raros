@@ -30,6 +30,8 @@ extends Resource
 @export var death_sound: AudioStream
 ## Suena al empezar a robar tierra (la pala).
 @export var dig_sound: AudioStream
+## Suena al robar agua en el río.
+@export var water_steal_sound: AudioStream
 
 @export_group("Visual")
 ## Si es null se dibuja un cuadrado de `placeholder_color`. Puede ser una tira de cuadros

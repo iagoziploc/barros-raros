@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" path="res://data/sounds/enemigo_grito.tres" id="s_grito"]
 [ext_resource type="AudioStream" path="res://data/sounds/enemigo_pala.tres" id="s_pala"]
 [ext_resource type="Texture2D" uid="uid://cjwimwthor4gt" path="res://assets/art/spritesheets/enemy_3.png" id="tex_enemy"]
+[ext_resource type="AudioStream" path="res://assets/audio/SFX/enemigo_agua.ogg" id="s_agua"]
 
 [resource]
 script = ExtResource("1")
@@ -21,3 +22,4 @@ texture = ExtResource("tex_enemy")
 frames = 2
 sprite_scale = 0.18
 placeholder_color = Color(0.45, 0.62, 0.55, 1)
+water_steal_sound = ExtResource("s_agua")
