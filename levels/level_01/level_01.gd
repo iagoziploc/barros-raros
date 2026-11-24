@@ -1,10 +1,11 @@
 extends Node2D
 ## Conecta las piezas del nivel y guía la partida de principio a fin:
-## pantalla de inicio -> intro -> (diálogo de la oleada -> oleada -> noticia) x N -> final.
+## pantalla de inicio -> intro -> (diálogo antes de la oleada -> oleada -> diálogo de fin de oleada
+## -> buenas y malas noticias) x N -> final.
 ## Durante la pantalla de inicio y la intro suena la música de menú; en las oleadas, la del nivel.
 ## La secuencia completa está en _run(), escrita en orden con await.
 
-## Segundos entre una oleada y la siguiente cuando no hay ni noticia ni diálogo en el medio.
+## Segundos entre una oleada y la siguiente cuando no hay ni noticias ni diálogo en el medio.
 @export var time_between_waves := 5.0
 ## Si es false, el nivel no arranca solo (lo usan las pruebas).
 @export var start_on_ready := true
@@ -18,9 +19,6 @@ extends Node2D
 ## Diálogo que se muestra al terminar cada oleada (antes de las noticias, o del final si es
 ## la última), en el mismo orden que las oleadas. Un elemento vacío = sin diálogo.
 @export var wave_end_dialogues: Array[Dialogue] = []
-## Diálogo de noticia que se cuenta después de cada oleada (la 0 después de la oleada 1,
-## y así), antes de las buenas y malas noticias. Un elemento vacío = sin diálogo.
-@export var wave_news: Array[NewsEvent] = []
 ## Las posibles buenas y malas noticias entre oleadas. Vacías = no aparece la elección.
 @export var good_news: EffectPool
 @export var bad_news: EffectPool
@@ -82,25 +80,15 @@ func _run() -> void:
 
 		if index == last_wave:
 			break
-		# Entre oleadas: las noticias, o si no hay nada que mostrar, una pausa.
-		var news: NewsEvent = wave_news[index] if index < wave_news.size() else null
+		# Entre oleadas: las buenas y malas noticias, o si no hay, una pausa.
 		var has_next_dialogue := index + 1 < wave_dialogues.size() and wave_dialogues[index + 1] != null
-		if news or (good_news and bad_news):
-			await _run_news(news)
+		if good_news and bad_news:
+			await _news_choice.run(good_news, bad_news)
 		elif not has_next_dialogue:
 			await get_tree().create_timer(time_between_waves).timeout
 
 	await _play_once(ending)
 	_hud.show_victory()
-
-
-## Entre oleadas: el diálogo de la noticia (si hay y no se vio) y después las buenas y malas
-## noticias, que se eligen y aplican adentro de NewsChoice.run().
-func _run_news(news: NewsEvent) -> void:
-	if news:
-		await _play_once(news.dialogue)
-	if good_news and bad_news:
-		await _news_choice.run(good_news, bad_news)
 
 
 ## Muestra `dialogue` y espera a que termine, salvo que ya se haya visto en esta sesión.
