@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://2ogrx87a21w8" path="res://assets/art/sprites/unidad_1.png" id="2_texture"]
 [ext_resource type="SpriteFrames" uid="uid://fpd4v6ikoc2w" path="res://data/units/balanceado_frames.tres" id="3_db1de"]
 [ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="3_ecbj8"]
-[ext_resource type="AudioStream" uid="uid://dc5cuglo00gps" path="res://assets/audio/SFX/unidad_hit.ogg" id="4_hit_sound"]
+[ext_resource type="AudioStream" uid="uid://ctc4qdwoksfen" path="res://assets/audio/SFX/unidad_hit.ogg" id="4_hit_sound"]
 [ext_resource type="AudioStream" uid="uid://c2nxvv4ogja1g" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
 
 [resource]
@@ -20,5 +20,6 @@ texture = ExtResource("2_texture")
 sprite_scale = 0.2
 spawn_sound = ExtResource("3_ecbj8")
 attack_sound = ExtResource("4_hit_sound")
+attack_volume_db = -1.0
 death_sound = ExtResource("s_muerte")
 pitch_variation = 0.0

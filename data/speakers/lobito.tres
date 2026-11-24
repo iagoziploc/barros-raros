@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Speaker" format=3 uid="uid://ctvu4cuydliuq"]
 
 [ext_resource type="Script" uid="uid://cnhcyylgjsiyv" path="res://systems/dialogue/speaker.gd" id="1_8md6h"]
-[ext_resource type="Texture2D" path="res://assets/art/spritesheets/lobito_spritesheet.png" id="2_sheet"]
+[ext_resource type="Texture2D" uid="uid://vdlb3qxdf8c6" path="res://assets/art/spritesheets/lobito_spritesheet.png" id="2_sheet"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_portrait"]
 atlas = ExtResource("2_sheet")
