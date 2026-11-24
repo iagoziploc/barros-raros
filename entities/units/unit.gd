@@ -153,7 +153,7 @@ func _start_attack(target: Enemy) -> void:
 	# El dibujo pega hacia la izquierda: si el objetivo está a la derecha, se espeja.
 	_sprite.flip_h = target.global_position.x > global_position.x
 	_next_hit = 0
-	_play_sound(_attack_sound, data.attack_sound, data.attack_volume_db)
+	_on_attack_started()
 	if _can_animate_hits():
 		# Si ataca más rápido, la animación también: así los golpes siguen cayendo en sus cuadros.
 		_sprite.speed_scale = _attack_speed()
@@ -161,6 +161,12 @@ func _start_attack(target: Enemy) -> void:
 	else:
 		for index in data.hit_damages.size():
 			_strike(index)
+
+
+## Al empezar un ataque suena `attack_sound` (en la balanceada, el audio de las dos piñas).
+## El mortero la reemplaza: su sonido va cuando suelta la piedra.
+func _on_attack_started() -> void:
+	_play_sound(_attack_sound, data.attack_sound, data.attack_volume_db)
 
 
 ## true si hay animación "hit" y un cuadro indicado para cada golpe.

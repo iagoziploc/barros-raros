@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="4_spawn"]
 [ext_resource type="AudioStream" uid="uid://c2nxvv4ogja1g" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
 [ext_resource type="AudioStream" uid="uid://dxlnvm282kpif" path="res://assets/audio/SFX/unidad_throw.ogg" id="s_throw"]
+[ext_resource type="SpriteFrames" path="res://data/units/tierra_frames.tres" id="5_frames"]
 
 [resource]
 script = ExtResource("1")
@@ -19,7 +20,9 @@ splash_radius = 60.0
 attack_interval = 2.5
 attack_range = 250.0
 texture = ExtResource("3_texture")
-sprite_scale = 0.13
+sprite_scale = 0.17
 spawn_sound = ExtResource("4_spawn")
 attack_sound = ExtResource("s_throw")
 death_sound = ExtResource("s_muerte")
+hit_frames = Array[int]([4])
+sprite_frames = ExtResource("5_frames")

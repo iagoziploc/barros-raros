@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cksajwytd0a5n"]
 
 [ext_resource type="Script" uid="uid://dp4ulbw6mutwj" path="res://entities/lobito/lobito.gd" id="1_md8wm"]
-[ext_resource type="Texture2D" path="res://assets/art/spritesheets/lobito_spritesheet.png" id="2_sheet"]
+[ext_resource type="Texture2D" uid="uid://vdlb3qxdf8c6" path="res://assets/art/spritesheets/lobito_spritesheet.png" id="2_sheet"]
 
 [node name="Lobito" type="Node2D" unique_id=220062580]
 z_index = 1
 script = ExtResource("1_md8wm")
 
-[node name="Sprite" type="Sprite2D" parent="."]
-scale = Vector2(0.12, 0.12)
+[node name="Sprite" type="Sprite2D" parent="." unique_id=2095341535]
+scale = Vector2(0.13, 0.13)
 texture = ExtResource("2_sheet")
 hframes = 3
 

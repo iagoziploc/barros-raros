@@ -5,12 +5,19 @@ extends Unit
 ## Todo lo demás (construcción, cooldown, animación, devolución) lo hereda de Unit.
 
 
-## Lanza un terrón al lugar donde va a estar el objetivo cuando caiga.
-## Reemplaza al _strike de Unit, que pegaba en el momento.
+## No suena nada al empezar el ataque: el lanzamiento suena al soltar la piedra (_strike).
+func _on_attack_started() -> void:
+	pass
+
+
+## Lanza un terrón al lugar donde va a estar el objetivo cuando caiga, con su sonido.
+## Reemplaza al _strike de Unit, que pegaba en el momento. Con animación, se llama en el
+## cuadro de `hit_frames` (el 4: cuando la piedra sale de la mano).
 func _strike(index: int) -> void:
 	var target := _find_target()
 	if target == null:
 		return
+	_play_sound(_attack_sound, data.attack_sound, data.attack_volume_db)
 	var landing := target.predict_position(data.projectile_flight_time)
 	var shot := MudShot.new()
 	add_child(shot)
