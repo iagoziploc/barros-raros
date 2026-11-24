@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwpjij782oqd0"
-path="res://.godot/imported/unidad_3.png-a934b74699d6b1e40bee8acc30ec6c28.ctex"
+uid="uid://dd7ebr4tuilu6"
+path="res://.godot/imported/unidad_2.png-fff261528a753c2e682aba02bf6ca6a9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/provisorio/unidad_3.png"
-dest_files=["res://.godot/imported/unidad_3.png-a934b74699d6b1e40bee8acc30ec6c28.ctex"]
+source_file="res://assets/art/sprites/unidad_2.png"
+dest_files=["res://.godot/imported/unidad_2.png-fff261528a753c2e682aba02bf6ca6a9.ctex"]
 
 [params]
 

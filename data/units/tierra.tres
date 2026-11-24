@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cubnlpgl5dsf3" path="res://entities/units/unit_data.gd" id="1"]
 [ext_resource type="PackedScene" path="res://entities/units/mortar_unit.tscn" id="2_scene"]
-[ext_resource type="Texture2D" uid="uid://dd7ebr4tuilu6" path="res://assets/art/provisorio/unidad_2.png" id="3_texture"]
+[ext_resource type="Texture2D" uid="uid://dd7ebr4tuilu6" path="res://assets/art/sprites/unidad_2.png" id="3_texture"]
 [ext_resource type="AudioStream" uid="uid://jscv5ismdwu7" path="res://assets/audio/SFX/unidad_nacimiento.ogg" id="4_spawn"]
 [ext_resource type="AudioStream" uid="uid://c2nxvv4ogja1g" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
 [ext_resource type="AudioStream" uid="uid://dxlnvm282kpif" path="res://assets/audio/SFX/unidad_throw.ogg" id="s_throw"]
