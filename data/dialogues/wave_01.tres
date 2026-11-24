@@ -1,23 +1,25 @@
 [gd_resource type="Resource" script_class="Dialogue" format=3 uid="uid://or5dwh6iiy8"]
 
 [ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="1_dialogue"]
+[ext_resource type="Resource" path="res://data/speakers/dorado.tres" id="2_jvgf4"]
 [ext_resource type="Script" uid="uid://bk2gd5fn8ng2e" path="res://systems/dialogue/dialogue_line.gd" id="2_line"]
 [ext_resource type="Resource" uid="uid://ctvu4cuydliuq" path="res://data/speakers/lobito.tres" id="2_wlie3"]
 [ext_resource type="Resource" uid="uid://ck8ak81b854fk" path="res://data/speakers/protagonista.tres" id="3_grpc5"]
+[ext_resource type="Resource" path="res://data/speakers/sabalo.tres" id="3_ks0nw"]
 
 [sub_resource type="Resource" id="Line_01"]
 script = ExtResource("2_line")
-speaker = ExtResource("2_wlie3")
+speaker = ExtResource("2_jvgf4")
 text_key = "WAVE_01_01"
 
 [sub_resource type="Resource" id="Line_02"]
 script = ExtResource("2_line")
-speaker = ExtResource("2_wlie3")
+speaker = ExtResource("3_ks0nw")
 text_key = "WAVE_01_02"
 
 [sub_resource type="Resource" id="Line_03"]
 script = ExtResource("2_line")
-speaker = ExtResource("2_wlie3")
+speaker = ExtResource("2_jvgf4")
 text_key = "WAVE_01_03"
 
 [sub_resource type="Resource" id="Resource_ohatg"]

@@ -74,13 +74,13 @@ BAD_EARTH_NOW,¡Vendieron Santa Fe!
 BAD_WATER_NOW,Temporada de sequías
 BAD_ENEMY_SPEED,MONSTER DE FANGO LOCO
 BAD_ENEMY_COUNT,Echá los fideos
-WAVE_02_01,(Placeholder: línea 1 antes de la oleada 2)
-WAVE_02_02,(Placeholder: línea 2 antes de la oleada 2)
+WAVE_02_01,"¿Y ese olor a quemado...? ¡Los humedales!"
+WAVE_02_02,"Hijos de mil..."
 WAVE_03_01,(Placeholder: línea 1 antes de la oleada 3)
 WAVE_03_02,(Placeholder: línea 2 antes de la oleada 3)
-WAVE_01_END_01,(Placeholder: línea 1 al terminar la oleada 1)
-WAVE_01_END_02,(Placeholder: línea 2 al terminar la oleada 1)
-WAVE_02_END_01,(Placeholder: línea 1 al terminar la oleada 2)
-WAVE_02_END_02,(Placeholder: línea 2 al terminar la oleada 2)
+WAVE_01_END_01,"Gracias por traerme materia prima, Lobito del Río."
+WAVE_01_END_02,"¡Si junto coraje puedo llamar a mis amigos!"
+WAVE_02_END_01,"¡Corren como alma que lleva el diablo!"
+WAVE_02_END_02,"¿Alma? ¿Ellos?"
 WAVE_03_END_01,(Placeholder: línea 1 al terminar la oleada 3)
 WAVE_03_END_02,(Placeholder: línea 2 al terminar la oleada 3)

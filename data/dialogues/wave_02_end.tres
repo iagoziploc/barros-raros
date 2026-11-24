@@ -1,18 +1,18 @@
 [gd_resource type="Resource" script_class="Dialogue" format=3 uid="uid://bnsgxd55ttlwg"]
 
 [ext_resource type="Script" uid="uid://bh220m175npvt" path="res://systems/dialogue/dialogue.gd" id="1_dialogue"]
+[ext_resource type="Resource" path="res://data/speakers/sabalo.tres" id="2_jin86"]
 [ext_resource type="Script" uid="uid://bk2gd5fn8ng2e" path="res://systems/dialogue/dialogue_line.gd" id="2_line"]
-[ext_resource type="Resource" uid="uid://ck8ak81b854fk" path="res://data/speakers/protagonista.tres" id="3_protagonist"]
-[ext_resource type="Resource" uid="uid://ctvu4cuydliuq" path="res://data/speakers/lobito.tres" id="4_lobito"]
+[ext_resource type="Resource" path="res://data/speakers/dorado.tres" id="3_ormq2"]
 
 [sub_resource type="Resource" id="Line_01"]
 script = ExtResource("2_line")
-speaker = ExtResource("3_protagonist")
+speaker = ExtResource("2_jin86")
 text_key = "WAVE_02_END_01"
 
 [sub_resource type="Resource" id="Line_02"]
 script = ExtResource("2_line")
-speaker = ExtResource("4_lobito")
+speaker = ExtResource("3_ormq2")
 text_key = "WAVE_02_END_02"
 
 [resource]
