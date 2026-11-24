@@ -20,6 +20,6 @@ texture = ExtResource("2_texture")
 sprite_scale = 0.2
 spawn_sound = ExtResource("3_ecbj8")
 attack_sound = ExtResource("4_hit_sound")
-attack_volume_db = -1.0
+attack_volume_db = -2.0
 death_sound = ExtResource("s_muerte")
 pitch_variation = 0.0

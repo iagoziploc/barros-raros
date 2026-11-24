@@ -7,12 +7,12 @@
 
 [sub_resource type="Resource" id="Line_01"]
 script = ExtResource("2_line")
-speaker = ExtResource("3_protagonist")
+speaker = ExtResource("4_lobito")
 text_key = "WAVE_03_END_01"
 
 [sub_resource type="Resource" id="Line_02"]
 script = ExtResource("2_line")
-speaker = ExtResource("4_lobito")
+speaker = ExtResource("3_protagonist")
 text_key = "WAVE_03_END_02"
 
 [resource]
