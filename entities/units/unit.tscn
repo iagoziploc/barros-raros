@@ -19,9 +19,14 @@ monitorable = false
 bus = &"SFX"
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="." unique_id=337896579]
+max_polyphony = 3
+bus = &"SFX"
+
+[node name="PresenceSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"SFX"
 
 [node name="AttackSound" type="AudioStreamPlayer2D" parent="."]
+max_polyphony = 3
 bus = &"SFX"
 
 [node name="BuildProgress" type="ProgressBar" parent="." unique_id=649680420]

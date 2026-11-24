@@ -40,9 +40,21 @@ extends Resource
 ## Cuadros por segundo de la caminata.
 @export var walk_fps := 6.0
 @export var sprite_scale := 1.0
-## Píxeles transparentes debajo de los pies (o las ruedas) en la imagen original.
+## Ajuste fino de dónde quedan los pies, en píxeles de la imagen original (positivo = el dibujo
+## baja). Lo normal es 0: los pies se calculan solos con lo que está dibujado.
 @export var foot_offset := 0.0
+
+# Resultado de feet_offset() la primera vez que se calcula (null = todavía no).
+var _feet_offset_cache = null
 @export var placeholder_color := Color.WHITE
+
+
+## Corrimiento del dibujo para que la posición sobre el camino sean sus pies (ver SpriteFeet).
+## Se calcula una vez y se guarda, porque aparecen muchos enemigos iguales.
+func feet_offset() -> Vector2:
+	if _feet_offset_cache == null:
+		_feet_offset_cache = SpriteFeet.offset_for(texture, frames, foot_offset)
+	return _feet_offset_cache
 
 
 ## true si roba tierra: cava en el pozo y por eso solo usa entradas que pasan por él.

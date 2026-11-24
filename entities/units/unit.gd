@@ -44,6 +44,7 @@ var _next_hit := 0
 @onready var _spawn_sound: AudioStreamPlayer2D = $SpawnSound
 @onready var _hit_sound: AudioStreamPlayer2D = $HitSound
 @onready var _attack_sound: AudioStreamPlayer2D = $AttackSound
+@onready var _presence_sound: AudioStreamPlayer2D = $PresenceSound
 @onready var _build_progress: ProgressBar = $BuildProgress
 
 
@@ -66,6 +67,8 @@ func _ready() -> void:
 		paid_earth = data.earth_cost
 	if paid_water < 0:
 		paid_water = data.water_cost
+
+	_start_presence_sound()
 
 	_build_duration = data.build_time * Modifiers.multiplier(Modifiers.Stat.UNIT_BUILD_TIME)
 	_build_time_left = _build_duration
@@ -122,6 +125,17 @@ func _make_sprite_frames() -> SpriteFrames:
 	frames.add_animation("idle")
 	frames.add_frame("idle", data.texture)
 	return frames
+
+
+## Si la unidad tiene `presence_sound`, lo hace sonar en loop mientras exista. Arranca en un
+## punto al azar del audio: así varias unidades iguales no suenan exactamente a la vez.
+func _start_presence_sound() -> void:
+	if data.presence_sound == null:
+		return
+	_presence_sound.stream = data.presence_sound
+	_presence_sound.volume_db = data.presence_volume_db
+	_presence_sound.finished.connect(_presence_sound.play)  # Al terminar, vuelve a empezar.
+	_presence_sound.play(randf() * data.presence_sound.get_length())
 
 
 ## Vuelve sólida, oculta la barra, reproduce el sonido y avisa con `built`.

@@ -3,7 +3,7 @@ extends Node2D
 ## El lobito de río. Cada `interval` segundos aparece un brillo del recurso más bajo
 ## (hasta `max_sparkles` a la vez). El lobito los va a buscar de a uno, vuelve a casa
 ## (el Cara de Barro) y entrega `amount`. Los brillos aparecen más rápido de lo que él
-## alcanza a juntarlos: se acumulan hasta el máximo. Hasta que llegue su dibujo, es un punto.
+## alcanza a juntarlos: se acumulan hasta el máximo.
 ## Con la ultimate aparecen lobitos ayudantes (`helper_of`), que juntan de los mismos brillos.
 
 ## Apareció un brillo nuevo. Los ayudantes lo escuchan para salir a buscar.
@@ -19,6 +19,8 @@ signal sparkle_spawned
 @export var speed := 320.0
 ## Segundos que se queda quieto al llegar a cada lugar (al brillo y a casa).
 @export var pause_at_stops := 0.5
+## Cuadros por segundo de la carrera.
+@export var run_fps := 10.0
 ## Adónde vuelve a entregar. Vacío = donde empieza.
 @export var home: Node2D
 ## Zona donde pueden aparecer los brillos de tierra.
@@ -26,8 +28,6 @@ signal sparkle_spawned
 ## Zona donde pueden aparecer los brillos de agua (el río).
 @export var water_area := Rect2(20, 615, 1240, 40)
 
-const COLOR := Color(0.35, 0.22, 0.12)
-const OUTLINE_COLOR := Color(0.95, 0.85, 0.65)
 
 ## Lobito principal del que este es ayudante, o null si es el principal. Un ayudante no
 ## hace aparecer brillos: junta los del principal. Se asigna antes de agregarlo al árbol.
@@ -41,15 +41,22 @@ var _carrying: Sparkle
 var _is_busy := false
 # true si es un ayudante al que se le terminó el tiempo: termina el viaje y se va.
 var _is_retiring := false
+# Para la animación: dónde estaba en el frame anterior y cuánto tiempo lleva corriendo.
+var _last_position := Vector2.ZERO
+var _run_time := 0.0
 
 @onready var _timer: Timer = $RecoverTimer
+@onready var _sprite: Sprite2D = $Sprite
 
 
 ## Se ubica en casa. El principal arranca el reloj de los brillos (se repite solo);
 ## el ayudante sale a buscar cada vez que el principal avisa que hay un brillo nuevo.
 func _ready() -> void:
+	# Igual que unidades y enemigos: el punto del lobito son sus patas.
+	_sprite.offset = SpriteFeet.offset_for(_sprite.texture, _sprite.hframes)
 	if home:
 		global_position = home.global_position
+	_last_position = global_position
 	if helper_of:
 		helper_of.sparkle_spawned.connect(_on_sparkle_spawned)
 		_fetch_all.call_deferred()
@@ -57,6 +64,20 @@ func _ready() -> void:
 	_timer.wait_time = interval
 	_timer.timeout.connect(_on_recover_timer_timeout)
 	_timer.start()
+
+
+## Mientras corre, cambia de cuadro y mira hacia donde va; quieto, queda en el primer cuadro.
+## El movimiento lo hace el tween de _walk_to(): acá solo se mira cuánto se movió.
+func _process(delta: float) -> void:
+	var moved := global_position - _last_position
+	_last_position = global_position
+	if moved.length() < 0.01:
+		_sprite.frame = 0
+		return
+	_run_time += delta
+	_sprite.frame = int(_run_time * run_fps) % _sprite.hframes
+	if absf(moved.x) > 0.01:
+		_sprite.flip_h = moved.x < 0.0  # El dibujo mira a la derecha.
 
 
 ## Hace que los brillos aparezcan `multiplier` veces más rápido (1 = normal).
@@ -168,9 +189,7 @@ func _random_point(area: Rect2) -> Vector2:
 	return area.position + Vector2(randf() * area.size.x, randf() * area.size.y)
 
 
-## El punto del lobito y, si trae algo, el brillo en la boca.
+## Si trae algo, el brillo arriba de la cabeza.
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, 9.0, OUTLINE_COLOR)
-	draw_circle(Vector2.ZERO, 7.0, COLOR)
 	if _carrying:
-		draw_circle(Vector2(0, -11), 4.0, Sparkle.color_for(_carrying.kind))
+		draw_circle(Vector2(0, -28), 5.0, Sparkle.color_for(_carrying.kind))

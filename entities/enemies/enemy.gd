@@ -146,7 +146,7 @@ func _apply_visual() -> void:
 		_sprite.hframes = data.frames  # Corta la imagen en `frames` cuadros iguales a lo ancho.
 		_sprite.scale = Vector2.ONE * data.sprite_scale
 		# Igual que las unidades: la posición sobre el camino son sus pies.
-		_sprite.offset = Vector2(0, -data.texture.get_height() / 2.0 + data.foot_offset)
+		_sprite.offset = data.feet_offset()
 		_placeholder.hide()
 	else:
 		_sprite.hide()

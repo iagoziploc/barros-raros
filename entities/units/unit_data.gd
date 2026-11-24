@@ -59,8 +59,8 @@ enum Placement {
 ## Imagen fija, para unidades sin animaciones.
 @export var texture: Texture2D
 @export var sprite_scale := 0.12
-## La unidad se apoya en el borde de abajo de su imagen (sus pies). Si la imagen tiene
-## espacio transparente debajo de los pies, poné acá cuántos píxeles (de la imagen original).
+## Ajuste fino de dónde quedan los pies, en píxeles de la imagen original (positivo = el dibujo
+## baja). Lo normal es 0: los pies se calculan solos con lo que está dibujado.
 @export var foot_offset := 0.0
 ## Se reproduce al terminar de construirse. Puede quedar vacío.
 @export var spawn_sound: AudioStream
@@ -72,8 +72,8 @@ enum Placement {
 @export var attack_sound: AudioStream
 ## Volumen del sonido de ataque, en decibeles.
 @export var attack_volume_db := 0.0
-## Suena en loop mientras haya AL MENOS UNA unidad de este tipo en el mapa (aunque haya varias,
-## suena una sola vez). Lo maneja el nodo PresenceSounds del nivel. Puede quedar vacío.
+## Suena en loop mientras la unidad esté en el mapa (desde que se coloca). Cada unidad tiene
+## el suyo: con varias, se superponen. Puede quedar vacío.
 @export var presence_sound: AudioStream
 ## Volumen del sonido de presencia, en decibeles.
 @export var presence_volume_db := 0.0
@@ -83,13 +83,16 @@ enum Placement {
 @export_range(0.0, 0.5, 0.01) var pitch_variation := 0.2
 
 
-## Corrimiento del dibujo para que el punto de la unidad quede en sus pies y no en el centro:
-## la imagen sube la mitad de su alto (menos `foot_offset`). En píxeles de la imagen original.
+# Resultado de feet_offset() la primera vez que se calcula (null = todavía no).
+var _feet_offset_cache = null
+
+
+## Corrimiento del dibujo para que el punto de la unidad quede en sus pies (ver SpriteFeet).
+## Se calcula una vez y se guarda: medir la imagen cada vez sería lento.
 func feet_offset() -> Vector2:
-	var icon := get_icon()
-	if icon == null:
-		return Vector2.ZERO
-	return Vector2(0, -icon.get_height() / 2.0 + foot_offset)
+	if _feet_offset_cache == null:
+		_feet_offset_cache = SpriteFeet.offset_for(get_icon(), 1, foot_offset)
+	return _feet_offset_cache
 
 
 ## Imagen que representa a la unidad en el fantasma y en la barra:

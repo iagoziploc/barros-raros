@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" path="res://data/sounds/enemigo_arrastrado.tres" id="s_arrastre"]
 [ext_resource type="AudioStream" uid="uid://b6we3pkslitt7" path="res://assets/audio/SFX/unidad_lodo_movedizo.ogg" id="s_lodo"]
 [ext_resource type="AudioStream" uid="uid://c2nxvv4ogja1g" path="res://assets/audio/SFX/unidad_muerte.ogg" id="s_muerte"]
+[ext_resource type="SpriteFrames" path="res://data/units/agua_frames.tres" id="5_frames"]
 
 [resource]
 script = ExtResource("1")
@@ -18,9 +19,9 @@ build_time = 4.0
 placement = 1
 attack_range = 34.0
 texture = ExtResource("3_texture")
-sprite_scale = 0.06
 spawn_sound = ExtResource("4_spawn")
 hit_sound = ExtResource("s_arrastre")
 presence_sound = ExtResource("s_lodo")
-presence_volume_db = 3.0
 death_sound = ExtResource("s_muerte")
+sprite_frames = ExtResource("5_frames")
+sprite_scale = 0.15

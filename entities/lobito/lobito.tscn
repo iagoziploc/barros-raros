@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://cksajwytd0a5n"]
 
 [ext_resource type="Script" uid="uid://dp4ulbw6mutwj" path="res://entities/lobito/lobito.gd" id="1_md8wm"]
+[ext_resource type="Texture2D" path="res://assets/art/spritesheets/lobito_spritesheet.png" id="2_sheet"]
 
 [node name="Lobito" type="Node2D" unique_id=220062580]
 z_index = 1
 script = ExtResource("1_md8wm")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_sheet")
+hframes = 3
 
 [node name="RecoverTimer" type="Timer" parent="." unique_id=434968309]
 unique_name_in_owner = true

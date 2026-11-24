@@ -16,4 +16,3 @@ placeholder_color = Color(0.7098462, 0.429804, 0.3405297, 1)
 texture = ExtResource("tex_enemy")
 frames = 2
 sprite_scale = 0.1
-foot_offset = 25
