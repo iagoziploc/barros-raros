@@ -98,9 +98,11 @@ func _bar_style(color: Color) -> StyleBoxFlat:
 	return style
 
 
-## Muestra el cartel de victoria.
+## Muestra el cartel de victoria y cómo volver a jugar.
 func show_victory() -> void:
 	_show_message("HUD_VICTORY")
+	_retry_label.text = tr("HUD_PLAY_AGAIN")
+	_retry_label.show()
 
 
 ## Actualiza las etiquetas de tierra y agua.
@@ -116,6 +118,7 @@ func _on_economy_changed(earth: int, water: int) -> void:
 ## Muestra el cartel de derrota y cómo reintentar.
 func _on_economy_defeated(_kind: Economy.Kind) -> void:
 	_show_message("HUD_DEFEAT")
+	_retry_label.text = tr("HUD_RETRY")
 	_retry_label.show()
 
 

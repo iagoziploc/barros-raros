@@ -34,7 +34,12 @@ speaker = ExtResource("3_grpc5")
 text_key = "WAVE_01_05"
 metadata/_custom_type_script = "uid://bk2gd5fn8ng2e"
 
+[sub_resource type="Resource" id="Line_06"]
+script = ExtResource("2_line")
+speaker = ExtResource("3_grpc5")
+text_key = "WAVE_01_06"
+
 [resource]
 script = ExtResource("1_dialogue")
-lines = Array[ExtResource("2_line")]([SubResource("Line_01"), SubResource("Line_02"), SubResource("Line_03"), SubResource("Resource_ohatg"), SubResource("Resource_8md6h")])
+lines = Array[ExtResource("2_line")]([SubResource("Line_01"), SubResource("Line_02"), SubResource("Line_03"), SubResource("Resource_ohatg"), SubResource("Resource_8md6h"), SubResource("Line_06")])
 metadata/_custom_type_script = "uid://bh220m175npvt"

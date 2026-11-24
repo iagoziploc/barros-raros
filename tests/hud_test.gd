@@ -74,6 +74,8 @@ func _test_defeat() -> void:
 	_check(_label("MessageLabel").visible, "aparece el cartel de derrota")
 	_check(_label("MessageLabel").text == tr("HUD_DEFEAT"), "con el texto de derrota")
 	_check(_label("RetryLabel").visible, "y cómo reintentar")
+	_hud.show_victory()
+	_check(_label("RetryLabel").text == tr("HUD_PLAY_AGAIN"), "al ganar, cómo volver a jugar")
 
 
 func _test_unit_unlocked() -> void:

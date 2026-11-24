@@ -80,10 +80,11 @@ BAD_ENEMY_COUNT,Echá los fideos
 WAVE_02_01,"¿Y ese olor a quemado...? ¡Los humedales!"
 WAVE_02_02,"Hijos de mil..."
 WAVE_03_01,"¿¡QUÉ ES ESO!?"
-WAVE_03_02,"Un Tesla, amigo mío, un Tesla."
+WAVE_03_02,"No tengo idea, amigo, no tengo idea."
 WAVE_01_END_01,"Gracias por traerme materia prima, Lobito del Río."
 WAVE_01_END_02,"¡Si junto coraje puedo llamar a mis amigos!"
 WAVE_02_END_01,"¡Corren como alma que lleva el diablo!"
 WAVE_02_END_02,"¿Alma? ¿Ellos?"
 WAVE_03_END_01,"¡Zafamos! Al menos por ahora."
 WAVE_03_END_02,"Algo me dice que estos van a insistir."
+HUD_PLAY_AGAIN,R para volver a jugar
