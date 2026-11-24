@@ -79,6 +79,8 @@ enum Placement {
 @export var presence_volume_db := 0.0
 ## Suena al destruirse: al terminar la oleada o con clic derecho. Puede quedar vacío.
 @export var death_sound: AudioStream
+## Volumen del sonido de destrucción, en decibeles.
+@export var death_volume_db := 0.0
 ## Cuánto puede subir o bajar el tono de los sonidos. 0.2 = entre 80% y 120% del tono original.
 @export_range(0.0, 0.5, 0.01) var pitch_variation := 0.2
 

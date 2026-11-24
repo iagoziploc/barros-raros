@@ -15,6 +15,7 @@ func _ready() -> void:
 	add_child(_hud)
 
 	_test_translations()
+	_test_csv_rows()
 	_test_resources()
 	await _test_sudden_death()
 	_test_defeat()
@@ -30,6 +31,20 @@ func _test_translations() -> void:
 	print("Traducciones")
 	_check(tr("HUD_EARTH") != "HUD_EARTH", "la clave HUD_EARTH tiene texto")
 	_check(tr("HUD_DEFEAT") != "HUD_DEFEAT", "la clave HUD_DEFEAT tiene texto")
+
+
+func _test_csv_rows() -> void:
+	print("strings.csv bien formado")
+	var file := FileAccess.open("res://localization/strings.csv", FileAccess.READ)
+	var broken: Array[String] = []
+	while not file.eof_reached():
+		# get_csv_line() lee una fila entera, respetando comillas y saltos de línea adentro.
+		var row := file.get_csv_line()
+		if row.size() == 1 and row[0] == "":
+			continue  # Línea vacía (por ejemplo, la última).
+		if row.size() != 2:
+			broken.append("%s (%d columnas)" % [row[0], row.size()])
+	_check(broken.is_empty(), "cada fila tiene clave y texto (2 columnas). Rotas: %s" % [broken])
 
 
 func _test_resources() -> void:

@@ -3,7 +3,7 @@ HUD_EARTH,Tierra: %d / %d
 HUD_WATER,Agua: %d / %d
 HUD_SUDDEN_DEATH_EARTH,¡Te estás derritiendo! %.1f
 HUD_SUDDEN_DEATH_WATER,¡Te estás petrificando! %.1f
-HUD_DEFEAT,Se llevaron todo, nomás
+HUD_DEFEAT,"Se llevaron todo, nomás"
 HUD_WAVE,Oleada %d
 HUD_VICTORY, ¡Los frenamos! Al menos por un rato...
 UNIT_BALANCED,Pendenciero
@@ -22,7 +22,7 @@ INTRO_02,Minga.
 INTRO_03,"Vengan de a uno."
 WAVE_01_01,¡llegan los inversores! ¡nos quieren invartir!
 WAVE_01_02,¡nos quieren invertar?
-WAVE_01_03,¡nos quieren invadir! ¡Ayuda, lobitos del río!
+WAVE_01_03,"¡nos quieren invadir! ¡Ayuda, lobitos del río!"
 WAVE_01_04,No quisiera despertarlo... Pero no tenemos otra opción.
 WAVE_01_05,"¿¡Y AHORA QUÉ!? ¡Obligado a estar de vuelta!"
 WAVE_01_06,"¿Y los humanos? ¿Ya ni siquiera pelean sus batallas?"

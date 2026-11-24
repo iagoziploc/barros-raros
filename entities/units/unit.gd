@@ -113,7 +113,7 @@ func remove(survived: bool) -> void:
 		Economy.refund_survived(paid_earth, paid_water)
 	else:
 		Economy.refund_destroyed(paid_earth, paid_water)
-	Sfx.play_detached(data.death_sound, self)
+	Sfx.play_detached(data.death_sound, self, data.death_volume_db)
 	queue_free()
 
 
