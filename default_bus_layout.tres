@@ -1,5 +1,11 @@
 [gd_resource type="AudioBusLayout" format=3 uid="uid://s58xlkpmjqnf"]
 
+[sub_resource type="AudioEffectEQ" id="AudioEffectEQ_j3pel"]
+resource_name = "EQ"
+band_db/32_hz = -1.7
+band_db/1000_hz = -2.2
+band_db/10000_hz = -0.8
+
 [resource]
 bus/0/volume_db = -0.010509491
 bus/1/name = &"BGM"
@@ -12,8 +18,10 @@ bus/2/name = &"SFX"
 bus/2/solo = false
 bus/2/mute = false
 bus/2/bypass_fx = false
-bus/2/volume_db = 1.496006
+bus/2/volume_db = -0.72599316
 bus/2/send = &"Master"
+bus/2/effect/0/effect = SubResource("AudioEffectEQ_j3pel")
+bus/2/effect/0/enabled = true
 bus/3/name = &"AMB"
 bus/3/solo = false
 bus/3/mute = false
