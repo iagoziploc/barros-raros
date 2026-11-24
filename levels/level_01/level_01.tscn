@@ -208,7 +208,7 @@ bus = &"AMB"
 [node name="Protagonist" type="Sprite2D" parent="." unique_id=171622576]
 z_index = 1
 position = Vector2(1040, 551)
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("23_protagonist")
 offset = Vector2(0, -512.5)
 

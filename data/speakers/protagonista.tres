@@ -1,7 +1,7 @@
-[gd_resource type="Resource" script_class="Speaker" load_steps=3 format=3]
+[gd_resource type="Resource" script_class="Speaker" format=3 uid="uid://ck8ak81b854fk"]
 
-[ext_resource type="Script" path="res://systems/dialogue/speaker.gd" id="1"]
-[ext_resource type="Texture2D" path="res://assets/art/provisorio/protagonista.png" id="2_portrait"]
+[ext_resource type="Script" uid="uid://cnhcyylgjsiyv" path="res://systems/dialogue/speaker.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://blsw0vnslyavn" path="res://assets/art/provisorio/protagonista.png" id="2_portrait"]
 
 [resource]
 script = ExtResource("1")
