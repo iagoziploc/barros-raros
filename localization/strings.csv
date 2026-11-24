@@ -1,17 +1,17 @@
 keys,es
 HUD_EARTH,Tierra: %d / %d
 HUD_WATER,Agua: %d / %d
-HUD_SUDDEN_DEATH_EARTH,¡Sin tierra! %.1f
-HUD_SUDDEN_DEATH_WATER,¡Sin agua! %.1f
-HUD_DEFEAT,Se llevaron todo
+HUD_SUDDEN_DEATH_EARTH,¡Te estás derritiendo! %.1f
+HUD_SUDDEN_DEATH_WATER,¡Te estás petrificando! %.1f
+HUD_DEFEAT,Se llevaron todo, nomás
 HUD_WAVE,Oleada %d
-HUD_VICTORY,¡El río sigue siendo nuestro!
-UNIT_BALANCED,Unidad balanceada
-UNIT_EARTH,Unidad de tierra
-UNIT_WATER,Unidad de agua
-BUILD_COST_EARTH,Tierra %d
-BUILD_COST_WATER,Agua %d
-SPEAKER_PROTAGONIST,Protagonista
+HUD_VICTORY, ¡Los frenamos! Al menos por un rato...
+UNIT_BALANCED,Pendenciero
+UNIT_EARTH,Tirapiedras
+UNIT_WATER,Charco
+BUILD_COST_EARTH,%d tierra
+BUILD_COST_WATER,%d agua
+SPEAKER_PROTAGONIST,Cara de Barro
 SPEAKER_ABUELA,Abuela
 SPEAKER_LOBITO,Lobito del Río
 SPEAKER_PESCADOR,Pescador
@@ -19,13 +19,14 @@ SPEAKER_SABALO,Sábalo
 SPEAKER_DORADO,Dorado
 INTRO_01,"El litoral está de remate y del norte llegan los inversores. Vienen por las tierras raras, vienen por el agua dulce."
 INTRO_02,Minga.
-INTRO_03,"El Cara de Barro ha despertado. Traigan sus palas, baldes, excavadoras, les presentará batalla."
-WAVE_01_01,¡llegan los inversores!
-WAVE_01_02,¡nos quieren invartir!
-WAVE_01_03,¡nos quieren invertar?
-WAVE_01_04,¡nos quieren invadir!
-WAVE_01_05,"Sería tanto más fácil con ayuda humana, pero me temo que están totalmente [b]en otra[/b]."
-ENDING_01,Continuará…
+INTRO_03,"Vengan de a uno."
+WAVE_01_01,¡llegan los inversores! ¡nos quieren invartir!
+WAVE_01_02,¡nos quieren invertar?
+WAVE_01_03,¡nos quieren invadir! ¡Ayuda, lobitos del río!
+WAVE_01_04,No quisiera despertarlo... Pero no tenemos otra opción.
+WAVE_01_05,"¿¡Y AHORA QUÉ!? ¡Obligado a estar de vuelta!"
+WAVE_01_06,"¿Y los humanos? ¿Ya ni siquiera pelean sus batallas?"
+ENDING_01,Continuará...
 NEWS_TITLE,Buenas y malas noticias...
 NEWS_CHOOSE,Elegir
 EFFECT_UNIT_EARTH_COST,Costo de tierra: %s
@@ -41,34 +42,35 @@ EFFECT_WATER_NOW,Agua ahora: %s
 NEWS_01_01,"Malas noticias, viento norte. Las llamas se extienden."
 NEWS_02_01,¡Todos saluden al gran estado de Holy Faith!
 START_TITLE,Barros Raros
-START_CONTROLS,"Clic en una unidad de la barra (o 1, 2, 3) y clic en el mapa para construirla
-Clic derecho sobre una unidad: destruirla (devuelve la mitad)
-Espacio: llamar a los lobitos cuando la barra está llena
-Esc: saltear un diálogo o cancelar · M: sonido sí / no · R: reintentar"
-START_CLICK,Clic para empezar
+START_CONTROLS,"con click izquierdo seleccionás y colocás unidades.
+con click derecho las destruís, recuperás la mitad del coste.
+con la barra prendés la ulti, recibís ayuda extra.
+con escape saltás diálogos y cancelás.
+M para mutear | R para reintentar"
+START_CLICK,CLICK Y EMPIEZA
 HUD_RETRY,R para reintentar
-HUD_ULTIMATE,Llamar lobitos (espacio)
+HUD_ULTIMATE,INVOCAR LOBITOS
 UNIT_UNLOCKED,¡Nueva unidad: %s!
 NEWS_GOOD_CARD,"¡La buena, por favor una buena!"
 NEWS_BAD_CARD,Si no queda otra...
-NEWS_REROLL_FREE,Otras opciones (gratis)
-NEWS_REROLL,Otras opciones (%d tierra · %d agua)
-GOOD_UNIT_DAMAGE,Buena: daño (nombre provisorio)
-GOOD_UNIT_ATTACK_SPEED,Buena: velocidad de ataque (nombre provisorio)
-GOOD_UNIT_BUILD_TIME,Buena: construcción (nombre provisorio)
-GOOD_UNIT_ARMOR_PIERCING,Buena: penetración (nombre provisorio)
-GOOD_UNIT_EARTH_COST,Buena: costo de tierra (nombre provisorio)
-GOOD_UNIT_WATER_COST,Buena: costo de agua (nombre provisorio)
-GOOD_EARTH_NOW,Buena: tierra (nombre provisorio)
-GOOD_WATER_NOW,Buena: agua (nombre provisorio)
-GOOD_ENEMY_SPEED,Buena: velocidad enemiga (nombre provisorio)
-GOOD_ENEMY_COUNT,Buena: cantidad de enemigos (nombre provisorio)
-BAD_UNIT_DAMAGE,Mala: daño (nombre provisorio)
-BAD_UNIT_ATTACK_SPEED,Mala: velocidad de ataque (nombre provisorio)
-BAD_UNIT_BUILD_TIME,Mala: construcción (nombre provisorio)
-BAD_UNIT_EARTH_COST,Mala: costo de tierra (nombre provisorio)
-BAD_UNIT_WATER_COST,Mala: costo de agua (nombre provisorio)
-BAD_EARTH_NOW,Mala: tierra (nombre provisorio)
-BAD_WATER_NOW,Mala: agua (nombre provisorio)
-BAD_ENEMY_SPEED,Mala: velocidad enemiga (nombre provisorio)
-BAD_ENEMY_COUNT,Mala: cantidad de enemigos (nombre provisorio)
+NEWS_REROLL_FREE,Volver a tirar (gratis)
+NEWS_REROLL,Volver a tirar (%d tierra · %d agua)
+GOOD_UNIT_DAMAGE,Guiso de la abuela
+GOOD_UNIT_ATTACK_SPEED,Te giran un mate
+GOOD_UNIT_BUILD_TIME,Caja de Herramientas
+GOOD_UNIT_ARMOR_PIERCING,Llegaron los payadores
+GOOD_UNIT_EARTH_COST,Cupón de descuento: TIERRA
+GOOD_UNIT_WATER_COST,Cupón de descuento: AGUA
+GOOD_EARTH_NOW,Suelo abonado
+GOOD_WATER_NOW,Se largó con todo
+GOOD_ENEMY_SPEED,Calzado trucho
+GOOD_ENEMY_COUNT,Arrugaron
+BAD_UNIT_DAMAGE,Falta de nutrientes
+BAD_UNIT_ATTACK_SPEED,¡DEMASIADA HUMEDAD!
+BAD_UNIT_BUILD_TIME,Asadito con los muchachos
+BAD_UNIT_EARTH_COST,Llegó el ajuste (TIERRA)
+BAD_UNIT_WATER_COST,Cortaron el subsidio (AGUA)
+BAD_EARTH_NOW,¡Vendieron Santa Fe!
+BAD_WATER_NOW,Temporada de sequías
+BAD_ENEMY_SPEED,MONSTER DE FANGO LOCO
+BAD_ENEMY_COUNT,Echá los fideos
